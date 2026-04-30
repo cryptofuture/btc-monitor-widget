@@ -1,0 +1,208 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../styles/uikit/css/uikit.min.css" />
+    <link rel="stylesheet" href="../styles/main/css/scrollbar.css" />
+    <script src="../styles/uikit/js/uikit.min.js"></script>
+    <script src="../styles/uikit/js/uikit-icons.min.js"></script>
+    <script src="../app/index.js"></script>
+    <script src="../styles/art/js/template-web.js"></script>
+</head>
+
+<body>
+    <div id="content"></div>
+    <script id="template" type="text/html">
+        <style>{{stylesFile}}</style>
+        <div class="uk-section">
+            <div class="uk-container">
+            <form>
+                <fieldset class="uk-fieldset">
+                    <legend class="uk-legend">{{source}}</legend>
+
+                    <div class="uk-margin">
+                        <select id="market" onchange="rememberSelection(this)" class="uk-select">
+                            <option value="binance">Binance</option>
+                            <option value="binanceFutures">Binance Futures</option>
+                            <option value="kucoin">KuCoin</option>
+                            <option value="poloniex">Poloniex</option>
+                            <option value="okex">OKEx</option>
+                            <option value="gemini">Gemini</option>
+                            <option value="btcmarkets">BTC Markets</option>
+                            <option value="bitmex">BitMEX</option>
+                            <option value="bitpay">BitPay</option>
+                            <option value="bitfinex">Bitfinex</option>
+                            <option value="bitso">Bitso</option>
+                            <option value="bitstamp">Bitstamp</option>
+                            <option value="cex">CEX.IO</option>
+                            <option value="coingecko">CoinGecko</option>
+                            <option value="coinbase">Coinbase</option>
+                            <option value="cryptocompare">CryptoCompare</option>
+                            <option value="ftx">FTX</option>
+                            <option value="hitbtc">HitBTC</option>
+                            <option value="huobi">Huobi</option>
+                            <option value="kraken">Kraken</option>
+                            <option value="paymium">Paymium</option>
+                            <option value="tdax">TDAX</option>
+                            <option value="vcc">VCC Exchange</option> 
+                        </select>
+                    </div>
+            
+                    <legend class="uk-legend">{{ticker}}</legend>
+
+                    <button onclick="prefs.supportedTickers(document.getElementById('market').value)" class="uk-button uk-button-default"><span uk-icon="icon: question"></span>  {{showSupported}}</button>
+
+                    <div class="uk-margin">
+                        {{ticker}} #1<input id="ticker1" class="uk-input" type="text" placeholder="BTC">
+                        {{ticker}} #2<input id="ticker2" class="uk-input" type="text" placeholder="USDT">
+                    </div>
+
+                    <span class="uk-label" style="background: #999999">{{twoDefault}}</span>
+                    <div class="uk-margin">
+                        <input type="number" min="0" value="2" id="fixed" class="uk-input" placeholder="2">
+                    </div>
+
+                    <span class="uk-label">{{optional}}</span><span class="uk-label" style="background: #FEBE26">{{byFirst}}</span>
+                    <legend class="uk-legend">{{boardName}}</legend>
+
+                    <div class="uk-margin">
+                        <input type="text" id="name" class="uk-input" placeholder="Bitcoin">
+                    </div>
+
+                    <p uk-margin>
+                        <button onclick="prefs.testBoardTicker({{boardTicker}}, document.getElementById('market').value, document.getElementById('ticker1').value, document.getElementById('ticker2').value, document.getElementById('fixed').value)" class="uk-button uk-button-secondary">{{test}}</button>
+                        <button onclick="prefs.changeBoardTicker({{boardTicker}}, document.getElementById('market').value, document.getElementById('ticker1').value, document.getElementById('ticker2').value, document.getElementById('fixed').value, document.getElementById('market').options[document.getElementById('market').selectedIndex].text, document.getElementById('name').value)" class="uk-button uk-button-primary">{{save}}</button>
+                    </p>
+                </fieldset>
+            </form>
+        </div>
+        </div>
+</script>
+<script>
+    var data = {
+        stylesFile: global.stylesFile,
+        boardOneColor: global.boardOneColor,
+        boardTwoColor: global.boardTwoColor,
+        boardThreeColor: global.boardThreeColor,
+        boardFourColor: global.boardFourColor,
+        boardFiveColor: global.boardFiveColor,
+        boardSixColor: global.boardSixColor,
+        boardSevenColor: global.boardSevenColor,
+        boardEightColor: global.boardEightColor,
+        boardNineColor: global.boardNineColor,
+        boardTenColor: global.boardTenColor,
+        boardElevenColor: global.boardElevenColor,
+        boardTwelveColor: global.boardTwelveColor,
+        boardThirteenColor: global.boardThirteenColor,
+        boardFourteenColor: global.boardFourteenColor,
+        boardFifteenColor: global.boardFifteenColor,
+        boardSixteenColor: global.boardSixteenColor,
+        boardOneTicker: global.boardOneTicker,
+        boardTwoTicker: global.boardTwoTicker,
+        boardThreeTicker: global.boardThreeTicker,
+        boardFourTicker: global.boardFourTicker,
+        boardFiveTicker: global.boardFiveTicker,
+        boardSixTicker: global.boardSixTicker,
+        boardSevenTicker: global.boardSevenTicker,
+        boardEightTicker: global.boardEightTicker,
+        boardNineTicker: global.boardNineTicker,
+        boardTenTicker: global.boardTenTicker,
+        boardElevenTicker: global.boardElevenTicker,
+        boardTwelveTicker: global.boardTwelveTicker,
+        boardThirteenTicker: global.boardThirteenTicker,
+        boardFourteenTicker: global.boardFourteenTicker,
+        boardFifteenTicker: global.boardFifteenTicker,
+        boardSixteenTicker: global.boardSixteenTicker,
+        boardTicker: nw.Window.get().title,
+        source: lang.echo('Source'),
+        ticker: lang.echo('Ticker'),
+        twoDefault: lang.echo('2 is default'),
+        optional: lang.echo('Optional'),
+        byFirst: lang.echo('Set by the first ticker'),
+        boardName: lang.echo('Board Name'),
+        save: lang.echo('Save'),
+        test: lang.echo('Test'),
+        showSupported: lang.echo('Show Supported Tickers')
+    }
+    var html = template('template', data)
+    document.getElementById('content').innerHTML = html
+    var win = nw.Window.get()
+    win.menu = null
+    if (win.title === '1') {
+        document.getElementById('ticker1').placeholder = global.boardOneTicker[0]
+        document.getElementById('ticker2').placeholder = global.boardOneTicker[1]
+    }
+    if (win.title === '2') {
+        document.getElementById('ticker1').placeholder = global.boardTwoTicker[0]
+        document.getElementById('ticker2').placeholder = global.boardTwoTicker[1]
+    }
+    if (win.title === '3') {
+        document.getElementById('ticker1').placeholder = global.boardThreeTicker[0]
+        document.getElementById('ticker2').placeholder = global.boardThreeTicker[1]
+    }
+    if (win.title === '4') {
+        document.getElementById('ticker1').placeholder = global.boardFourTicker[0]
+        document.getElementById('ticker2').placeholder = global.boardFourTicker[1]
+    }
+    if (win.title === '5') {
+        document.getElementById('ticker1').placeholder = global.boardFiveTicker[0]
+        document.getElementById('ticker2').placeholder = global.boardFiveTicker[1]
+    }
+    if (win.title === '6') {
+        document.getElementById('ticker1').placeholder = global.boardSixTicker[0]
+        document.getElementById('ticker2').placeholder = global.boardSixTicker[1]
+    }
+    if (win.title === '7') {
+        document.getElementById('ticker1').placeholder = global.boardSevenTicker[0]
+        document.getElementById('ticker2').placeholder = global.boardSevenTicker[1]
+    }
+    if (win.title === '8') {
+        document.getElementById('ticker1').placeholder = global.boardEightTicker[0]
+        document.getElementById('ticker2').placeholder = global.boardEightTicker[1]
+    }
+    if (win.title === '9') {
+        document.getElementById('ticker1').placeholder = global.boardNineTicker[0]
+        document.getElementById('ticker2').placeholder = global.boardNineTicker[1]
+    }
+    if (win.title === '10') {
+        document.getElementById('ticker1').placeholder = global.boardTenTicker[0]
+        document.getElementById('ticker2').placeholder = global.boardTenTicker[1]
+    }
+    if (win.title === '11') {
+        document.getElementById('ticker1').placeholder = global.boardElevenTicker[0]
+        document.getElementById('ticker2').placeholder = global.boardElevenTicker[1]
+    }
+    if (win.title === '12') {
+        document.getElementById('ticker1').placeholder = global.boardTwelveTicker[0]
+        document.getElementById('ticker2').placeholder = global.boardTwelveTicker[1]
+    }
+    if (win.title === '13') {
+        document.getElementById('ticker1').placeholder = global.boardThirteenTicker[0]
+        document.getElementById('ticker2').placeholder = global.boardThirteenTicker[1]
+    }
+    if (win.title === '14') {
+        document.getElementById('ticker1').placeholder = global.boardFourteenTicker[0]
+        document.getElementById('ticker2').placeholder = global.boardFourteenTicker[1]
+    }
+    if (win.title === '15') {
+        document.getElementById('ticker1').placeholder = global.boardFifteenTicker[0]
+        document.getElementById('ticker2').placeholder = global.boardFifteenTicker[1]
+    }
+    if (win.title === '16') {
+        document.getElementById('ticker1').placeholder = global.boardSixteenTicker[0]
+        document.getElementById('ticker2').placeholder = global.boardSixteenTicker[1]
+    }
+    document.title =  lang.echo('Board Ticker Configuration ') + win.title
+    function rememberSelection(obj) {
+    localStorage.setItem("selectionTicker" + win.title, obj.options[obj.selectedIndex].value)
+    }
+    document.getElementById("market").value = localStorage.getItem("selectionTicker" + win.title)
+    if (document.getElementById("market").value === ''){
+    document.getElementById("market").value = 'binance'
+    }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+  html { font-size: 62.5%; }
+  body { font-size: 1em;}
+  #board1, #board2, #board3, #board4, #board5, #board6, #board7, #board8, #board9, #board10, #board11, #board12, #board13, #board14, #board15, #board16 {text-align: center;}
+  
+  @media (max-width: 300px) {
+      html { font-size: 200%; }
+      .uk-border-circle { height: 20px; }
+  }
+
+  @media (max-width: 400px) {
+    html { font-size: 200%; }
+    .uk-border-circle { height: 20px; }
+  }
+
+  @media (min-width: 500px) {
+    html { font-size: 150%; }
+    .uk-border-circle { height: 20px; }
+}
+  
+  @media (min-width: 600px) {
+      html { font-size: 100%; }
+      .uk-border-circle { height: 40px; }
+  }
+  
+  @media (min-width: 700px) {
+      html { font-size: 100%; }
+      .uk-border-circle { height: 40px; }
+  }
+
+  @media (min-width: 1000px) {
+    html { font-size: 130%; }
+    .uk-border-circle { height: 50px; }
+  }
+  
+  @media (min-width: 1200px) {
+      html { font-size: 150%; }
+      .uk-border-circle { height: 64px; }
+  }
+  
+  @media (min-width: 1400px) {
+    html { font-size: 160%; }
+    .uk-border-circle { height: 64px; }
+  }
+
+  @media (min-width: 1600px) {
+    html { font-size: 170%; }
+    .uk-border-circle { height: 64px; }
+  }
+
+  @media (min-width: 1800px) {
+    html { font-size: 180%; }
+    .uk-border-circle { height: 64px; }
+  }
+
+  @media (min-width: 2000px) {
+    html { font-size: 200%; }
+    .uk-border-circle { height: 64px; }
+  }

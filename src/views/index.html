@@ -1,0 +1,1002 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bitcoin Monitor Widget</title>
+    <link rel="stylesheet" href="../styles/uikit/css/uikit.min.css" />
+    <script src="../styles/uikit/js/uikit.min.js"></script>
+    <script src="../styles/uikit/js/uikit-icons.min.js"></script>
+    <script src="../app/index.js"></script>
+    <script src="../styles/art/js/template-web.js"></script>
+</head>
+
+<body>
+    <div id="content"></div>
+    <script id="template" type="text/html">
+    <style>{{stylesFile}}</style>
+    <!-- 1 Block -->
+    <div class="uk-child-width-1-4@s uk-grid-match" uk-grid>
+        <div>
+            <div id="cboard1" class="uk-card-large uk-card-{{boardOneColor}} uk-card-hover uk-card-body">
+                <div class="uk-card-header">
+                    <div class="uk-grid-small uk-flex-middle" uk-grid>
+                        <div class="uk-width-auto">
+                            <img id="iboard1" class="uk-border-circle" src="../assets/icons/{{boardOneTicker[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCap('1')">
+                        </div>
+                        <div class="uk-width-expand">
+                            <h3 id="nboard1" class="uk-card-title uk-margin-remove-bottom">{{boardOneTicker[4]}}</h3>
+                            <p id="sboard1" class="uk-text-meta uk-margin-remove-top">{{boardOneTicker[2]}}</p>
+                            <p id="tboard1" class="uk-text-meta uk-margin-remove-top">{{boardOneTicker[0]}}/{{boardOneTicker[1]}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-card-body">
+                    <span id="up1" class="uk-badge" onclick="prefs.changeUpdColor('1')" style="cursor:pointer; background :transparent; color: transparent;">{{boardOneTicker[5]}}</span><p id="board1" style="font-size: 4vw"></p>
+                    <ul style="cursor:pointer" class="uk-subnav uk-subnav-pill" uk-switcher>
+                        <li><div alt="Set color: white" onclick="global.boardOneColor='default'; prefs.saveBoardColor('1', 'default');" style="font-size: 40px; color: #B3D7FB;">&#x25CF;</div></li>
+                        <li><div onclick="global.boardOneColor='secondary'; prefs.saveBoardColor('1', 'secondary');" style="font-size: 40px; color: #4C4C4C;">&#x25CF;</div></li>
+                        <li><div onclick="global.boardOneColor='primary'; prefs.saveBoardColor('1', 'primary');" style="font-size: 40px; color: #0077F1;">&#x25CF;</div></li>
+                        <li><img style="height: 30px; margin-top: 22px; color: #B3D7FB;" src="../assets/options.svg" alt="Settings" onclick="prefs.boardTickerConfigurationWindow('1');""></li>
+                        <li><img style="height: 30px; margin-top: 22px; color: #B3D7FB;" src="../assets/alarm.svg" alt="Settings" onclick="prefs.boardAlarmConfigurationWindow('1');""></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div id="cboard2" class="uk-card-large uk-card-{{boardTwoColor}} uk-card-hover uk-card-body">
+                <div class="uk-card-header">
+                    <div class="uk-grid-small uk-flex-middle" uk-grid>
+                        <div class="uk-width-auto">
+                            <img id="iboard2" class="uk-border-circle" src="../assets/icons/{{boardTwoTicker[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCap('2')">
+                        </div>
+                        <div class="uk-width-expand">
+                            <h3 id="nboard2" class="uk-card-title uk-margin-remove-bottom">{{boardTwoTicker[4]}}</h3>
+                            <p id="sboard2" class="uk-text-meta uk-margin-remove-top">{{boardTwoTicker[2]}}</p>
+                            <p id="tboard2" class="uk-text-meta uk-margin-remove-top">{{boardTwoTicker[0]}}/{{boardTwoTicker[1]}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-card-body">
+                    <span id="up2" class="uk-badge" onclick="prefs.changeUpdColor('2')" style="cursor:pointer; background :transparent; color: transparent;">{{boardTwoTicker[5]}}</span><p id="board2" style="font-size: 4vw"></p>
+                    <ul style="cursor:pointer" class="uk-subnav uk-subnav-pill" uk-switcher>
+                        <li><div alt="Set color: white" onclick="global.boardTwoColor='default'; prefs.saveBoardColor('2', 'default');" style="font-size: 40px; color: #B3D7FB;">&#x25CF;</div></li>
+                        <li><div onclick="global.boardTwoColor='secondary'; prefs.saveBoardColor('2', 'secondary');" style="font-size: 40px; color: #4C4C4C;">&#x25CF;</div></li>
+                        <li><div onclick="global.boardTwoColor='primary'; prefs.saveBoardColor('2', 'primary');" style="font-size: 40px; color: #0077F1;">&#x25CF;</div></li>
+                        <li><img style="height: 30px; margin-top: 22px; color: #B3D7FB;" src="../assets/options.svg" alt="Settings" onclick="prefs.boardTickerConfigurationWindow('2');""></li>
+                        <li><img style="height: 30px; margin-top: 22px; color: #B3D7FB;" src="../assets/alarm.svg" alt="Settings" onclick="prefs.boardAlarmConfigurationWindow('2');""></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div id="cboard3" class="uk-card-large uk-card-{{boardThreeColor}} uk-card-hover uk-card-body">
+                <div class="uk-card-header">
+                    <div class="uk-grid-small uk-flex-middle" uk-grid>
+                        <div class="uk-width-auto">
+                            <img id="iboard3" class="uk-border-circle" src="../assets/icons/{{boardThreeTicker[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCap('3')">
+                        </div>
+                        <div class="uk-width-expand">
+                            <h3 id="nboard3" class="uk-card-title uk-margin-remove-bottom">{{boardThreeTicker[4]}}</h3>
+                            <p id="sboard3" class="uk-text-meta uk-margin-remove-top">{{boardThreeTicker[2]}}</p>
+                            <p id="tboard3" class="uk-text-meta uk-margin-remove-top">{{boardThreeTicker[0]}}/{{boardThreeTicker[1]}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-card-body">
+                    <span id="up3" class="uk-badge" onclick="prefs.changeUpdColor('3')" style="cursor:pointer; background :transparent; color: transparent;">{{boardThreeTicker[5]}}</span><p id="board3" style="font-size: 4vw"></p>
+                    <ul style="cursor:pointer" class="uk-subnav uk-subnav-pill" uk-switcher>
+                        <li><div alt="Set color: white" onclick="global.boardThreeColor='default'; prefs.saveBoardColor('3', 'default');" style="font-size: 40px; color: #B3D7FB;">&#x25CF;</div></li>
+                        <li><div onclick="global.boardThreeColor='secondary'; prefs.saveBoardColor('3', 'secondary');" style="font-size: 40px; color: #4C4C4C;">&#x25CF;</div></li>
+                        <li><div onclick="global.boardThreeColor='primary'; prefs.saveBoardColor('3', 'primary');" style="font-size: 40px; color: #0077F1;">&#x25CF;</div></li>
+                        <li><img style="height: 30px; margin-top: 22px; color: #B3D7FB;" src="../assets/options.svg" alt="Settings" onclick="prefs.boardTickerConfigurationWindow('3');""></li>
+                        <li><img style="height: 30px; margin-top: 22px; color: #B3D7FB;" src="../assets/alarm.svg" alt="Settings" onclick="prefs.boardAlarmConfigurationWindow('3');""></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div id="cboard4" class="uk-card-large uk-card-{{boardFourColor}} uk-card-hover uk-card-body">
+                <div class="uk-card-header">
+                    <div class="uk-grid-small uk-flex-middle" uk-grid>
+                        <div class="uk-width-auto">
+                            <img id="iboard4" class="uk-border-circle" src="../assets/icons/{{boardFourTicker[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCap('4')">
+                        </div>
+                        <div class="uk-width-expand">
+                            <h3 id="nboard4" class="uk-card-title uk-margin-remove-bottom">{{boardFourTicker[4]}}</h3>
+                            <p id="sboard4" class="uk-text-meta uk-margin-remove-top">{{boardFourTicker[2]}}</p>
+                            <p id="tboard4" class="uk-text-meta uk-margin-remove-top">{{boardFourTicker[0]}}/{{boardFourTicker[1]}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-card-body">
+                    <span id="up4" class="uk-badge" onclick="prefs.changeUpdColor('4')" style="cursor:pointer; background :transparent; color: transparent;">{{boardFourTicker[5]}}</span><p id="board4" style="font-size: 4vw"></p>
+                    <ul style="cursor:pointer" class="uk-subnav uk-subnav-pill" uk-switcher>
+                        <li><div alt="Set color: white" onclick="global.boardFourColor='default'; prefs.saveBoardColor('4', 'default');" style="font-size: 40px; color: #B3D7FB;">&#x25CF;</div></li>
+                        <li><div onclick="global.boardFourColor='secondary'; prefs.saveBoardColor('4', 'secondary');" style="font-size: 40px; color: #4C4C4C;">&#x25CF;</div></li>
+                        <li><div onclick="global.boardFourColor='primary'; prefs.saveBoardColor('4', 'primary');" style="font-size: 40px; color: #0077F1;">&#x25CF;</div></li>
+                        <li><img style="height: 30px; margin-top: 22px; color: #B3D7FB;" src="../assets/options.svg" alt="Settings" onclick="prefs.boardTickerConfigurationWindow('4');""></li>
+                        <li><img style="height: 30px; margin-top: 22px; color: #B3D7FB;" src="../assets/alarm.svg" alt="Settings" onclick="prefs.boardAlarmConfigurationWindow('4');""></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{if licenseRender === 'true'}}
+    <!-- 2 Block -->
+    <div class="uk-child-width-1-4@s uk-grid-match" uk-grid>
+        <div>
+            <div id="cboard5" class="uk-card-large uk-card-{{boardFiveColor}} uk-card-hover uk-card-body">
+                <div class="uk-card-header">
+                    <div class="uk-grid-small uk-flex-middle" uk-grid>
+                        <div class="uk-width-auto">
+                            <img id="iboard5" class="uk-border-circle" src="../assets/icons/{{boardFiveTicker[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCap('5')">
+                        </div>
+                        <div class="uk-width-expand">
+                            <h3 id="nboard5" class="uk-card-title uk-margin-remove-bottom">{{boardFiveTicker[4]}}</h3>
+                            <p id="sboard5" class="uk-text-meta uk-margin-remove-top">{{boardFiveTicker[2]}}</p>
+                            <p id="tboard5" class="uk-text-meta uk-margin-remove-top">{{boardFiveTicker[0]}}/{{boardFiveTicker[1]}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-card-body">
+                    <span id="up5" class="uk-badge" onclick="prefs.changeUpdColor('5')" style="cursor:pointer; background :transparent; color: transparent;">{{boardFiveTicker[5]}}</span><p id="board5" style="font-size: 4vw"></p>
+                    <ul style="cursor:pointer" class="uk-subnav uk-subnav-pill" uk-switcher>
+                        <li><div alt="Set color: white" onclick="global.boardFiveColor='default'; prefs.saveBoardColor('5', 'default');" style="font-size: 40px; color: #B3D7FB;">&#x25CF;</div></li>
+                        <li><div onclick="global.boardFiveColor='secondary'; prefs.saveBoardColor('5', 'secondary');" style="font-size: 40px; color: #4C4C4C;">&#x25CF;</div></li>
+                        <li><div onclick="global.boardFiveColor='primary'; prefs.saveBoardColor('5', 'primary');" style="font-size: 40px; color: #0077F1;">&#x25CF;</div></li>
+                        <li><img style="height: 30px; margin-top: 22px; color: #B3D7FB;" src="../assets/options.svg" alt="Settings" onclick="prefs.boardTickerConfigurationWindow('5');""></li>
+                        <li><img style="height: 30px; margin-top: 22px; color: #B3D7FB;" src="../assets/alarm.svg" alt="Settings" onclick="prefs.boardAlarmConfigurationWindow('5');""></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div id="cboard6" class="uk-card-large uk-card-{{boardSixColor}} uk-card-hover uk-card-body">
+                <div class="uk-card-header">
+                    <div class="uk-grid-small uk-flex-middle" uk-grid>
+                        <div class="uk-width-auto">
+                            <img id="iboard6" class="uk-border-circle" src="../assets/icons/{{boardSixTicker[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCap('6')">
+                        </div>
+                        <div class="uk-width-expand">
+                            <h3 id="nboard6" class="uk-card-title uk-margin-remove-bottom">{{boardSixTicker[4]}}</h3>
+                            <p id="sboard6" class="uk-text-meta uk-margin-remove-top">{{boardSixTicker[2]}}</p>
+                            <p id="tboard6" class="uk-text-meta uk-margin-remove-top">{{boardSixTicker[0]}}/{{boardSixTicker[1]}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-card-body">
+                    <span id="up6" class="uk-badge" onclick="prefs.changeUpdColor('6')" style="cursor:pointer; background :transparent; color: transparent;">{{boardSixTicker[5]}}</span><p id="board6" style="font-size: 4vw"></p>
+                    <ul style="cursor:pointer" class="uk-subnav uk-subnav-pill" uk-switcher>
+                        <li><div alt="Set color: white" onclick="global.boardSixColor='default'; prefs.saveBoardColor('6', 'default');" style="font-size: 40px; color: #B3D7FB;">&#x25CF;</div></li>
+                        <li><div onclick="global.boardSixColor='secondary'; prefs.saveBoardColor('6', 'secondary');" style="font-size: 40px; color: #4C4C4C;">&#x25CF;</div></li>
+                        <li><div onclick="global.boardSixColor='primary'; prefs.saveBoardColor('6', 'primary');" style="font-size: 40px; color: #0077F1;">&#x25CF;</div></li>
+                        <li><img style="height: 30px; margin-top: 22px; color: #B3D7FB;" src="../assets/options.svg" alt="Settings" onclick="prefs.boardTickerConfigurationWindow('6');""></li>
+                        <li><img style="height: 30px; margin-top: 22px; color: #B3D7FB;" src="../assets/alarm.svg" alt="Settings" onclick="prefs.boardAlarmConfigurationWindow('6');""></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div id="cboard7" class="uk-card-large uk-card-{{boardSevenColor}} uk-card-hover uk-card-body">
+                <div class="uk-card-header">
+                    <div class="uk-grid-small uk-flex-middle" uk-grid>
+                        <div class="uk-width-auto">
+                            <img id="iboard7" class="uk-border-circle" src="../assets/icons/{{boardSevenTicker[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCap('7')">
+                        </div>
+                        <div class="uk-width-expand">
+                            <h3 id="nboard7" class="uk-card-title uk-margin-remove-bottom">{{boardSevenTicker[4]}}</h3>
+                            <p id="sboard7" class="uk-text-meta uk-margin-remove-top">{{boardSevenTicker[2]}}</p>
+                            <p id="tboard7" class="uk-text-meta uk-margin-remove-top">{{boardSevenTicker[0]}}/{{boardSevenTicker[1]}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-card-body">
+                    <span id="up7" class="uk-badge" onclick="prefs.changeUpdColor('7')" style="cursor:pointer; background :transparent; color: transparent;">{{boardSevenTicker[5]}}</span><p id="board7" style="font-size: 4vw"></p>
+                    <ul style="cursor:pointer" class="uk-subnav uk-subnav-pill" uk-switcher>
+                        <li><div alt="Set color: white" onclick="global.boardSevenColor='default'; prefs.saveBoardColor('7', 'default');" style="font-size: 40px; color: #B3D7FB;">&#x25CF;</div></li>
+                        <li><div onclick="global.boardSevenColor='secondary'; prefs.saveBoardColor('7', 'secondary');" style="font-size: 40px; color: #4C4C4C;">&#x25CF;</div></li>
+                        <li><div onclick="global.boardSevenColor='primary'; prefs.saveBoardColor('7', 'primary');" style="font-size: 40px; color: #0077F1;">&#x25CF;</div></li>
+                        <li><img style="height: 30px; margin-top: 22px; color: #B3D7FB;" src="../assets/options.svg" alt="Settings" onclick="prefs.boardTickerConfigurationWindow('7');""></li>
+                        <li><img style="height: 30px; margin-top: 22px; color: #B3D7FB;" src="../assets/alarm.svg" alt="Settings" onclick="prefs.boardAlarmConfigurationWindow('7');""></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div id="cboard8" class="uk-card-large uk-card-{{boardEightColor}} uk-card-hover uk-card-body">
+                <div class="uk-card-header">
+                    <div class="uk-grid-small uk-flex-middle" uk-grid>
+                        <div class="uk-width-auto">
+                            <img id="iboard8" class="uk-border-circle" src="../assets/icons/{{boardEightTicker[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCap('8')">
+                        </div>
+                        <div class="uk-width-expand">
+                            <h3 id="nboard8" class="uk-card-title uk-margin-remove-bottom">{{boardEightTicker[4]}}</h3>
+                            <p id="sboard8" class="uk-text-meta uk-margin-remove-top">{{boardEightTicker[2]}}</p>
+                            <p id="tboard8" class="uk-text-meta uk-margin-remove-top">{{boardEightTicker[0]}}/{{boardEightTicker[1]}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-card-body">
+                    <span id="up8" class="uk-badge" onclick="prefs.changeUpdColor('8')" style="cursor:pointer; background :transparent; color: transparent;">{{boardEightTicker[5]}}</span><p id="board8" style="font-size: 4vw"></p>
+                    <ul style="cursor:pointer" class="uk-subnav uk-subnav-pill" uk-switcher>
+                        <li><div alt="Set color: white" onclick="global.boardEightColor='default'; prefs.saveBoardColor('8', 'default');" style="font-size: 40px; color: #B3D7FB;">&#x25CF;</div></li>
+                        <li><div onclick="global.boardEightColor='secondary'; prefs.saveBoardColor('8', 'secondary');" style="font-size: 40px; color: #4C4C4C;">&#x25CF;</div></li>
+                        <li><div onclick="global.boardEightColor='primary'; prefs.saveBoardColor('8', 'primary');" style="font-size: 40px; color: #0077F1;">&#x25CF;</div></li>
+                        <li><img style="height: 30px; margin-top: 22px; color: #B3D7FB;" src="../assets/options.svg" alt="Settings" onclick="prefs.boardTickerConfigurationWindow('8');""></li>
+                        <li><img style="height: 30px; margin-top: 22px; color: #B3D7FB;" src="../assets/alarm.svg" alt="Settings" onclick="prefs.boardAlarmConfigurationWindow('8');""></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 3 Block -->
+    <div class="uk-child-width-1-4@s uk-grid-match" uk-grid>
+        <div>
+            <div id="cboard9" class="uk-card-large uk-card-{{boardNineColor}} uk-card-hover uk-card-body">
+                <div class="uk-card-header">
+                    <div class="uk-grid-small uk-flex-middle" uk-grid>
+                        <div class="uk-width-auto">
+                            <img id="iboard9" class="uk-border-circle" src="../assets/icons/{{boardNineTicker[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCap('9')">
+                        </div>
+                        <div class="uk-width-expand">
+                            <h3 id="nboard9" class="uk-card-title uk-margin-remove-bottom">{{boardNineTicker[4]}}</h3>
+                            <p id="sboard9" class="uk-text-meta uk-margin-remove-top">{{boardNineTicker[2]}}</p>
+                            <p id="tboard9" class="uk-text-meta uk-margin-remove-top">{{boardNineTicker[0]}}/{{boardNineTicker[1]}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-card-body">
+                    <span id="up9" class="uk-badge" onclick="prefs.changeUpdColor('9')" style="cursor:pointer; background :transparent; color: transparent;">{{boardNineTicker[5]}}</span><p id="board9" style="font-size: 4vw"></p>
+                    <ul style="cursor:pointer" class="uk-subnav uk-subnav-pill" uk-switcher>
+                        <li><div alt="Set color: white" onclick="global.boardNineColor='default'; prefs.saveBoardColor('9', 'default');" style="font-size: 40px; color: #B3D7FB;">&#x25CF;</div></li>
+                        <li><div onclick="global.boardNineColor='secondary'; prefs.saveBoardColor('9', 'secondary');" style="font-size: 40px; color: #4C4C4C;">&#x25CF;</div></li>
+                        <li><div onclick="global.boardNineColor='primary'; prefs.saveBoardColor('9', 'primary');" style="font-size: 40px; color: #0077F1;">&#x25CF;</div></li>
+                        <li><img style="height: 30px; margin-top: 22px; color: #B3D7FB;" src="../assets/options.svg" alt="Settings" onclick="prefs.boardTickerConfigurationWindow('9');""></li>
+                        <li><img style="height: 30px; margin-top: 22px; color: #B3D7FB;" src="../assets/alarm.svg" alt="Settings" onclick="prefs.boardAlarmConfigurationWindow('9');""></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div id="cboard10" class="uk-card-large uk-card-{{boardTenColor}} uk-card-hover uk-card-body">
+                <div class="uk-card-header">
+                    <div class="uk-grid-small uk-flex-middle" uk-grid>
+                        <div class="uk-width-auto">
+                            <img id="iboard10" class="uk-border-circle" src="../assets/icons/{{boardTenTicker[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCap('10')">
+                        </div>
+                        <div class="uk-width-expand">
+                            <h3 id="nboard10" class="uk-card-title uk-margin-remove-bottom">{{boardTenTicker[4]}}</h3>
+                            <p id="sboard10" class="uk-text-meta uk-margin-remove-top">{{boardTenTicker[2]}}</p>
+                            <p id="tboard10" class="uk-text-meta uk-margin-remove-top">{{boardTenTicker[0]}}/{{boardTenTicker[1]}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-card-body">
+                    <span id="up10" class="uk-badge" onclick="prefs.changeUpdColor('10')" style="cursor:pointer; background :transparent; color: transparent;">{{boardTenTicker[5]}}</span><p id="board10" style="font-size: 4vw"></p>
+                    <ul style="cursor:pointer" class="uk-subnav uk-subnav-pill" uk-switcher>
+                        <li><div alt="Set color: white" onclick="global.boardTenColor='default'; prefs.saveBoardColor('10', 'default');" style="font-size: 40px; color: #B3D7FB;">&#x25CF;</div></li>
+                        <li><div onclick="global.boardTenColor='secondary'; prefs.saveBoardColor('10', 'secondary');" style="font-size: 40px; color: #4C4C4C;">&#x25CF;</div></li>
+                        <li><div onclick="global.boardTenColor='primary'; prefs.saveBoardColor('10', 'primary');" style="font-size: 40px; color: #0077F1;">&#x25CF;</div></li>
+                        <li><img style="height: 30px; margin-top: 22px; color: #B3D7FB;" src="../assets/options.svg" alt="Settings" onclick="prefs.boardTickerConfigurationWindow('10');""></li>
+                        <li><img style="height: 30px; margin-top: 22px; color: #B3D7FB;" src="../assets/alarm.svg" alt="Settings" onclick="prefs.boardAlarmConfigurationWindow('10');""></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div id="cboard11" class="uk-card-large uk-card-{{boardElevenColor}} uk-card-hover uk-card-body">
+                <div class="uk-card-header">
+                    <div class="uk-grid-small uk-flex-middle" uk-grid>
+                        <div class="uk-width-auto">
+                            <img id="iboard11" class="uk-border-circle" src="../assets/icons/{{boardElevenTicker[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCap('11')">
+                        </div>
+                        <div class="uk-width-expand">
+                            <h3 id="nboard11" class="uk-card-title uk-margin-remove-bottom">{{boardElevenTicker[4]}}</h3>
+                            <p id="sboard11" class="uk-text-meta uk-margin-remove-top">{{boardElevenTicker[2]}}</p>
+                            <p id="tboard11" class="uk-text-meta uk-margin-remove-top">{{boardElevenTicker[0]}}/{{boardElevenTicker[1]}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-card-body">
+                    <span id="up11" class="uk-badge" onclick="prefs.changeUpdColor('11')" style="cursor:pointer; background :transparent; color: transparent;">{{boardElevenTicker[5]}}</span><p id="board11" style="font-size: 4vw"></p>
+                    <ul style="cursor:pointer" class="uk-subnav uk-subnav-pill" uk-switcher>
+                        <li><div alt="Set color: white" onclick="global.boardElevenColor='default'; prefs.saveBoardColor('11', 'default');" style="font-size: 40px; color: #B3D7FB;">&#x25CF;</div></li>
+                        <li><div onclick="global.boardElevenColor='secondary'; prefs.saveBoardColor('11', 'secondary');" style="font-size: 40px; color: #4C4C4C;">&#x25CF;</div></li>
+                        <li><div onclick="global.boardElevenColor='primary'; prefs.saveBoardColor('11', 'primary');" style="font-size: 40px; color: #0077F1;">&#x25CF;</div></li>
+                        <li><img style="height: 30px; margin-top: 22px; color: #B3D7FB;" src="../assets/options.svg" alt="Settings" onclick="prefs.boardTickerConfigurationWindow('11');""></li>
+                        <li><img style="height: 30px; margin-top: 22px; color: #B3D7FB;" src="../assets/alarm.svg" alt="Settings" onclick="prefs.boardAlarmConfigurationWindow('11');""></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div id="cboard12" class="uk-card-large uk-card-{{boardTwelveColor}} uk-card-hover uk-card-body">
+                <div class="uk-card-header">
+                    <div class="uk-grid-small uk-flex-middle" uk-grid>
+                        <div class="uk-width-auto">
+                            <img id="iboard12" class="uk-border-circle" src="../assets/icons/{{boardTwelveTicker[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCap('12')">
+                        </div>
+                        <div class="uk-width-expand">
+                            <h3 id="nboard12" class="uk-card-title uk-margin-remove-bottom">{{boardTwelveTicker[4]}}</h3>
+                            <p id="sboard12" class="uk-text-meta uk-margin-remove-top">{{boardTwelveTicker[2]}}</p>
+                            <p id="tboard12" class="uk-text-meta uk-margin-remove-top">{{boardTwelveTicker[0]}}/{{boardTwelveTicker[1]}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-card-body">
+                    <span id="up12" class="uk-badge" onclick="prefs.changeUpdColor('12')" style="cursor:pointer; background :transparent; color: transparent;">{{boardTwelveTicker[5]}}</span><p id="board12" style="font-size: 4vw"></p>
+                    <ul style="cursor:pointer" class="uk-subnav uk-subnav-pill" uk-switcher>
+                        <li><div alt="Set color: white" onclick="global.boardTwelveColor='default'; prefs.saveBoardColor('12', 'default');" style="font-size: 40px; color: #B3D7FB;">&#x25CF;</div></li>
+                        <li><div onclick="global.boardTwelveColor='secondary'; prefs.saveBoardColor('12', 'secondary');" style="font-size: 40px; color: #4C4C4C;">&#x25CF;</div></li>
+                        <li><div onclick="global.boardTwelveColor='primary'; prefs.saveBoardColor('12', 'primary');" style="font-size: 40px; color: #0077F1;">&#x25CF;</div></li>
+                        <li><img style="height: 30px; margin-top: 22px; color: #B3D7FB;" src="../assets/options.svg" alt="Settings" onclick="prefs.boardTickerConfigurationWindow('12');""></li>
+                        <li><img style="height: 30px; margin-top: 22px; color: #B3D7FB;" src="../assets/alarm.svg" alt="Settings" onclick="prefs.boardAlarmConfigurationWindow('12');""></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 4 Block -->
+    <div class="uk-child-width-1-4@s uk-grid-match" uk-grid>
+        <div>
+            <div id="cboard13" class="uk-card-large uk-card-{{boardThirteenColor}} uk-card-hover uk-card-body">
+                <div class="uk-card-header">
+                    <div class="uk-grid-small uk-flex-middle" uk-grid>
+                        <div class="uk-width-auto">
+                            <img id="iboard13" class="uk-border-circle" src="../assets/icons/{{boardThirteenTicker[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCap('13')">
+                        </div>
+                        <div class="uk-width-expand">
+                            <h3 id="nboard13" class="uk-card-title uk-margin-remove-bottom">{{boardThirteenTicker[4]}}</h3>
+                            <p id="sboard13" class="uk-text-meta uk-margin-remove-top">{{boardThirteenTicker[2]}}</p>
+                            <p id="tboard13" class="uk-text-meta uk-margin-remove-top">{{boardThirteenTicker[0]}}/{{boardThirteenTicker[1]}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-card-body">
+                    <span id="up13" class="uk-badge" onclick="prefs.changeUpdColor('13')" style="cursor:pointer; background :transparent; color: transparent;">{{boardThirteenTicker[5]}}</span><p id="board13" style="font-size: 4vw"></p>
+                    <ul style="cursor:pointer" class="uk-subnav uk-subnav-pill" uk-switcher>
+                        <li><div alt="Set color: white" onclick="global.boardTenColor='default'; prefs.saveBoardColor('13', 'default');" style="font-size: 40px; color: #B3D7FB;">&#x25CF;</div></li>
+                        <li><div onclick="global.boardThirteenColor='secondary'; prefs.saveBoardColor('13', 'secondary');" style="font-size: 40px; color: #4C4C4C;">&#x25CF;</div></li>
+                        <li><div onclick="global.boardThirteenColor='primary'; prefs.saveBoardColor('13', 'primary');" style="font-size: 40px; color: #0077F1;">&#x25CF;</div></li>
+                        <li><img style="height: 30px; margin-top: 22px; color: #B3D7FB;" src="../assets/options.svg" alt="Settings" onclick="prefs.boardTickerConfigurationWindow('13');""></li>
+                        <li><img style="height: 30px; margin-top: 22px; color: #B3D7FB;" src="../assets/alarm.svg" alt="Settings" onclick="prefs.boardAlarmConfigurationWindow('13');""></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div id="cboard14" class="uk-card-large uk-card-{{boardFourteenColor}} uk-card-hover uk-card-body">
+                <div class="uk-card-header">
+                    <div class="uk-grid-small uk-flex-middle" uk-grid>
+                        <div class="uk-width-auto">
+                            <img id="iboard14" class="uk-border-circle" src="../assets/icons/{{boardFourteenTicker[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCap('14')">
+                        </div>
+                        <div class="uk-width-expand">
+                            <h3 id="nboard14" class="uk-card-title uk-margin-remove-bottom">{{boardFourteenTicker[4]}}</h3>
+                            <p id="sboard14" class="uk-text-meta uk-margin-remove-top">{{boardFourteenTicker[2]}}</p>
+                            <p id="tboard14" class="uk-text-meta uk-margin-remove-top">{{boardFourteenTicker[0]}}/{{boardFourteenTicker[1]}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-card-body">
+                    <span id="up14" class="uk-badge" onclick="prefs.changeUpdColor('14')" style="cursor:pointer; background :transparent; color: transparent;">{{boardFourteenTicker[5]}}</span><p id="board14" style="font-size: 4vw"></p>
+                    <ul style="cursor:pointer" class="uk-subnav uk-subnav-pill" uk-switcher>
+                        <li><div alt="Set color: white" onclick="global.boardFourteenColor='default'; prefs.saveBoardColor('14', 'default');" style="font-size: 40px; color: #B3D7FB;">&#x25CF;</div></li>
+                        <li><div onclick="global.boardFourteenColor='secondary'; prefs.saveBoardColor('14', 'secondary');" style="font-size: 40px; color: #4C4C4C;">&#x25CF;</div></li>
+                        <li><div onclick="global.boardFourteenColor='primary'; prefs.saveBoardColor('14', 'primary');" style="font-size: 40px; color: #0077F1;">&#x25CF;</div></li>
+                        <li><img style="height: 30px; margin-top: 22px; color: #B3D7FB;" src="../assets/options.svg" alt="Settings" onclick="prefs.boardTickerConfigurationWindow('14');""></li>
+                        <li><img style="height: 30px; margin-top: 22px; color: #B3D7FB;" src="../assets/alarm.svg" alt="Settings" onclick="prefs.boardAlarmConfigurationWindow('14');""></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div id="cboard15" class="uk-card-large uk-card-{{boardFifteenColor}} uk-card-hover uk-card-body">
+                <div class="uk-card-header">
+                    <div class="uk-grid-small uk-flex-middle" uk-grid>
+                        <div class="uk-width-auto">
+                            <img id="iboard15" class="uk-border-circle" src="../assets/icons/{{boardFifteenTicker[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCap('15')">
+                        </div>
+                        <div class="uk-width-expand">
+                            <h3 id="nboard15" class="uk-card-title uk-margin-remove-bottom">{{boardFifteenTicker[4]}}</h3>
+                            <p id="sboard15" class="uk-text-meta uk-margin-remove-top">{{boardFifteenTicker[2]}}</p>
+                            <p id="tboard15" class="uk-text-meta uk-margin-remove-top">{{boardFifteenTicker[0]}}/{{boardFifteenTicker[1]}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-card-body">
+                    <span id="up15" class="uk-badge" onclick="prefs.changeUpdColor('15')" style="cursor:pointer; background :transparent; color: transparent;">{{boardFifteenTicker[5]}}</span><p id="board15" style="font-size: 4vw"></p>
+                    <ul style="cursor:pointer" class="uk-subnav uk-subnav-pill" uk-switcher>
+                        <li><div alt="Set color: white" onclick="global.boardFifteenColor='default'; prefs.saveBoardColor('15', 'default');" style="font-size: 40px; color: #B3D7FB;">&#x25CF;</div></li>
+                        <li><div onclick="global.boardFifteenColor='secondary'; prefs.saveBoardColor('15', 'secondary');" style="font-size: 40px; color: #4C4C4C;">&#x25CF;</div></li>
+                        <li><div onclick="global.boardFifteenColor='primary'; prefs.saveBoardColor('15', 'primary');" style="font-size: 40px; color: #0077F1;">&#x25CF;</div></li>
+                        <li><img style="height: 30px; margin-top: 22px; color: #B3D7FB;" src="../assets/options.svg" alt="Settings" onclick="prefs.boardTickerConfigurationWindow('15');""></li>
+                        <li><img style="height: 30px; margin-top: 22px; color: #B3D7FB;" src="../assets/alarm.svg" alt="Settings" onclick="prefs.boardAlarmConfigurationWindow('15');""></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div id="cboard16" class="uk-card-large uk-card-{{boardSixteenColor}} uk-card-hover uk-card-body">
+                <div class="uk-card-header">
+                    <div class="uk-grid-small uk-flex-middle" uk-grid>
+                        <div class="uk-width-auto">
+                            <img id="iboard16" class="uk-border-circle" src="../assets/icons/{{boardSixteenTicker[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCap('16')">
+                        </div>
+                        <div class="uk-width-expand">
+                            <h3 id="nboard16" class="uk-card-title uk-margin-remove-bottom">{{boardSixteenTicker[4]}}</h3>
+                            <p id="sboard16" class="uk-text-meta uk-margin-remove-top">{{boardSixteenTicker[2]}}</p>
+                            <p id="tboard16" class="uk-text-meta uk-margin-remove-top">{{boardSixteenTicker[0]}}/{{boardSixteenTicker[1]}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-card-body">
+                    <span id="up16" class="uk-badge" onclick="prefs.changeUpdColor('16')" style="cursor:pointer; background :transparent; color: transparent;">{{boardFifteenTicker[5]}}</span><p id="board16" style="font-size: 4vw"></p>
+                    <ul style="cursor:pointer" class="uk-subnav uk-subnav-pill" uk-switcher>
+                        <li><div alt="Set color: white" onclick="global.boardSixteenColor='default'; prefs.saveBoardColor('16', 'default');" style="font-size: 40px; color: #B3D7FB;">&#x25CF;</div></li>
+                        <li><div onclick="global.boardSixteenColor='secondary'; prefs.saveBoardColor('16', 'secondary');" style="font-size: 40px; color: #4C4C4C;">&#x25CF;</div></li>
+                        <li><div onclick="global.boardSixteenColor='primary'; prefs.saveBoardColor('16', 'primary');" style="font-size: 40px; color: #0077F1;">&#x25CF;</div></li>
+                        <li><img style="height: 30px; margin-top: 22px; color: #B3D7FB;" src="../assets/options.svg" alt="Settings" onclick="prefs.boardTickerConfigurationWindow('16');""></li>
+                        <li><img style="height: 30px; margin-top: 22px; color: #B3D7FB;" src="../assets/alarm.svg" alt="Settings" onclick="prefs.boardAlarmConfigurationWindow('16');""></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/if}}
+</script>
+<script>
+    var data = {
+        licenseRender: global.licenseRender,
+        stylesFile: global.stylesFile,
+        boardOneColor: global.boardOneColor,
+        boardTwoColor: global.boardTwoColor,
+        boardThreeColor: global.boardThreeColor,
+        boardFourColor: global.boardFourColor,
+        boardFiveColor: global.boardFiveColor,
+        boardSixColor: global.boardSixColor,
+        boardSevenColor: global.boardSevenColor,
+        boardEightColor: global.boardEightColor,
+        boardNineColor: global.boardNineColor,
+        boardTenColor: global.boardTenColor,
+        boardElevenColor: global.boardElevenColor,
+        boardTwelveColor: global.boardTwelveColor,
+        boardThirteenColor: global.boardThirteenColor,
+        boardFourteenColor: global.boardFourteenColor,
+        boardFifteenColor: global.boardFifteenColor,
+        boardSixteenColor: global.boardSixteenColor,
+        boardOneTicker: global.boardOneTicker,
+        boardTwoTicker: global.boardTwoTicker,
+        boardThreeTicker: global.boardThreeTicker,
+        boardFourTicker: global.boardFourTicker,
+        boardFiveTicker: global.boardFiveTicker,
+        boardSixTicker: global.boardSixTicker,
+        boardSevenTicker: global.boardSevenTicker,
+        boardEightTicker: global.boardEightTicker,
+        boardNineTicker: global.boardNineTicker,
+        boardTenTicker: global.boardTenTicker,
+        boardElevenTicker: global.boardElevenTicker,
+        boardTwelveTicker: global.boardTwelveTicker,
+        boardThirteenTicker: global.boardThirteenTicker,
+        boardFourteenTicker: global.boardFourteenTicker,
+        boardFifteenTicker: global.boardFifteenTicker,
+        boardSixteenTicker: global.boardSixteenTicker
+    }
+    global.mainWindow = nw.Window.get()
+    if (typeof (global.licenseRender) !== 'undefined') {
+        var html = template('template', data)
+        document.getElementById('content').innerHTML = html
+    }
+    document.getElementsByTagName('body')[0].style = 'background-color: ' + global.backgroundColor
+    prefs.setBoardTicker()
+    prefs.setBoardAlarm(10000)
+    setInterval(function () {
+        prefs.intelTitleSize()
+        prefs.preBoardTicker()
+        if (document.getElementById('sboard1').innerHTML === 'Binance') {
+                document.getElementById('tboard1').innerHTML = global.boardOneTicker[0] + '/' + global.boardOneTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.binance.com/en/trade/' + global.boardOneTicker[0] + '_' + global.boardOneTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BINANCE%3A' + global.boardOneTicker[0] + global.boardOneTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard2').innerHTML === 'Binance') {
+                document.getElementById('tboard2').innerHTML = global.boardTwoTicker[0] + '/' + global.boardTwoTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.binance.com/en/trade/' + global.boardTwoTicker[0] + '_' + global.boardTwoTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BINANCE%3A' + global.boardTwoTicker[0] + global.boardTwoTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard3').innerHTML === 'Binance') {
+                document.getElementById('tboard3').innerHTML = global.boardThreeTicker[0] + '/' + global.boardThreeTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.binance.com/en/trade/' + global.boardThreeTicker[0] + '_' + global.boardThreeTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BINANCE%3A' + global.boardThreeTicker[0] + global.boardThreeTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard4').innerHTML === 'Binance') {
+                document.getElementById('tboard4').innerHTML = global.boardFourTicker[0] + '/' + global.boardFourTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.binance.com/en/trade/' + global.boardFourTicker[0] + '_' + global.boardFourTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BINANCE%3A' + global.boardFourTicker[0] + global.boardFourTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (global.licenseRender === 'true') {
+        if (document.getElementById('sboard5').innerHTML === 'Binance') {
+                document.getElementById('tboard5').innerHTML = global.boardFiveTicker[0] + '/' + global.boardFiveTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.binance.com/en/trade/' + global.boardFiveTicker[0] + '_' + global.boardFiveTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' +  '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BINANCE%3A' + global.boardFiveTicker[0] + global.boardFiveTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard6').innerHTML === 'Binance') {
+                document.getElementById('tboard6').innerHTML = global.boardSixTicker[0] + '/' + global.boardSixTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.binance.com/en/trade/' + global.boardSixTicker[0] + '_' + global.boardSixTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' +  '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BINANCE%3A' + global.boardSixTicker[0] + global.boardSixTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard7').innerHTML === 'Binance') {
+                document.getElementById('tboard7').innerHTML = global.boardSevenTicker[0] + '/' + global.boardSevenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.binance.com/en/trade/' + global.boardSevenTicker[0] + '_' + global.boardSevenTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BINANCE%3A' + global.boardSevenTicker[0] + global.boardSevenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard8').innerHTML === 'Binance') {
+                document.getElementById('tboard8').innerHTML = global.boardEightTicker[0] + '/' + global.boardEightTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.binance.com/en/trade/' + global.boardEightTicker[0] + '_' + global.boardEightTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BINANCE%3A' + global.boardEightTicker[0] + global.boardEightTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard9').innerHTML === 'Binance') {
+                document.getElementById('tboard9').innerHTML = global.boardNineTicker[0] + '/' + global.boardNineTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.binance.com/en/trade/' + global.boardNineTicker[0] + '_' + global.boardNineTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BINANCE%3A' + global.boardNineTicker[0] + global.boardNineTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard10').innerHTML === 'Binance') {
+                document.getElementById('tboard10').innerHTML = global.boardTenTicker[0] + '/' + global.boardTenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.binance.com/en/trade/' + global.boardTenTicker[0] + '_' + global.boardTenTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BINANCE%3A' + global.boardTenTicker[0] + global.boardTenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard11').innerHTML === 'Binance') {
+                document.getElementById('tboard11').innerHTML = global.boardElevenTicker[0] + '/' + global.boardElevenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.binance.com/en/trade/' + global.boardElevenTicker[0] + '_' + global.boardElevenTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BINANCE%3A' + global.boardElevenTicker[0] + global.boardElevenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard12').innerHTML === 'Binance') {
+                document.getElementById('tboard12').innerHTML = global.boardTwelveTicker[0] + '/' + global.boardTwelveTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.binance.com/en/trade/' + global.boardTwelveTicker[0] + '_' + global.boardTwelveTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BINANCE%3A' + global.boardTwelveTicker[0] + global.boardTwelveTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard13').innerHTML === 'Binance') {
+                document.getElementById('tboard13').innerHTML = global.boardThirteenTicker[0] + '/' + global.boardThirteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.binance.com/en/trade/' + global.boardThirteenTicker[0] + '_' + global.boardThirteenTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BINANCE%3A' + global.boardThirteenTicker[0] + global.boardThirteenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard14').innerHTML === 'Binance') {
+                document.getElementById('tboard14').innerHTML = global.boardFourteenTicker[0] + '/' + global.boardFourteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.binance.com/en/trade/' + global.boardFourteenTicker[0] + '_' + global.boardFourteenTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BINANCE%3A' + global.boardFourteenTicker[0] + global.boardFourteenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard15').innerHTML === 'Binance') {
+                document.getElementById('tboard15').innerHTML = global.boardFifteenTicker[0] + '/' + global.boardFifteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.binance.com/en/trade/' + global.boardFifteenTicker[0] + '_' + global.boardFifteenTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BINANCE%3A' + global.boardFifteenTicker[0] + global.boardFifteenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard16').innerHTML === 'Binance') {
+                document.getElementById('tboard16').innerHTML = global.boardSixteenTicker[0] + '/' + global.boardSixteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.binance.com/en/trade/' + global.boardSixteenTicker[0] + '_' + global.boardSixteenTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BINANCE%3A' + global.boardSixteenTicker[0] + global.boardSixteenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        }
+        if (document.getElementById('sboard1').innerHTML === 'Binance Futures') {
+                document.getElementById('tboard1').innerHTML = global.boardOneTicker[0] + '/' + global.boardOneTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.binance.com/en/futures/' + global.boardOneTicker[0] + global.boardOneTicker[1] + '_perpetual") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BINANCE%3A' + global.boardOneTicker[0] + global.boardOneTicker[1] + 'PERP") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard2').innerHTML === 'Binance Futures') {
+                document.getElementById('tboard2').innerHTML = global.boardTwoTicker[0] + '/' + global.boardTwoTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.binance.com/en/futures/' + global.boardTwoTicker[0] + global.boardTwoTicker[1] + '_perpetual") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BINANCE%3A' + global.boardTwoTicker[0] + global.boardTwoTicker[1] + 'PERP") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard3').innerHTML === 'Binance Futures') {
+                document.getElementById('tboard3').innerHTML = global.boardThreeTicker[0] + '/' + global.boardThreeTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.binance.com/en/futures/' + global.boardThreeTicker[0] + global.boardThreeTicker[1] + '_perpetual") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BINANCE%3A' + global.boardThreeTicker[0] + global.boardThreeTicker[1] + 'PERP") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard4').innerHTML === 'Binance Futures') {
+                document.getElementById('tboard4').innerHTML = global.boardFourTicker[0] + '/' + global.boardFourTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.binance.com/en/futures/' + global.boardFourTicker[0] + global.boardFourTicker[1] + '_perpetual") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BINANCE%3A' + global.boardFourTicker[0] + global.boardFourTicker[1] + 'PERP") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (global.licenseRender === 'true') {
+        if (document.getElementById('sboard5').innerHTML === 'Binance Futures') {
+                document.getElementById('tboard5').innerHTML = global.boardFiveTicker[0] + '/' + global.boardFiveTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.binance.com/en/futures/' + global.boardFiveTicker[0] + global.boardFiveTicker[1] + '_perpetual") class="uk-icon-link" uk-icon="push"></a>' +  '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BINANCE%3A' + global.boardFiveTicker[0] + global.boardFiveTicker[1] + 'PERP") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard6').innerHTML === 'Binance Futures') {
+                document.getElementById('tboard6').innerHTML = global.boardSixTicker[0] + '/' + global.boardSixTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.binance.com/en/futures/' + global.boardSixTicker[0] + global.boardSixTicker[1] + '_perpetual") class="uk-icon-link" uk-icon="push"></a>' +  '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BINANCE%3A' + global.boardSixTicker[0] + global.boardSixTicker[1] + 'PERP") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard7').innerHTML === 'Binance Futures') {
+                document.getElementById('tboard7').innerHTML = global.boardSevenTicker[0] + '/' + global.boardSevenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.binance.com/en/futures/' + global.boardSevenTicker[0] + global.boardSevenTicker[1] + '_perpetual") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BINANCE%3A' + global.boardSevenTicker[0] + global.boardSevenTicker[1] + 'PERP") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard8').innerHTML === 'Binance Futures') {
+                document.getElementById('tboard8').innerHTML = global.boardEightTicker[0] + '/' + global.boardEightTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.binance.com/en/futures/' + global.boardEightTicker[0] + global.boardEightTicker[1] + '_perpetual") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BINANCE%3A' + global.boardEightTicker[0] + global.boardEightTicker[1] + 'PERP") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard9').innerHTML === 'Binance Futures') {
+                document.getElementById('tboard9').innerHTML = global.boardNineTicker[0] + '/' + global.boardNineTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.binance.com/en/futures/' + global.boardNineTicker[0] + global.boardNineTicker[1] + '_perpetual") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BINANCE%3A' + global.boardNineTicker[0] + global.boardNineTicker[1] + 'PERP") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard10').innerHTML === 'Binance Futures') {
+                document.getElementById('tboard10').innerHTML = global.boardTenTicker[0] + '/' + global.boardTenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.binance.com/en/futures/' + global.boardTenTicker[0] + global.boardTenTicker[1] + '_perpetual") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BINANCE%3A' + global.boardTenTicker[0] + global.boardTenTicker[1] + 'PERP") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard11').innerHTML === 'Binance Futures') {
+                document.getElementById('tboard11').innerHTML = global.boardElevenTicker[0] + '/' + global.boardElevenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.binance.com/en/futures/' + global.boardElevenTicker[0] + global.boardElevenTicker[1] + '_perpetual") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BINANCE%3A' + global.boardElevenTicker[0] + global.boardElevenTicker[1] + 'PERP") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard12').innerHTML === 'Binance Futures') {
+                document.getElementById('tboard12').innerHTML = global.boardTwelveTicker[0] + '/' + global.boardTwelveTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.binance.com/en/futures/' + global.boardTwelveTicker[0] + global.boardTwelveTicker[1] + '_perpetual") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BINANCE%3A' + global.boardTwelveTicker[0] + global.boardTwelveTicker[1] + 'PERP") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard13').innerHTML === 'Binance Futures') {
+                document.getElementById('tboard13').innerHTML = global.boardThirteenTicker[0] + '/' + global.boardThirteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.binance.com/en/futures/' + global.boardThirteenTicker[0] + global.boardThirteenTicker[1] + '_perpetual") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BINANCE%3A' + global.boardThirteenTicker[0] + global.boardThirteenTicker[1] + 'PERP") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard14').innerHTML === 'Binance Futures') {
+                document.getElementById('tboard14').innerHTML = global.boardFourteenTicker[0] + '/' + global.boardFourteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.binance.com/en/futures/' + global.boardFourteenTicker[0] + global.boardFourteenTicker[1] + '_perpetual") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BINANCE%3A' + global.boardFourteenTicker[0] + global.boardFourteenTicker[1] + 'PERP") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard15').innerHTML === 'Binance Futures') {
+                document.getElementById('tboard15').innerHTML = global.boardFifteenTicker[0] + '/' + global.boardFifteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.binance.com/en/futures/' + global.boardFifteenTicker[0] + global.boardFifteenTicker[1] + '_perpetual") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BINANCE%3A' + global.boardFifteenTicker[0] + global.boardFifteenTicker[1] + 'PERP") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard16').innerHTML === 'Binance Futures') {
+                document.getElementById('tboard16').innerHTML = global.boardSixteenTicker[0] + '/' + global.boardSixteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.binance.com/en/futures/' + global.boardSixteenTicker[0] + global.boardSixteenTicker[1] + '_perpetual") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BINANCE%3A' + global.boardSixteenTicker[0] + global.boardSixteenTicker[1] + 'PERP") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        } 
+        if (document.getElementById('sboard1').innerHTML === 'KuCoin') {
+                document.getElementById('tboard1').innerHTML = global.boardOneTicker[0] + '/' + global.boardOneTicker[1] + '<a onclick=gui.Shell.openExternal("https://trade.kucoin.com/' + global.boardOneTicker[0] + '-' + global.boardOneTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=KUCOIN%3A' + global.boardOneTicker[0] + global.boardOneTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard2').innerHTML === 'KuCoin') {
+                document.getElementById('tboard2').innerHTML = global.boardTwoTicker[0] + '/' + global.boardTwoTicker[1] + '<a onclick=gui.Shell.openExternal("https://trade.kucoin.com/' + global.boardTwoTicker[0] + '-' + global.boardTwoTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=KUCOIN%3A' + global.boardTwoTicker[0] + global.boardTwoTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard3').innerHTML === 'KuCoin') {
+                document.getElementById('tboard3').innerHTML = global.boardThreeTicker[0] + '/' + global.boardThreeTicker[1] + '<a onclick=gui.Shell.openExternal("https://trade.kucoin.com/' + global.boardThreeTicker[0] + '-' + global.boardThreeTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=KUCOIN%3A' + global.boardThreeTicker[0] + global.boardThreeTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard4').innerHTML === 'KuCoin') {
+                document.getElementById('tboard4').innerHTML = global.boardFourTicker[0] + '/' + global.boardFourTicker[1] + '<a onclick=gui.Shell.openExternal("https://trade.kucoin.com/' + global.boardFourTicker[0] + '-' + global.boardFourTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=KUCOIN%3A' + global.boardFourTicker[0] + global.boardFourTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (global.licenseRender === 'true') {
+        if (document.getElementById('sboard5').innerHTML === 'KuCoin') {
+                document.getElementById('tboard5').innerHTML = global.boardFiveTicker[0] + '/' + global.boardFiveTicker[1] + '<a onclick=gui.Shell.openExternal("https://trade.kucoin.com/' + global.boardFiveTicker[0] + '-' + global.boardFiveTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' +  '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=KUCOIN%3A' + global.boardFiveTicker[0] + global.boardFiveTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard6').innerHTML === 'KuCoin') {
+                document.getElementById('tboard6').innerHTML = global.boardSixTicker[0] + '/' + global.boardSixTicker[1] + '<a onclick=gui.Shell.openExternal("https://trade.kucoin.com/' + global.boardSixTicker[0] + '-' + global.boardSixTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' +  '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=KUCOIN%3A' + global.boardSixTicker[0] + global.boardSixTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard7').innerHTML === 'KuCoin') {
+                document.getElementById('tboard7').innerHTML = global.boardSevenTicker[0] + '/' + global.boardSevenTicker[1] + '<a onclick=gui.Shell.openExternal("https://trade.kucoin.com/' + global.boardSevenTicker[0] + '-' + global.boardSevenTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=KUCOIN%3A' + global.boardSevenTicker[0] + global.boardSevenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard8').innerHTML === 'KuCoin') {
+                document.getElementById('tboard8').innerHTML = global.boardEightTicker[0] + '/' + global.boardEightTicker[1] + '<a onclick=gui.Shell.openExternal("https://trade.kucoin.com/' + global.boardEightTicker[0] + '-' + global.boardEightTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=KUCOIN%3A' + global.boardEightTicker[0] + global.boardEightTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard9').innerHTML === 'KuCoin') {
+                document.getElementById('tboard9').innerHTML = global.boardNineTicker[0] + '/' + global.boardNineTicker[1] + '<a onclick=gui.Shell.openExternal("https://trade.kucoin.com/' + global.boardNineTicker[0] + '-' + global.boardNineTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=KUCOIN%3A' + global.boardNineTicker[0] + global.boardNineTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard10').innerHTML === 'KuCoin') {
+                document.getElementById('tboard10').innerHTML = global.boardTenTicker[0] + '/' + global.boardTenTicker[1] + '<a onclick=gui.Shell.openExternal("https://trade.kucoin.com/' + global.boardTenTicker[0] + '-' + global.boardTenTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=KUCOIN%3A' + global.boardTenTicker[0] + global.boardTenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard11').innerHTML === 'KuCoin') {
+                document.getElementById('tboard11').innerHTML = global.boardElevenTicker[0] + '/' + global.boardElevenTicker[1] + '<a onclick=gui.Shell.openExternal("https://trade.kucoin.com/' + global.boardElevenTicker[0] + '-' + global.boardElevenTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=KUCOIN%3A' + global.boardElevenTicker[0] + global.boardElevenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard12').innerHTML === 'KuCoin') {
+                document.getElementById('tboard12').innerHTML = global.boardTwelveTicker[0] + '/' + global.boardTwelveTicker[1] + '<a onclick=gui.Shell.openExternal("https://trade.kucoin.com/' + global.boardTwelveTicker[0] + '-' + global.boardTwelveTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=KUCOIN%3A' + global.boardTwelveTicker[0] + global.boardTwelveTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard13').innerHTML === 'KuCoin') {
+                document.getElementById('tboard13').innerHTML = global.boardThirteenTicker[0] + '/' + global.boardThirteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://trade.kucoin.com/' + global.boardThirteenTicker[0] + '-' + global.boardThirteenTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=KUCOIN%3A' + global.boardThirteenTicker[0] + global.boardThirteenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard14').innerHTML === 'KuCoin') {
+                document.getElementById('tboard14').innerHTML = global.boardFourteenTicker[0] + '/' + global.boardFourteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://trade.kucoin.com/' + global.boardFourteenTicker[0] + '-' + global.boardFourteenTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=KUCOIN%3A' + global.boardFourteenTicker[0] + global.boardFourteenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard15').innerHTML === 'KuCoin') {
+                document.getElementById('tboard15').innerHTML = global.boardFifteenTicker[0] + '/' + global.boardFifteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://trade.kucoin.com/' + global.boardFifteenTicker[0] + '-' + global.boardFifteenTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=KUCOIN%3A' + global.boardFifteenTicker[0] + global.boardFifteenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard16').innerHTML === 'KuCoin') {
+                document.getElementById('tboard16').innerHTML = global.boardSixteenTicker[0] + '/' + global.boardSixteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://trade.kucoin.com/' + global.boardSixteenTicker[0] + '-' + global.boardSixteenTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=KUCOIN%3A' + global.boardSixteenTicker[0] + global.boardSixteenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        }
+        if (document.getElementById('sboard1').innerHTML === 'Poloniex') {
+                document.getElementById('tboard1').innerHTML = global.boardOneTicker[0] + '/' + global.boardOneTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.poloniex.com/exchange/' + global.boardOneTicker[0] + '_' + global.boardOneTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=POLONIEX%3A' + global.boardOneTicker[0] + global.boardOneTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard2').innerHTML === 'Poloniex') {
+                document.getElementById('tboard2').innerHTML = global.boardTwoTicker[0] + '/' + global.boardTwoTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.poloniex.com/exchange/' + global.boardTwoTicker[0] + '_' + global.boardTwoTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=POLONIEX%3A' + global.boardTwoTicker[0] + global.boardTwoTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard3').innerHTML === 'Poloniex') {
+                document.getElementById('tboard3').innerHTML = global.boardThreeTicker[0] + '/' + global.boardThreeTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.poloniex.com/exchange/' + global.boardThreeTicker[0] + '_' + global.boardThreeTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=POLONIEX%3A' + global.boardThreeTicker[0] + global.boardThreeTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard4').innerHTML === 'Poloniex') {
+                document.getElementById('tboard4').innerHTML = global.boardFourTicker[0] + '/' + global.boardFourTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.poloniex.com/exchange/' + global.boardFourTicker[0] + '_' + global.boardFourTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=POLONIEX%3A' + global.boardFourTicker[0] + global.boardFourTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (global.licenseRender === 'true') {
+        if (document.getElementById('sboard5').innerHTML === 'Poloniex') {
+                document.getElementById('tboard5').innerHTML = global.boardFiveTicker[0] + '/' + global.boardFiveTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.poloniex.com/exchange/' + global.boardFiveTicker[0] + '_' + global.boardFiveTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' +  '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=POLONIEX%3A' + global.boardFiveTicker[0] + global.boardFiveTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard6').innerHTML === 'Poloniex') {
+                document.getElementById('tboard6').innerHTML = global.boardSixTicker[0] + '/' + global.boardSixTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.poloniex.com/exchange/' + global.boardSixTicker[0] + '_' + global.boardSixTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' +  '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=POLONIEX%3A' + global.boardSixTicker[0] + global.boardSixTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard7').innerHTML === 'Poloniex') {
+                document.getElementById('tboard7').innerHTML = global.boardSevenTicker[0] + '/' + global.boardSevenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.poloniex.com/exchange/' + global.boardSevenTicker[0] + '_' + global.boardSevenTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=POLONIEX%3A' + global.boardSevenTicker[0] + global.boardSevenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard8').innerHTML === 'Poloniex') {
+                document.getElementById('tboard8').innerHTML = global.boardEightTicker[0] + '/' + global.boardEightTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.poloniex.com/exchange/' + global.boardEightTicker[0] + '_' + global.boardEightTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=POLONIEX%3A' + global.boardEightTicker[0] + global.boardEightTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard9').innerHTML === 'Poloniex') {
+                document.getElementById('tboard9').innerHTML = global.boardNineTicker[0] + '/' + global.boardNineTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.poloniex.com/exchange/' + global.boardNineTicker[0] + '_' + global.boardNineTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=POLONIEX%3A' + global.boardNineTicker[0] + global.boardNineTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard10').innerHTML === 'Poloniex') {
+                document.getElementById('tboard10').innerHTML = global.boardTenTicker[0] + '/' + global.boardTenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.poloniex.com/exchange/' + global.boardTenTicker[0] + '_' + global.boardTenTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=POLONIEX%3A' + global.boardTenTicker[0] + global.boardTenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard11').innerHTML === 'Poloniex') {
+                document.getElementById('tboard11').innerHTML = global.boardElevenTicker[0] + '/' + global.boardElevenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.poloniex.com/exchange/' + global.boardElevenTicker[0] + '_' + global.boardElevenTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=POLONIEX%3A' + global.boardElevenTicker[0] + global.boardElevenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard12').innerHTML === 'Poloniex') {
+                document.getElementById('tboard12').innerHTML = global.boardTwelveTicker[0] + '/' + global.boardTwelveTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.poloniex.com/exchange/' + global.boardTwelveTicker[0] + '_' + global.boardTwelveTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=POLONIEX%3A' + global.boardTwelveTicker[0] + global.boardTwelveTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard13').innerHTML === 'Poloniex') {
+                document.getElementById('tboard13').innerHTML = global.boardThirteenTicker[0] + '/' + global.boardThirteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.poloniex.com/exchange/' + global.boardThirteenTicker[0] + '_' + global.boardThirteenTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=POLONIEX%3A' + global.boardThirteenTicker[0] + global.boardThirteenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard14').innerHTML === 'Poloniex') {
+                document.getElementById('tboard14').innerHTML = global.boardFourteenTicker[0] + '/' + global.boardFourteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.poloniex.com/exchange/' + global.boardFourteenTicker[0] + '_' + global.boardFourteenTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=POLONIEX%3A' + global.boardFourteenTicker[0] + global.boardFourteenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard15').innerHTML === 'Poloniex') {
+                document.getElementById('tboard15').innerHTML = global.boardFifteenTicker[0] + '/' + global.boardFifteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.poloniex.com/exchange/' + global.boardFifteenTicker[0] + '_' + global.boardFifteenTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=POLONIEX%3A' + global.boardFifteenTicker[0] + global.boardFifteenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard16').innerHTML === 'Poloniex') {
+                document.getElementById('tboard16').innerHTML = global.boardSixteenTicker[0] + '/' + global.boardSixteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.poloniex.com/exchange/' + global.boardSixteenTicker[0] + '_' + global.boardSixteenTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=POLONIEX%3A' + global.boardSixteenTicker[0] + global.boardSixteenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        }
+        if (document.getElementById('sboard1').innerHTML === 'HitBTC') {
+                document.getElementById('tboard1').innerHTML = global.boardOneTicker[0] + '/' + global.boardOneTicker[1] + '<a onclick=gui.Shell.openExternal("https://hitbtc.com/' + global.boardOneTicker[0] + '_' + global.boardOneTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=HITBTC%3A' + global.boardOneTicker[0] + global.boardOneTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard2').innerHTML === 'HitBTC') {
+                document.getElementById('tboard2').innerHTML = global.boardTwoTicker[0] + '/' + global.boardTwoTicker[1] + '<a onclick=gui.Shell.openExternal("https://hitbtc.com/' + global.boardTwoTicker[0] + '_' + global.boardTwoTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=HITBTC%3A' + global.boardTwoTicker[0] + global.boardTwoTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard3').innerHTML === 'HitBTC') {
+                document.getElementById('tboard3').innerHTML = global.boardThreeTicker[0] + '/' + global.boardThreeTicker[1] + '<a onclick=gui.Shell.openExternal("https://hitbtc.com/' + global.boardThreeTicker[0] + '_' + global.boardThreeTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=HITBTC%3A' + global.boardThreeTicker[0] + global.boardThreeTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard4').innerHTML === 'HitBTC') {
+                document.getElementById('tboard4').innerHTML = global.boardFourTicker[0] + '/' + global.boardFourTicker[1] + '<a onclick=gui.Shell.openExternal("https://hitbtc.com/' + global.boardFourTicker[0] + '_' + global.boardFourTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=HITBTC%3A' + global.boardFourTicker[0] + global.boardFourTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (global.licenseRender === 'true') {
+        if (document.getElementById('sboard5').innerHTML === 'HitBTC') {
+                document.getElementById('tboard5').innerHTML = global.boardFiveTicker[0] + '/' + global.boardFiveTicker[1] + '<a onclick=gui.Shell.openExternal("https://hitbtc.com/' + global.boardFiveTicker[0] + '_' + global.boardFiveTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' +  '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=HITBTC%3A' + global.boardFiveTicker[0] + global.boardFiveTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard6').innerHTML === 'HitBTC') {
+                document.getElementById('tboard6').innerHTML = global.boardSixTicker[0] + '/' + global.boardSixTicker[1] + '<a onclick=gui.Shell.openExternal("https://hitbtc.com/' + global.boardSixTicker[0] + '_' + global.boardSixTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' +  '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=HITBTC%3A' + global.boardSixTicker[0] + global.boardSixTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard7').innerHTML === 'HitBTC') {
+                document.getElementById('tboard7').innerHTML = global.boardSevenTicker[0] + '/' + global.boardSevenTicker[1] + '<a onclick=gui.Shell.openExternal("https://hitbtc.com/' + global.boardSevenTicker[0] + '_' + global.boardSevenTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=HITBTC%3A' + global.boardSevenTicker[0] + global.boardSevenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard8').innerHTML === 'HitBTC') {
+                document.getElementById('tboard8').innerHTML = global.boardEightTicker[0] + '/' + global.boardEightTicker[1] + '<a onclick=gui.Shell.openExternal("https://hitbtc.com/' + global.boardEightTicker[0] + '_' + global.boardEightTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=HITBTC%3A' + global.boardEightTicker[0] + global.boardEightTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard9').innerHTML === 'HitBTC') {
+                document.getElementById('tboard9').innerHTML = global.boardNineTicker[0] + '/' + global.boardNineTicker[1] + '<a onclick=gui.Shell.openExternal("https://hitbtc.com/' + global.boardNineTicker[0] + '_' + global.boardNineTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=HITBTC%3A' + global.boardNineTicker[0] + global.boardNineTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard10').innerHTML === 'HitBTC') {
+                document.getElementById('tboard10').innerHTML = global.boardTenTicker[0] + '/' + global.boardTenTicker[1] + '<a onclick=gui.Shell.openExternal("https://hitbtc.com/' + global.boardTenTicker[0] + '_' + global.boardTenTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=HITBTC%3A' + global.boardTenTicker[0] + global.boardTenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard11').innerHTML === 'HitBTC') {
+                document.getElementById('tboard11').innerHTML = global.boardElevenTicker[0] + '/' + global.boardElevenTicker[1] + '<a onclick=gui.Shell.openExternal("https://hitbtc.com/' + global.boardElevenTicker[0] + '_' + global.boardElevenTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=HITBTC%3A' + global.boardElevenTicker[0] + global.boardElevenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard12').innerHTML === 'HitBTC') {
+                document.getElementById('tboard12').innerHTML = global.boardTwelveTicker[0] + '/' + global.boardTwelveTicker[1] + '<a onclick=gui.Shell.openExternal("https://hitbtc.com/' + global.boardTwelveTicker[0] + '_' + global.boardTwelveTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=HITBTC%3A' + global.boardTwelveTicker[0] + global.boardTwelveTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard13').innerHTML === 'HitBTC') {
+                document.getElementById('tboard13').innerHTML = global.boardThirteenTicker[0] + '/' + global.boardThirteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://hitbtc.com/' + global.boardThirteenTicker[0] + '_' + global.boardThirteenTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=HITBTC%3A' + global.boardThirteenTicker[0] + global.boardThirteenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard14').innerHTML === 'HitBTC') {
+                document.getElementById('tboard14').innerHTML = global.boardFourteenTicker[0] + '/' + global.boardFourteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://hitbtc.com/' + global.boardFourteenTicker[0] + '_' + global.boardFourteenTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=HITBTC%3A' + global.boardFourteenTicker[0] + global.boardFourteenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard15').innerHTML === 'HitBTC') {
+                document.getElementById('tboard15').innerHTML = global.boardFifteenTicker[0] + '/' + global.boardFifteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://hitbtc.com/' + global.boardFifteenTicker[0] + '_' + global.boardFifteenTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=HITBTC%3A' + global.boardFifteenTicker[0] + global.boardFifteenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard16').innerHTML === 'HitBTC') {
+                document.getElementById('tboard16').innerHTML = global.boardSixteenTicker[0] + '/' + global.boardSixteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://hitbtc.com/' + global.boardSixteenTicker[0] + '_' + global.boardSixteenTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=HITBTC%3A' + global.boardSixteenTicker[0] + global.boardSixteenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        }
+        if (document.getElementById('sboard1').innerHTML === 'Bitstamp') {
+                document.getElementById('tboard1').innerHTML = global.boardOneTicker[0] + '/' + global.boardOneTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.bitstamp.net/markets/' + global.boardOneTicker[0].toLowerCase() + '/' + global.boardOneTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BITSTAMP%3A' + global.boardOneTicker[0] + global.boardOneTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard2').innerHTML === 'Bitstamp') {
+                document.getElementById('tboard2').innerHTML = global.boardTwoTicker[0] + '/' + global.boardTwoTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.bitstamp.net/markets/' + global.boardTwoTicker[0].toLowerCase() + '/' + global.boardTwoTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BITSTAMP%3A' + global.boardTwoTicker[0] + global.boardTwoTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard3').innerHTML === 'Bitstamp') {
+                document.getElementById('tboard3').innerHTML = global.boardThreeTicker[0] + '/' + global.boardThreeTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.bitstamp.net/markets/' + global.boardThreeTicker[0].toLowerCase() + '/' + global.boardThreeTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BITSTAMP%3A' + global.boardThreeTicker[0] + global.boardThreeTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard4').innerHTML === 'Bitstamp') {
+                document.getElementById('tboard4').innerHTML = global.boardFourTicker[0] + '/' + global.boardFourTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.bitstamp.net/markets/' + global.boardFourTicker[0].toLowerCase() + '/' + global.boardFourTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BITSTAMP%3A' + global.boardFourTicker[0] + global.boardFourTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (global.licenseRender === 'true') {
+        if (document.getElementById('sboard5').innerHTML === 'Bitstamp') {
+                document.getElementById('tboard5').innerHTML = global.boardFiveTicker[0] + '/' + global.boardFiveTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.bitstamp.net/markets/' + global.boardFiveTicker[0].toLowerCase() + '/' + global.boardFiveTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' +  '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BITSTAMP%3A' + global.boardFiveTicker[0] + global.boardFiveTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard6').innerHTML === 'Bitstamp') {
+                document.getElementById('tboard6').innerHTML = global.boardSixTicker[0] + '/' + global.boardSixTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.bitstamp.net/markets/' + global.boardSixTicker[0].toLowerCase() + '/' + global.boardSixTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' +  '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BITSTAMP%3A' + global.boardSixTicker[0] + global.boardSixTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard7').innerHTML === 'Bitstamp') {
+                document.getElementById('tboard7').innerHTML = global.boardSevenTicker[0] + '/' + global.boardSevenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.bitstamp.net/markets/' + global.boardSevenTicker[0].toLowerCase() + '/' + global.boardSevenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BITSTAMP%3A' + global.boardSevenTicker[0] + global.boardSevenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard8').innerHTML === 'Bitstamp') {
+                document.getElementById('tboard8').innerHTML = global.boardEightTicker[0] + '/' + global.boardEightTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.bitstamp.net/markets/' + global.boardEightTicker[0].toLowerCase() + '/' + global.boardEightTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BITSTAMP%3A' + global.boardEightTicker[0] + global.boardEightTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard9').innerHTML === 'Bitstamp') {
+                document.getElementById('tboard9').innerHTML = global.boardNineTicker[0] + '/' + global.boardNineTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.bitstamp.net/markets/' + global.boardNineTicker[0].toLowerCase() + '/' + global.boardNineTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BITSTAMP%3A' + global.boardNineTicker[0] + global.boardNineTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard10').innerHTML === 'Bitstamp') {
+                document.getElementById('tboard10').innerHTML = global.boardTenTicker[0] + '/' + global.boardTenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.bitstamp.net/markets/' + global.boardTenTicker[0].toLowerCase() + '/' + global.boardTenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BITSTAMP%3A' + global.boardTenTicker[0] + global.boardTenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard11').innerHTML === 'Bitstamp') {
+                document.getElementById('tboard11').innerHTML = global.boardElevenTicker[0] + '/' + global.boardElevenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.bitstamp.net/markets/' + global.boardElevenTicker[0].toLowerCase() + '/' + global.boardElevenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BITSTAMP%3A' + global.boardElevenTicker[0] + global.boardElevenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard12').innerHTML === 'Bitstamp') {
+                document.getElementById('tboard12').innerHTML = global.boardTwelveTicker[0] + '/' + global.boardTwelveTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.bitstamp.net/markets/' + global.boardTwelveTicker[0].toLowerCase() + '/' + global.boardTwelveTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BITSTAMP%3A' + global.boardTwelveTicker[0] + global.boardTwelveTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard13').innerHTML === 'Bitstamp') {
+                document.getElementById('tboard13').innerHTML = global.boardThirteenTicker[0] + '/' + global.boardThirteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.bitstamp.net/markets/' + global.boardThirteenTicker[0].toLowerCase() + '/' + global.boardThirteenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BITSTAMP%3A' + global.boardThirteenTicker[0] + global.boardThirteenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard14').innerHTML === 'Bitstamp') {
+                document.getElementById('tboard14').innerHTML = global.boardFourteenTicker[0] + '/' + global.boardFourteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.bitstamp.net/markets/' + global.boardFourteenTicker[0].toLowerCase() + '/' + global.boardFourteenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BITSTAMP%3A' + global.boardFourteenTicker[0] + global.boardFourteenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard15').innerHTML === 'Bitstamp') {
+                document.getElementById('tboard15').innerHTML = global.boardFifteenTicker[0] + '/' + global.boardFifteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.bitstamp.net/markets/' + global.boardFifteenTicker[0].toLowerCase() + '/' + global.boardFifteenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BITSTAMP%3A' + global.boardFifteenTicker[0] + global.boardFifteenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard16').innerHTML === 'Bitstamp') {
+                document.getElementById('tboard16').innerHTML = global.boardSixteenTicker[0] + '/' + global.boardSixteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.bitstamp.net/markets/' + global.boardSixteenTicker[0].toLowerCase() + '/' + global.boardSixteenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=BITSTAMP%3A' + global.boardSixteenTicker[0] + global.boardSixteenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        }
+        if (document.getElementById('sboard1').innerHTML === 'Huobi') {
+                document.getElementById('tboard1').innerHTML = global.boardOneTicker[0] + '/' + global.boardOneTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.huobi.com/en-us/exchange/' + global.boardOneTicker[0].toLowerCase() + '_' + global.boardOneTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=HUOBI%3A' + global.boardOneTicker[0] + global.boardOneTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard2').innerHTML === 'Huobi') {
+                document.getElementById('tboard2').innerHTML = global.boardTwoTicker[0] + '/' + global.boardTwoTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.huobi.com/en-us/exchange/' + global.boardTwoTicker[0].toLowerCase() + '_' + global.boardTwoTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=HUOBI%3A' + global.boardTwoTicker[0] + global.boardTwoTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard3').innerHTML === 'Huobi') {
+                document.getElementById('tboard3').innerHTML = global.boardThreeTicker[0] + '/' + global.boardThreeTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.huobi.com/en-us/exchange/' + global.boardThreeTicker[0].toLowerCase() + '_' + global.boardThreeTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=HUOBI%3A' + global.boardThreeTicker[0] + global.boardThreeTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard4').innerHTML === 'Huobi') {
+                document.getElementById('tboard4').innerHTML = global.boardFourTicker[0] + '/' + global.boardFourTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.huobi.com/en-us/exchange/' + global.boardFourTicker[0].toLowerCase() + '_' + global.boardFourTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=HUOBI%3A' + global.boardFourTicker[0] + global.boardFourTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (global.licenseRender === 'true') {
+        if (document.getElementById('sboard5').innerHTML === 'Huobi') {
+                document.getElementById('tboard5').innerHTML = global.boardFiveTicker[0] + '/' + global.boardFiveTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.huobi.com/en-us/exchange/' + global.boardFiveTicker[0].toLowerCase() + '_' + global.boardFiveTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' +  '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=HUOBI%3A' + global.boardFiveTicker[0] + global.boardFiveTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard6').innerHTML === 'Huobi') {
+                document.getElementById('tboard6').innerHTML = global.boardSixTicker[0] + '/' + global.boardSixTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.huobi.com/en-us/exchange/' + global.boardSixTicker[0].toLowerCase() + '_' + global.boardSixTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' +  '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=HUOBI%3A' + global.boardSixTicker[0] + global.boardSixTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard7').innerHTML === 'Huobi') {
+                document.getElementById('tboard7').innerHTML = global.boardSevenTicker[0] + '/' + global.boardSevenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.huobi.com/en-us/exchange/' + global.boardSevenTicker[0].toLowerCase() + '_' + global.boardSevenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=HUOBI%3A' + global.boardSevenTicker[0] + global.boardSevenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard8').innerHTML === 'Huobi') {
+                document.getElementById('tboard8').innerHTML = global.boardEightTicker[0] + '/' + global.boardEightTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.huobi.com/en-us/exchange/' + global.boardEightTicker[0].toLowerCase() + '_' + global.boardEightTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=HUOBI%3A' + global.boardEightTicker[0] + global.boardEightTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard9').innerHTML === 'Huobi') {
+                document.getElementById('tboard9').innerHTML = global.boardNineTicker[0] + '/' + global.boardNineTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.huobi.com/en-us/exchange/' + global.boardNineTicker[0].toLowerCase() + '_' + global.boardNineTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=HUOBI%3A' + global.boardNineTicker[0] + global.boardNineTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard10').innerHTML === 'Huobi') {
+                document.getElementById('tboard10').innerHTML = global.boardTenTicker[0] + '/' + global.boardTenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.huobi.com/en-us/exchange/' + global.boardTenTicker[0].toLowerCase() + '_' + global.boardTenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=HUOBI%3A' + global.boardTenTicker[0] + global.boardTenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard11').innerHTML === 'Huobi') {
+                document.getElementById('tboard11').innerHTML = global.boardElevenTicker[0] + '/' + global.boardElevenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.huobi.com/en-us/exchange/' + global.boardElevenTicker[0].toLowerCase() + '_' + global.boardElevenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=HUOBI%3A' + global.boardElevenTicker[0] + global.boardElevenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard12').innerHTML === 'Huobi') {
+                document.getElementById('tboard12').innerHTML = global.boardTwelveTicker[0] + '/' + global.boardTwelveTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.huobi.com/en-us/exchange/' + global.boardTwelveTicker[0].toLowerCase() + '_' + global.boardTwelveTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=HUOBI%3A' + global.boardTwelveTicker[0] + global.boardTwelveTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard13').innerHTML === 'Huobi') {
+                document.getElementById('tboard13').innerHTML = global.boardThirteenTicker[0] + '/' + global.boardThirteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.huobi.com/en-us/exchange/' + global.boardThirteenTicker[0].toLowerCase() + '_' + global.boardThirteenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=HUOBI%3A' + global.boardThirteenTicker[0] + global.boardThirteenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard14').innerHTML === 'Huobi') {
+                document.getElementById('tboard14').innerHTML = global.boardFourteenTicker[0] + '/' + global.boardFourteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.huobi.com/en-us/exchange/' + global.boardFourteenTicker[0].toLowerCase() + '_' + global.boardFourteenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=HUOBI%3A' + global.boardFourteenTicker[0] + global.boardFourteenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard15').innerHTML === 'Huobi') {
+                document.getElementById('tboard15').innerHTML = global.boardFifteenTicker[0] + '/' + global.boardFifteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.huobi.com/en-us/exchange/' + global.boardFifteenTicker[0].toLowerCase() + '_' + global.boardFifteenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=HUOBI%3A' + global.boardFifteenTicker[0] + global.boardFifteenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard16').innerHTML === 'Huobi') {
+                document.getElementById('tboard16').innerHTML = global.boardSixteenTicker[0] + '/' + global.boardSixteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.huobi.com/en-us/exchange/' + global.boardSixteenTicker[0].toLowerCase() + '_' + global.boardSixteenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=HUOBI%3A' + global.boardSixteenTicker[0] + global.boardSixteenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        }
+        if (document.getElementById('sboard1').innerHTML === 'Coinbase') {
+                document.getElementById('tboard1').innerHTML = global.boardOneTicker[0] + '/' + global.boardOneTicker[1] + '<a onclick=gui.Shell.openExternal("https://pro.coinbase.com/trade/' + global.boardOneTicker[0] + '-' + global.boardOneTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=COINBASE%3A' + global.boardOneTicker[0] + global.boardOneTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard2').innerHTML === 'Coinbase') {
+                document.getElementById('tboard2').innerHTML = global.boardTwoTicker[0] + '/' + global.boardTwoTicker[1] + '<a onclick=gui.Shell.openExternal("https://pro.coinbase.com/trade/' + global.boardTwoTicker[0] + '-' + global.boardTwoTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=COINBASE%3A' + global.boardTwoTicker[0] + global.boardTwoTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard3').innerHTML === 'Coinbase') {
+                document.getElementById('tboard3').innerHTML = global.boardThreeTicker[0] + '/' + global.boardThreeTicker[1] + '<a onclick=gui.Shell.openExternal("https://pro.coinbase.com/trade/' + global.boardThreeTicker[0] + '-' + global.boardThreeTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=COINBASE%3A' + global.boardThreeTicker[0] + global.boardThreeTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard4').innerHTML === 'Coinbase') {
+                document.getElementById('tboard4').innerHTML = global.boardFourTicker[0] + '/' + global.boardFourTicker[1] + '<a onclick=gui.Shell.openExternal("https://pro.coinbase.com/trade/' + global.boardFourTicker[0] + '-' + global.boardFourTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=COINBASE%3A' + global.boardFourTicker[0] + global.boardFourTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (global.licenseRender === 'true') {
+        if (document.getElementById('sboard5').innerHTML === 'Coinbase') {
+                document.getElementById('tboard5').innerHTML = global.boardFiveTicker[0] + '/' + global.boardFiveTicker[1] + '<a onclick=gui.Shell.openExternal("https://pro.coinbase.com/trade/' + global.boardFiveTicker[0] + '-' + global.boardFiveTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' +  '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=COINBASE%3A' + global.boardFiveTicker[0] + global.boardFiveTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard6').innerHTML === 'Coinbase') {
+                document.getElementById('tboard6').innerHTML = global.boardSixTicker[0] + '/' + global.boardSixTicker[1] + '<a onclick=gui.Shell.openExternal("https://pro.coinbase.com/trade/' + global.boardSixTicker[0] + '-' + global.boardSixTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' +  '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=COINBASE%3A' + global.boardSixTicker[0] + global.boardSixTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard7').innerHTML === 'Coinbase') {
+                document.getElementById('tboard7').innerHTML = global.boardSevenTicker[0] + '/' + global.boardSevenTicker[1] + '<a onclick=gui.Shell.openExternal("https://pro.coinbase.com/trade/' + global.boardSevenTicker[0] + '-' + global.boardSevenTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=COINBASE%3A' + global.boardSevenTicker[0] + global.boardSevenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard8').innerHTML === 'Coinbase') {
+                document.getElementById('tboard8').innerHTML = global.boardEightTicker[0] + '/' + global.boardEightTicker[1] + '<a onclick=gui.Shell.openExternal("https://pro.coinbase.com/trade/' + global.boardEightTicker[0] + '-' + global.boardEightTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=COINBASE%3A' + global.boardEightTicker[0] + global.boardEightTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard9').innerHTML === 'Coinbase') {
+                document.getElementById('tboard9').innerHTML = global.boardNineTicker[0] + '/' + global.boardNineTicker[1] + '<a onclick=gui.Shell.openExternal("https://pro.coinbase.com/trade/' + global.boardNineTicker[0] + '-' + global.boardNineTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=COINBASE%3A' + global.boardNineTicker[0] + global.boardNineTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard10').innerHTML === 'Coinbase') {
+                document.getElementById('tboard10').innerHTML = global.boardTenTicker[0] + '/' + global.boardTenTicker[1] + '<a onclick=gui.Shell.openExternal("https://pro.coinbase.com/trade/' + global.boardTenTicker[0] + '-' + global.boardTenTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=COINBASE%3A' + global.boardTenTicker[0] + global.boardTenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard11').innerHTML === 'Coinbase') {
+                document.getElementById('tboard11').innerHTML = global.boardElevenTicker[0] + '/' + global.boardElevenTicker[1] + '<a onclick=gui.Shell.openExternal("https://pro.coinbase.com/trade/' + global.boardElevenTicker[0] + '-' + global.boardElevenTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=COINBASE%3A' + global.boardElevenTicker[0] + global.boardElevenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard12').innerHTML === 'Coinbase') {
+                document.getElementById('tboard12').innerHTML = global.boardTwelveTicker[0] + '/' + global.boardTwelveTicker[1] + '<a onclick=gui.Shell.openExternal("https://pro.coinbase.com/trade/' + global.boardTwelveTicker[0] + '-' + global.boardTwelveTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=COINBASE%3A' + global.boardTwelveTicker[0] + global.boardTwelveTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard13').innerHTML === 'Coinbase') {
+                document.getElementById('tboard13').innerHTML = global.boardThirteenTicker[0] + '/' + global.boardThirteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://pro.coinbase.com/trade/' + global.boardThirteenTicker[0] + '-' + global.boardThirteenTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=COINBASE%3A' + global.boardThirteenTicker[0] + global.boardThirteenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard14').innerHTML === 'Coinbase') {
+                document.getElementById('tboard14').innerHTML = global.boardFourteenTicker[0] + '/' + global.boardFourteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://pro.coinbase.com/trade/' + global.boardFourteenTicker[0] + '-' + global.boardFourteenTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=COINBASE%3A' + global.boardFourteenTicker[0] + global.boardFourteenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard15').innerHTML === 'Coinbase') {
+                document.getElementById('tboard15').innerHTML = global.boardFifteenTicker[0] + '/' + global.boardFifteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://pro.coinbase.com/trade/' + global.boardFifteenTicker[0] + '-' + global.boardFifteenTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=COINBASE%3A' + global.boardFifteenTicker[0] + global.boardFifteenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard16').innerHTML === 'Coinbase') {
+                document.getElementById('tboard16').innerHTML = global.boardSixteenTicker[0] + '/' + global.boardSixteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://pro.coinbase.com/trade/' + global.boardSixteenTicker[0] + '-' + global.boardSixteenTicker[1] + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=COINBASE%3A' + global.boardSixteenTicker[0] + global.boardSixteenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        }
+        if (document.getElementById('sboard1').innerHTML === 'Gemini') {
+                document.getElementById('tboard1').innerHTML = global.boardOneTicker[0] + '/' + global.boardOneTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=GEMINI%3A' + global.boardOneTicker[0] + global.boardOneTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard2').innerHTML === 'Gemini') {
+                document.getElementById('tboard2').innerHTML = global.boardTwoTicker[0] + '/' + global.boardTwoTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=GEMINI%3A' + global.boardTwoTicker[0] + global.boardTwoTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard3').innerHTML === 'Gemini') {
+                document.getElementById('tboard3').innerHTML = global.boardThreeTicker[0] + '/' + global.boardThreeTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=GEMINI%3A' + global.boardThreeTicker[0] + global.boardThreeTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard4').innerHTML === 'Gemini') {
+                document.getElementById('tboard4').innerHTML = global.boardFourTicker[0] + '/' + global.boardFourTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=GEMINI%3A' + global.boardFourTicker[0] + global.boardFourTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (global.licenseRender === 'true') {
+        if (document.getElementById('sboard5').innerHTML === 'Gemini') {
+                document.getElementById('tboard5').innerHTML = global.boardFiveTicker[0] + '/' + global.boardFiveTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=GEMINI%3A' + global.boardFiveTicker[0] + global.boardFiveTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard6').innerHTML === 'Gemini') {
+                document.getElementById('tboard6').innerHTML = global.boardSixTicker[0] + '/' + global.boardSixTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=GEMINI%3A' + global.boardSixTicker[0] + global.boardSixTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard7').innerHTML === 'Gemini') {
+                document.getElementById('tboard7').innerHTML = global.boardSevenTicker[0] + '/' + global.boardSevenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=GEMINI%3A' + global.boardSevenTicker[0] + global.boardSevenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard8').innerHTML === 'Gemini') {
+                document.getElementById('tboard8').innerHTML = global.boardEightTicker[0] + '/' + global.boardEightTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=GEMINI%3A' + global.boardEightTicker[0] + global.boardEightTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard9').innerHTML === 'Gemini') {
+                document.getElementById('tboard9').innerHTML = global.boardNineTicker[0] + '/' + global.boardNineTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=GEMINI%3A' + global.boardNineTicker[0] + global.boardNineTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard10').innerHTML === 'Gemini') {
+                document.getElementById('tboard10').innerHTML = global.boardTenTicker[0] + '/' + global.boardTenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=GEMINI%3A' + global.boardTenTicker[0] + global.boardTenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard11').innerHTML === 'Gemini') {
+                document.getElementById('tboard11').innerHTML = global.boardElevenTicker[0] + '/' + global.boardElevenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=GEMINI%3A' + global.boardElevenTicker[0] + global.boardElevenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard12').innerHTML === 'Gemini') {
+                document.getElementById('tboard12').innerHTML = global.boardTwelveTicker[0] + '/' + global.boardTwelveTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=GEMINI%3A' + global.boardTwelveTicker[0] + global.boardTwelveTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard13').innerHTML === 'Gemini') {
+                document.getElementById('tboard13').innerHTML = global.boardThirteenTicker[0] + '/' + global.boardThirteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=GEMINI%3A' + global.boardThirteenTicker[0] + global.boardThirteenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard14').innerHTML === 'Gemini') {
+                document.getElementById('tboard14').innerHTML = global.boardFourteenTicker[0] + '/' + global.boardFourteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=GEMINI%3A' + global.boardFourteenTicker[0] + global.boardFourteenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard15').innerHTML === 'Gemini') {
+                document.getElementById('tboard15').innerHTML = global.boardFifteenTicker[0] + '/' + global.boardFifteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=GEMINI%3A' + global.boardFifteenTicker[0] + global.boardFifteenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard16').innerHTML === 'Gemini') {
+                document.getElementById('tboard16').innerHTML = global.boardSixteenTicker[0] + '/' + global.boardSixteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=GEMINI%3A' + global.boardSixteenTicker[0] + global.boardSixteenTicker[1] + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        }
+        if (document.getElementById('sboard1').innerHTML === 'OKEx') {
+                document.getElementById('tboard1').innerHTML = global.boardOneTicker[0] + '/' + global.boardOneTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.okex.com/spot/trade/' + global.boardOneTicker[0].toLowerCase() + '-' + global.boardOneTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=OKEX%3A' + global.boardOneTicker[0] + global.boardOneTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard2').innerHTML === 'OKEx') {
+                document.getElementById('tboard2').innerHTML = global.boardTwoTicker[0] + '/' + global.boardTwoTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.okex.com/spot/trade/' + global.boardTwoTicker[0].toLowerCase() + '-' + global.boardTwoTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=OKEX%3A' + global.boardTwoTicker[0] + global.boardTwoTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard3').innerHTML === 'OKEx') {
+                document.getElementById('tboard3').innerHTML = global.boardThreeTicker[0] + '/' + global.boardThreeTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.okex.com/spot/trade/' + global.boardThreeTicker[0].toLowerCase() + '-' + global.boardThreeTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=OKEX%3A' + global.boardThreeTicker[0] + global.boardThreeTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard4').innerHTML === 'OKEx') {
+                document.getElementById('tboard4').innerHTML = global.boardFourTicker[0] + '/' + global.boardFourTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.okex.com/spot/trade/' + global.boardFourTicker[0].toLowerCase() + '-' + global.boardFourTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=OKEX%3A' + global.boardFourTicker[0] + global.boardFourTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (global.licenseRender === 'true') {
+        if (document.getElementById('sboard5').innerHTML === 'OKEx') {
+                document.getElementById('tboard5').innerHTML = global.boardFiveTicker[0] + '/' + global.boardFiveTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.okex.com/spot/trade/' + global.boardFiveTicker[0].toLowerCase() + '-' + global.boardFiveTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' +  '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=OKEX%3A' + global.boardFiveTicker[0] + global.boardFiveTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard6').innerHTML === 'OKEx') {
+                document.getElementById('tboard6').innerHTML = global.boardSixTicker[0] + '/' + global.boardSixTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.okex.com/spot/trade/' + global.boardSixTicker[0].toLowerCase() + '-' + global.boardSixTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' +  '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=OKEX%3A' + global.boardSixTicker[0] + global.boardSixTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard7').innerHTML === 'OKEx') {
+                document.getElementById('tboard7').innerHTML = global.boardSevenTicker[0] + '/' + global.boardSevenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.okex.com/spot/trade/' + global.boardSevenTicker[0].toLowerCase() + '-' + global.boardSevenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=OKEX%3A' + global.boardSevenTicker[0] + global.boardSevenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard8').innerHTML === 'OKEx') {
+                document.getElementById('tboard8').innerHTML = global.boardEightTicker[0] + '/' + global.boardEightTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.okex.com/spot/trade/' + global.boardEightTicker[0].toLowerCase() + '-' + global.boardEightTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=OKEX%3A' + global.boardEightTicker[0] + global.boardEightTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard9').innerHTML === 'OKEx') {
+                document.getElementById('tboard9').innerHTML = global.boardNineTicker[0] + '/' + global.boardNineTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.okex.com/spot/trade/' + global.boardNineTicker[0].toLowerCase() + '-' + global.boardNineTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=OKEX%3A' + global.boardNineTicker[0] + global.boardNineTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard10').innerHTML === 'OKEx') {
+                document.getElementById('tboard10').innerHTML = global.boardTenTicker[0] + '/' + global.boardTenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.okex.com/spot/trade/' + global.boardTenTicker[0].toLowerCase() + '-' + global.boardTenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=OKEX%3A' + global.boardTenTicker[0] + global.boardTenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard11').innerHTML === 'OKEx') {
+                document.getElementById('tboard11').innerHTML = global.boardElevenTicker[0] + '/' + global.boardElevenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.okex.com/spot/trade/' + global.boardElevenTicker[0].toLowerCase() + '-' + global.boardElevenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=OKEX%3A' + global.boardElevenTicker[0] + global.boardElevenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard12').innerHTML === 'OKEx') {
+                document.getElementById('tboard12').innerHTML = global.boardTwelveTicker[0] + '/' + global.boardTwelveTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.okex.com/spot/trade/' + global.boardTwelveTicker[0].toLowerCase() + '-' + global.boardTwelveTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=OKEX%3A' + global.boardTwelveTicker[0] + global.boardTwelveTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard13').innerHTML === 'OKEx') {
+                document.getElementById('tboard13').innerHTML = global.boardThirteenTicker[0] + '/' + global.boardThirteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.okex.com/spot/trade/' + global.boardThirteenTicker[0].toLowerCase() + '-' + global.boardThirteenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=OKEX%3A' + global.boardThirteenTicker[0] + global.boardThirteenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard14').innerHTML === 'OKEx') {
+                document.getElementById('tboard14').innerHTML = global.boardFourteenTicker[0] + '/' + global.boardFourteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.okex.com/spot/trade/' + global.boardFourteenTicker[0].toLowerCase() + '-' + global.boardFourteenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=OKEX%3A' + global.boardFourteenTicker[0] + global.boardFourteenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard15').innerHTML === 'OKEx') {
+                document.getElementById('tboard15').innerHTML = global.boardFifteenTicker[0] + '/' + global.boardFifteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.okex.com/spot/trade/' + global.boardFifteenTicker[0].toLowerCase() + '-' + global.boardFifteenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=OKEX%3A' + global.boardFifteenTicker[0] + global.boardFifteenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        if (document.getElementById('sboard16').innerHTML === 'OKEx') {
+                document.getElementById('tboard16').innerHTML = global.boardSixteenTicker[0] + '/' + global.boardSixteenTicker[1] + '<a onclick=gui.Shell.openExternal("https://www.okex.com/spot/trade/' + global.boardSixteenTicker[0].toLowerCase() + '-' + global.boardSixteenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="push"></a>' + '<a onclick=gui.Shell.openExternal("https://www.tradingview.com/chart?symbol=OKEX%3A' + global.boardSixteenTicker[0] + global.boardSixteenTicker[1].toLowerCase() + '") class="uk-icon-link" uk-icon="cloud-upload"></a>'
+        }
+        }
+      }, 2000)
+    </script>
+</body>
+
+</html>

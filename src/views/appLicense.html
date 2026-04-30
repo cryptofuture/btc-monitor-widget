@@ -1,0 +1,169 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../styles/uikit/css/uikit.min.css" />
+    <link rel="stylesheet" href="../styles/main/css/scrollbar.css" />
+    <script src="../styles/uikit/js/uikit.min.js"></script>
+    <script src="../styles/uikit/js/uikit-icons.min.js"></script>
+    <script src="../app/index.js"></script>
+    <script src="../styles/art/js/template-web.js"></script>
+</head>
+
+<body>
+    <div id="content"></div>
+    <script id="template" type="text/html">
+        <div class="uk-section" id="select">
+            <div class="uk-container">
+            <form>
+                <fieldset class="uk-fieldset">
+                    <legend class="uk-legend">{{selectLicense}}</legend>
+
+                    <div class="uk-margin">
+                        <select id="type" onchange="rememberSelectionTls(this)" class="uk-select">
+                            <option value="pro">Bitcoin Monitor Widget Pro</option>
+                            <option value="supporter">Bitcoin Monitor Widget Pro Supporter Pack</option>
+                        </select>
+                    </div>
+
+                    <legend class="uk-legend">Email</legend>
+
+                     <div class="uk-margin">
+                        <input type="email" id="email" class="uk-input" placeholder="Email">
+                    </div>
+
+                    <p uk-margin>
+                        <button onclick="prefs.createLicense(document.getElementById('type').value, document.getElementById('email').value)" class="uk-button uk-button-primary">{{createLicense}}</button>
+                    </p>
+                    {{if licenseRender === 'false'}}
+                    <p uk-margin>
+                        <button onclick="prefs.restoreLicense(document.getElementById('email').value)" class="uk-button uk-button-secondary">{{restoreLicense}}</button>
+                    </p>
+                    {{/if}}
+                </fieldset>
+            </form>
+        </div>
+        </div>
+        <div class="uk-section" id="verify" style="display: none;">
+            <div class="uk-container">
+            <form>
+                <fieldset class="uk-fieldset">
+                    <legend class="uk-legend">{{verifyEmail}}</legend>
+
+                     <div class="uk-margin">
+                        <input type="text" id="code" class="uk-input" placeholder="{{emailVerifyCode}}">
+                    </div>
+
+                    <p uk-margin>
+                        <button onclick="prefs.emailConfirm(document.getElementById('code').value)" class="uk-button uk-button-primary">{{verifyEmail}}</button>
+                    </p>
+                     <p uk-margin>
+                        <button onclick="prefs.resendEmail()" class="uk-button uk-button-primary">{{resendEmail}}</button>
+                    </p>
+                </fieldset>
+            </form>
+        </div>
+        </div>
+
+        <div class="uk-section" id="verifyAgain" style="display: none;">
+            <div class="uk-container">
+            <form>
+                <fieldset class="uk-fieldset">
+                    <legend class="uk-legend">{{verifyEmail}}</legend>
+
+                     <div class="uk-margin">
+                        <input type="text" id="codeTwo" class="uk-input" placeholder="{{emailVerifyCode}}">
+                    </div>
+
+                    <p uk-margin>
+                        <button onclick="prefs.emailConfirmAgain(document.getElementById('codeTwo').value)" class="uk-button uk-button-primary">{{verifyEmail}}</button>
+                    </p>
+                </fieldset>
+            </form>
+        </div>
+        </div>
+
+        <div class="uk-section" id="status" style="display: none;">
+            <div class="uk-container">
+            <form>
+                <fieldset class="uk-fieldset">
+                    <legend id="licenseStatus" class="uk-legend">{{licenseStatus}}</legend>
+
+                    <div class="uk-margin">
+                        <input id="emailStatus" type="text" class="uk-input" placeholder="Email">
+                    </div>
+
+                    <div class="uk-margin">
+                        <input id="createdStatus" type="text" class="uk-input" placeholder="{{created}}" disabled>
+                    </div>
+
+                    <div class="uk-margin">
+                        <input id="typeStatus" type="text" class="uk-input" placeholder="{{licenseType}}" disabled>
+                    </div>
+
+                    <div class="uk-margin">
+                        <input id="verifiedStatus" type="text" class="uk-input" placeholder="{{emailVerified}}" disabled>
+                    </div>
+
+                     <p uk-margin>
+                        <button onclick="prefs.changeEmail(global.licenseWindow.window.document.getElementById('emailStatus').value)" class="uk-button uk-button-primary">Change Email</button>
+                        <div id="statusLicenseNotice" style="display: none;" uk-alert>{{considerUse}}</div>
+                         <button id="statusLicenseBtn" style="display: none;" onclick="gui.Window.open('https://btcwid.com/pro', {position: 'center', width: 1280, height: 1200})" class="uk-button uk-button-secondary">{{buyLicense}}</button>
+                    </p>
+                </fieldset>
+            </form>
+        </div>
+        </div>
+</script>
+<script>
+    var data = {
+        licenseRender: global.licenseRender,
+        stylesFile: global.stylesFile,
+        selectLicense: lang.echo('Select License'),
+        createLicense: lang.echo('Create License'),
+        verifyEmail: lang.echo('Verify Email'),
+        emailVerifyCode: lang.echo('Email verification code'),
+        resendEmail: lang.echo('Resend Email'),
+        licenseStatus: lang.echo('License Status'),
+        created: lang.echo('Created'),
+        licenseType: lang.echo('License Type'),
+        emailVerified: lang.echo('Email Verified'),
+        considerUse: lang.echo('Consider to use the same email for the payment as for the license.'),
+        buyLicense: lang.echo('Buy License'),
+        restoreLicense: lang.echo('Restore License')
+    }
+    var win = nw.Window.get()
+    global.licenseWindow = win
+    win.menu = null
+    prefs.licenseStatus().then((status) => {
+        if (status !== false) {
+        var license
+        global.licenseWindow.window.document.getElementById('select').style.display = 'none'
+        global.licenseWindow.window.document.getElementById('status').style.display = 'block'
+        global.licenseWindow.window.document.getElementById('emailStatus').value = status.email
+        global.licenseWindow.window.document.getElementById('createdStatus').value = status.created
+        global.licenseWindow.window.document.getElementById('typeStatus').value = status.type
+        global.licenseWindow.window.document.getElementById('verifiedStatus').value = status.verified
+        if (status.status === true) {
+        license = 'check'
+        global.licenseWindow.window.document.getElementById('statusLicenseBtn').style.display = 'none'
+        global.licenseWindow.window.document.getElementById('statusLicenseNotice').style.display = 'none'
+        } else {
+        license = 'ban'
+        global.licenseWindow.window.document.getElementById('statusLicenseBtn').style.display = 'block'
+        global.licenseWindow.window.document.getElementById('statusLicenseNotice').style.display = 'block'
+        }
+        global.licenseWindow.window.document.getElementById('licenseStatus').setAttribute("uk-icon", license)
+        }
+        
+      
+    })
+    var html = template('template', data)
+    document.getElementById('content').innerHTML = html
+    document.title = 'Bitcoin Monitor Widget License'
+    </script>
+</body>
+
+</html>

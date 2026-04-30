@@ -1,0 +1,738 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="refresh" content="15"> 
+    <link rel="stylesheet" href="../styles/uikit/css/uikit.min.css" />
+    <script src="../styles/uikit/js/uikit.min.js"></script>
+    <script src="../styles/uikit/js/uikit-icons.min.js"></script>
+    <script src="../app/index.js"></script>
+    <script src="../styles/art/js/template-web.js"></script>
+</head>
+
+<body>
+    <div id="content"></div>
+    <script id="template" type="text/html">
+        <style>{{stylesFile}}</style>
+        <div class="uk-section">
+            <div class="uk-container">
+                <div class="uk-overflow-auto">
+                    <table style="cursor: pointer" class="uk-table uk-table-hover uk-table-middle uk-table-divider">
+                        <div uk-alert>{{updEvery}}<b>15 {{seconds}}</b><br>
+                        <b>{{clickRow}}</b> {{changeAlarmStatus}} (<b>{{enableDisable}}</b>)</div>
+                        <thead>
+                            <tr>
+                                <th class="uk-table-shrink">{{pair}}</th>
+                                <th class="uk-table-shrink">{{currentVal}}</th>
+                                <th class="uk-table-shrink">{{compVal}}</th>
+                                <th class="uk-table-shrink">{{siqn}}</th>
+                                <th class="uk-table-shrink">{{status}}</th>
+                                <th class="uk-table-shrink"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr onclick="prefs.disableOrEnableBoardAlarm('1')">
+                                <td class="uk-text-truncate">{{boardOneTicker[0]}}/{{boardOneTicker[1]}}</td>
+                                <td class="uk-text-truncate">{{board1}}</td>
+                                <td class="uk-text-truncate">{{boardOneAlarm[0]}}{{boardOneAlarm[3]}}</td>
+                                <td class="uk-text-truncate">{{boardOneAlarmSign}}</td>
+                                <td class="uk-text-truncate">{{boardOneAlarmStatus}}</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr onclick="prefs.disableOrEnableBoardAlarm('2')">
+                                <td class="uk-text-truncate">{{boardTwoTicker[0]}}/{{boardTwoTicker[1]}}</td>
+                                <td class="uk-text-truncate">{{board2}}</td>
+                                <td class="uk-text-truncate">{{boardTwoAlarm[0]}}{{boardTwoAlarm[3]}}</td>
+                                <td class="uk-text-truncate">{{boardTwoAlarmSign}}</td>
+                                <td class="uk-text-truncate">{{boardTwoAlarmStatus}}</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr onclick="prefs.disableOrEnableBoardAlarm('3')">
+                                <td class="uk-text-truncate">{{boardThreeTicker[0]}}/{{boardThreeTicker[1]}}</td>
+                                <td class="uk-text-truncate">{{board3}}</td>
+                                <td class="uk-text-truncate">{{boardThreeAlarm[0]}}{{boardThreeAlarm[3]}}</td>
+                                <td class="uk-text-truncate">{{boardThreeAlarmSign}}</td>
+                                <td class="uk-text-truncate">{{boardThreeAlarmStatus}}</td>
+                            </tr>
+                        </thead>
+                        {{if licenseRender === 'true'}}
+                        <tbody>
+                            <tr onclick="prefs.disableOrEnableBoardAlarm('4')">
+                                <td class="uk-text-truncate">{{boardFourTicker[0]}}/{{boardFourTicker[1]}}</td>
+                                <td class="uk-text-truncate">{{board4}}</td>
+                                <td class="uk-text-truncate">{{boardFourAlarm[0]}}{{boardFourAlarm[3]}}</td>
+                                <td class="uk-text-truncate">{{boardFourAlarmSign}}</td>
+                                <td class="uk-text-truncate">{{boardFourAlarmStatus}}</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr onclick="prefs.disableOrEnableBoardAlarm('5')">
+                                <td class="uk-text-truncate">{{boardFiveTicker[0]}}/{{boardFiveTicker[1]}}</td>
+                                <td class="uk-text-truncate">{{board5}}</td>
+                                <td class="uk-text-truncate">{{boardFiveAlarm[0]}}{{boardFiveAlarm[3]}}</td>
+                                <td class="uk-text-truncate">{{boardFiveAlarmSign}}</td>
+                                <td class="uk-text-truncate">{{boardFiveAlarmStatus}}</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr onclick="prefs.disableOrEnableBoardAlarm('6')">
+                                <td class="uk-text-truncate">{{boardSixTicker[0]}}/{{boardSixTicker[1]}}</td>
+                                <td class="uk-text-truncate">{{board6}}</td>
+                                <td class="uk-text-truncate">{{boardSixAlarm[0]}}{{boardSixAlarm[3]}}</td>
+                                <td class="uk-text-truncate">{{boardSixAlarmSign}}</td>
+                                <td class="uk-text-truncate">{{boardSixAlarmStatus}}</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr onclick="prefs.disableOrEnableBoardAlarm('7')">
+                                <td class="uk-text-truncate">{{boardSevenTicker[0]}}/{{boardSevenTicker[1]}}</td>
+                                <td class="uk-text-truncate">{{board7}}</td>
+                                <td class="uk-text-truncate">{{boardSevenAlarm[0]}}{{boardSevenAlarm[3]}}</td>
+                                <td class="uk-text-truncate">{{boardSevenAlarmSign}}</td>
+                                <td class="uk-text-truncate">{{boardSevenAlarmStatus}}</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr onclick="prefs.disableOrEnableBoardAlarm('8')">
+                                <td class="uk-text-truncate">{{boardEightTicker[0]}}/{{boardEightTicker[1]}}</td>
+                                <td class="uk-text-truncate">{{board8}}</td>
+                                <td class="uk-text-truncate">{{boardEightAlarm[0]}}{{boardEightAlarm[3]}}</td>
+                                <td class="uk-text-truncate">{{boardEightAlarmSign}}</td>
+                                <td class="uk-text-truncate">{{boardEightAlarmStatus}}</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr onclick="prefs.disableOrEnableBoardAlarm('9')">
+                                <td class="uk-text-truncate">{{boardNineTicker[0]}}/{{boardNineTicker[1]}}</td>
+                                <td class="uk-text-truncate">{{board9}}</td>
+                                <td class="uk-text-truncate">{{boardNineAlarm[0]}}{{boardNineAlarm[3]}}</td>
+                                <td class="uk-text-truncate">{{boardNineAlarmSign}}</td>
+                                <td class="uk-text-truncate">{{boardNineAlarmStatus}}</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr onclick="prefs.disableOrEnableBoardAlarm('10')">
+                                <td class="uk-text-truncate">{{boardTenTicker[0]}}/{{boardTenTicker[1]}}</td>
+                                <td class="uk-text-truncate">{{board10}}</td>
+                                <td class="uk-text-truncate">{{boardTenAlarm[0]}}{{boardTenAlarm[3]}}</td>
+                                <td class="uk-text-truncate">{{boardTenAlarmSign}}</td>
+                                <td class="uk-text-truncate">{{boardNineAlarmStatus}}</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr onclick="prefs.disableOrEnableBoardAlarm('11')">
+                                <td class="uk-text-truncate">{{boardElevenTicker[0]}}/{{boardElevenTicker[1]}}</td>
+                                <td class="uk-text-truncate">{{board11}}</td>
+                                <td class="uk-text-truncate">{{boardElevenAlarm[0]}}{{boardElevenAlarm[3]}}</td>
+                                <td class="uk-text-truncate">{{boardElevenAlarmSign}}</td>
+                                <td class="uk-text-truncate">{{boardElevenAlarmStatus}}</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr onclick="prefs.disableOrEnableBoardAlarm('12')">
+                                <td class="uk-text-truncate">{{boardTwelveTicker[0]}}/{{boardTwelveTicker[1]}}</td>
+                                <td class="uk-text-truncate">{{board12}}</td>
+                                <td class="uk-text-truncate">{{boardTwelveAlarm[0]}}{{boardTwelveAlarm[3]}}</td>
+                                <td class="uk-text-truncate">{{boardTwelveAlarmSign}}</td>
+                                <td class="uk-text-truncate">{{boardTwelveAlarmStatus}}</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr onclick="prefs.disableOrEnableBoardAlarm('13')">
+                                <td class="uk-text-truncate">{{boardThirteenTicker[0]}}/{{boardThirteenTicker[1]}}</td>
+                                <td class="uk-text-truncate">{{board13}}</td>
+                                <td class="uk-text-truncate">{{boardThirteenAlarm[0]}}{{boardThirteenAlarm[3]}}</td>
+                                <td class="uk-text-truncate">{{boardThirteenAlarmSign}}</td>
+                                <td class="uk-text-truncate">{{boardThirteenAlarmStatus}}</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr onclick="prefs.disableOrEnableBoardAlarm('14')">
+                                <td class="uk-text-truncate">{{boardFourteenTicker[0]}}/{{boardFourteenTicker[1]}}</td>
+                                <td class="uk-text-truncate">{{board14}}</td>
+                                <td class="uk-text-truncate">{{boardFourteenAlarm[0]}}{{boardFourteenAlarm[3]}}</td>
+                                <td class="uk-text-truncate">{{boardFourteenAlarmSign}}</td>
+                                <td class="uk-text-truncate">{{boardFourteenAlarmStatus}}</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr onclick="prefs.disableOrEnableBoardAlarm('15')">
+                                <td class="uk-text-truncate">{{boardFifteenTicker[0]}}/{{boardFifteenTicker[1]}}</td>
+                                <td class="uk-text-truncate">{{board15}}</td>
+                                <td class="uk-text-truncate">{{boardFifteenAlarm[0]}}{{boardFifteenAlarm[3]}}</td>
+                                <td class="uk-text-truncate">{{boardFourteenAlarmSign}}</td>
+                                <td class="uk-text-truncate">{{boardFifteenAlarmStatus}}</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr onclick="prefs.disableOrEnableBoardAlarm('16')">
+                                <td class="uk-text-truncate">{{boardSixteenTicker[0]}}/{{boardSixteenTicker[1]}}</td>
+                                <td class="uk-text-truncate">{{board16}}</td>
+                                <td class="uk-text-truncate">{{boardSixteenAlarm[0]}}{{boardSixteenAlarm[3]}}</td>
+                                <td class="uk-text-truncate">{{boardSixteenAlarmSign}}</td>
+                                <td class="uk-text-truncate">{{boardSixteenAlarmStatus}}</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {{/if}}
+                    </table>
+                </div>
+        </div>
+        </div>
+</script>
+<script>
+    var boardOneAlarmSign
+    var boardTwoAlarmSign
+    var boardThreeAlarmSign
+    var boardFourAlarmSign
+    var boardFiveAlarmSign
+    var boardSixAlarmSign
+    var boardSevenAlarmSign
+    var boardEightAlarmSign
+    var boardNineAlarmSign
+    var boardTenAlarmSign
+    var boardElevenAlarmSign
+    var boardTwelveAlarmSign
+    var boardThirteenAlarmSign
+    var boardFourteenAlarmSign
+    var boardFifteenAlarmSign
+    var boardSixteenAlarmSign
+    var boardOneAlarmStatus
+    var boardTwoAlarmStatus
+    var boardThreeAlarmStatus
+    var boardFourAlarmStatus
+    var boardFiveAlarmStatus
+    var boardSixAlarmStatus
+    var boardSevenAlarmStatus
+    var boardEightAlarmStatus
+    var boardNineAlarmStatus
+    var boardTenAlarmStatus
+    var boardElevenAlarmStatus
+    var boardTwelveAlarmStatus
+    var boardThirteenAlarmStatus
+    var boardFourteenAlarmStatus
+    var boardFifteenAlarmStatus
+    var boardSixteenAlarmStatus
+    if (global.boardOneAlarm[1] === 'moreEqual'){
+    boardOneAlarmSign = '>='
+    }
+    if (global.boardOneAlarm[1] === 'less'){
+    boardOneAlarmSign = '<'
+    }
+    if (global.boardOneAlarm[1] === 'more'){
+    boardOneAlarmSign = '>'
+    }
+    if (global.boardOneAlarm[1] === 'lessEqual'){
+    boardOneAlarmSign = '<='
+    }
+    if (global.boardOneAlarm[1] === 'equal'){
+    boardOneAlarmSign = '='
+    }
+    if (global.boardOneAlarm[1] === 'date'){
+    boardOneAlarmSign = lang.echo('date')
+    }
+    if (global.boardTwoAlarm[1] === 'moreEqual'){
+    boardTwoAlarmSign = '>='
+    }
+    if (global.boardTwoAlarm[1] === 'less'){
+    boardTwoAlarmSign = '<'
+    }
+    if (global.boardTwoAlarm[1] === 'more'){
+    boardTwoAlarmSign = '>'
+    }
+    if (global.boardTwoAlarm[1] === 'lessEqual'){
+    boardTwoAlarmSign = '<='
+    }
+    if (global.boardTwoAlarm[1] === 'equal'){
+    boardTwoAlarmSign = '='
+    }
+    if (global.boardTwoAlarm[1] === 'date'){
+    boardTwoAlarmSign = lang.echo('date')
+    }
+    if (global.boardThreeAlarm[1] === 'moreEqual'){
+    boardThreeAlarmSign = '>='
+    }
+    if (global.boardThreeAlarm[1] === 'less'){
+    boardThreeAlarmSign = '<'
+    }
+    if (global.boardThreeAlarm[1] === 'more'){
+    boardThreeAlarmSign = '>'
+    }
+    if (global.boardThreeAlarm[1] === 'lessEqual'){
+    boardThreeAlarmSign = '<='
+    }
+    if (global.boardThreeAlarm[1] === 'equal'){
+    boardThreeAlarmSign = '='
+    }
+    if (global.boardThreeAlarm[1] === 'date'){
+    boardThreeAlarmSign = lang.echo('date')
+    }
+    if (global.boardFourAlarm[1] === 'moreEqual'){
+    boardFourAlarmSign = '>='
+    }
+    if (global.boardFourAlarm[1] === 'less'){
+    boardFourAlarmSign = '<'
+    }
+    if (global.boardFourAlarm[1] === 'more'){
+    boardFourAlarmSign = '>'
+    }
+    if (global.boardFourAlarm[1] === 'lessEqual'){
+    boardFourAlarmSign = '<='
+    }
+    if (global.boardFourAlarm[1] === 'equal'){
+    boardFourAlarmSign = '='
+    }
+    if (global.boardFourAlarm[1] === 'date'){
+    boardFourAlarmSign = lang.echo('date')
+    }
+    if (global.licenseRender === 'true') {
+    if (global.boardFiveAlarm[1] === 'moreEqual'){
+    boardFiveAlarmSign = '>='
+    }
+    if (global.boardFiveAlarm[1] === 'less'){
+    boardFiveAlarmSign = '<'
+    }
+    if (global.boardFiveAlarm[1] === 'more'){
+    boardFiveAlarmSign = '>'
+    }
+    if (global.boardFiveAlarm[1] === 'lessEqual'){
+    boardFiveAlarmSign = '<='
+    }
+    if (global.boardFiveAlarm[1] === 'equal'){
+    boardFiveAlarmSign = '='
+    }
+    if (global.boardFiveAlarm[1] === 'date'){
+    boardFiveAlarmSign = lang.echo('date')
+    }
+    if (global.boardSixAlarm[1] === 'moreEqual'){
+    boardSixAlarmSign = '>='
+    }
+    if (global.boardSixAlarm[1] === 'less'){
+    boardSixAlarmSign = '<'
+    }
+    if (global.boardSixAlarm[1] === 'more'){
+    boardSixAlarmSign = '>'
+    }
+    if (global.boardSixAlarm[1] === 'lessEqual'){
+    boardSixAlarmSign = '<='
+    }
+    if (global.boardSixAlarm[1] === 'equal'){
+    boardSixAlarmSign = '='
+    }
+    if (global.boardSixAlarm[1] === 'date'){
+    boardSixAlarmSign = lang.echo('date')
+    }
+    if (global.boardSevenAlarm[1] === 'moreEqual'){
+    boardSevenAlarmSign = '>='
+    }
+    if (global.boardSevenAlarm[1] === 'less'){
+    boardSevenAlarmSign = '<'
+    }
+    if (global.boardSevenAlarm[1] === 'more'){
+    boardSevenAlarmSign = '>'
+    }
+    if (global.boardSevenAlarm[1] === 'lessEqual'){
+    boardSevenAlarmSign = '<='
+    }
+    if (global.boardSevenAlarm[1] === 'equal'){
+    boardSevenAlarmSign = '='
+    }
+    if (global.boardSevenAlarm[1] === 'date'){
+    boardSevenAlarmSign = lang.echo('date')
+    }
+    if (global.boardEightAlarm[1] === 'moreEqual'){
+    boardEightAlarmSign = '>='
+    }
+    if (global.boardEightAlarm[1] === 'less'){
+    boardEightAlarmSign = '<'
+    }
+    if (global.boardEightAlarm[1] === 'more'){
+    boardEightAlarmSign = '>'
+    }
+    if (global.boardEightAlarm[1] === 'lessEqual'){
+    boardEightAlarmSign = '<='
+    }
+    if (global.boardEightAlarm[1] === 'equal'){
+    boardEightAlarmSign = '='
+    }
+    if (global.boardEightAlarm[1] === 'date'){
+    boardEightAlarmSign = lang.echo('date')
+    }
+    if (global.boardNineAlarm[1] === 'moreEqual'){
+    boardNineAlarmSign = '>='
+    }
+    if (global.boardNineAlarm[1] === 'less'){
+    boardNineAlarmSign = '<'
+    }
+    if (global.boardNineAlarm[1] === 'more'){
+    boardNineAlarmSign = '>'
+    }
+    if (global.boardNineAlarm[1] === 'lessEqual'){
+    boardNineAlarmSign = '<='
+    }
+    if (global.boardNineAlarm[1] === 'equal'){
+    boardNineAlarmSign = '='
+    }
+    if (global.boardNineAlarm[1] === 'date'){
+    boardNineAlarmSign = lang.echo('date')
+    }
+    if (global.boardTenAlarm[1] === 'moreEqual'){
+    boardTenAlarmSign = '>='
+    }
+    if (global.boardTenAlarm[1] === 'less'){
+    boardTenAlarmSign = '<'
+    }
+    if (global.boardTenAlarm[1] === 'more'){
+    boardTenAlarmSign = '>'
+    }
+    if (global.boardTenAlarm[1] === 'lessEqual'){
+    boardTenAlarmSign = '<='
+    }
+    if (global.boardTenAlarm[1] === 'equal'){
+    boardTenAlarmSign = '='
+    }
+    if (global.boardTenAlarm[1] === 'date'){
+    boardTenAlarmSign = lang.echo('date')
+    }
+    if (global.boardElevenAlarm[1] === 'moreEqual'){
+    boardElevenAlarmSign = '>='
+    }
+    if (global.boardElevenAlarm[1] === 'less'){
+    boardElevenAlarmSign = '<'
+    }
+    if (global.boardElevenAlarm[1] === 'more'){
+    boardElevenAlarmSign = '>'
+    }
+    if (global.boardElevenAlarm[1] === 'lessEqual'){
+    boardElevenAlarmSign = '<='
+    }
+    if (global.boardElevenAlarm[1] === 'equal'){
+    boardElevenAlarmSign = '='
+    }
+    if (global.boardElevenAlarm[1] === 'date'){
+    boardElevenAlarmSign = lang.echo('date')
+    }
+    if (global.boardTwelveAlarm[1] === 'moreEqual'){
+    boardTwelveAlarmSign = '>='
+    }
+    if (global.boardTwelveAlarm[1] === 'less'){
+    boardTwelveAlarmSign = '<'
+    }
+    if (global.boardTwelveAlarm[1] === 'more'){
+    boardTwelveAlarmSign = '>'
+    }
+    if (global.boardTwelveAlarm[1] === 'lessEqual'){
+    boardTwelveAlarmSign = '<='
+    }
+    if (global.boardTwelveAlarm[1] === 'equal'){
+    boardTwelveAlarmSign = '='
+    }
+    if (global.boardTwelveAlarm[1] === 'date'){
+    boardTwelveAlarmSign = lang.echo('date')
+    }
+    if (global.boardThirteenAlarm[1] === 'moreEqual'){
+    boardThirteenAlarmSign = '>='
+    }
+    if (global.boardThirteenAlarm[1] === 'less'){
+    boardThirteenAlarmSign = '<'
+    }
+    if (global.boardThirteenAlarm[1] === 'more'){
+    boardThirteenAlarmSign = '>'
+    }
+    if (global.boardThirteenAlarm[1] === 'lessEqual'){
+    boardThirteenAlarmSign = '<='
+    }
+    if (global.boardThirteenAlarm[1] === 'equal'){
+    boardThirteenAlarmSign = '='
+    }
+    if (global.boardThirteenAlarm[1] === 'date'){
+    boardThirteenAlarmSign = lang.echo('date')
+    }
+    if (global.boardFourteenAlarm[1] === 'moreEqual'){
+    boardFourteenAlarmSign = '>='
+    }
+    if (global.boardFourteenAlarm[1] === 'less'){
+    boardFourteenAlarmSign = '<'
+    }
+    if (global.boardFourteenAlarm[1] === 'more'){
+    boardFourteenAlarmSign = '>'
+    }
+    if (global.boardFourteenAlarm[1] === 'lessEqual'){
+    boardFourteenAlarmSign = '<='
+    }
+    if (global.boardFourteenAlarm[1] === 'equal'){
+    boardFourteenAlarmSign = '='
+    }
+    if (global.boardFourteenAlarm[1] === 'date'){
+    boardFourteenAlarmSign = lang.echo('date')
+    }
+    if (global.boardFifteenAlarm[1] === 'moreEqual'){
+    boardFifteenAlarmSign = '>='
+    }
+    if (global.boardFifteenAlarm[1] === 'less'){
+    boardFifteenAlarmSign = '<'
+    }
+    if (global.boardFifteenAlarm[1] === 'more'){
+    boardFifteenAlarmSign = '>'
+    }
+    if (global.boardFifteenAlarm[1] === 'lessEqual'){
+    boardFifteenAlarmSign = '<='
+    }
+    if (global.boardFifteenAlarm[1] === 'equal'){
+    boardFifteenAlarmSign = '='
+    }
+    if (global.boardFifteenAlarm[1] === 'date'){
+    boardFifteenAlarmSign = lang.echo('date')
+    }
+    if (global.boardSixteenAlarm[1] === 'moreEqual'){
+    boardSixteenAlarmSign = '>='
+    }
+    if (global.boardSixteenAlarm[1] === 'less'){
+    boardSixteenAlarmSign = '<'
+    }
+    if (global.boardSixteenAlarm[1] === 'more'){
+    boardSixteenAlarmSign = '>'
+    }
+    if (global.boardSixteenAlarm[1] === 'lessEqual'){
+    boardSixteenAlarmSign = '<='
+    }
+    if (global.boardSixteenAlarm[1] === 'equal'){
+    boardSixteenAlarmSign = '='
+    }
+    if (global.boardSixteenAlarm[1] === 'date'){
+    boardSixteenAlarmSign = lang.echo('date')
+    }
+    }
+    if (global.boardOneAlarm[2] === 'disable'){
+    boardOneAlarmStatus = lang.echo('disable')
+    }
+    if (global.boardOneAlarm[2] === 'enable'){
+    boardOneAlarmStatus = lang.echo('enable')
+    }
+    if (global.boardTwoAlarm[2] === 'disable'){
+    boardTwoAlarmStatus = lang.echo('disable')
+    }
+    if (global.boardTwoAlarm[2] === 'enable'){
+    boardTwoAlarmStatus = lang.echo('enable')
+    }
+    if (global.boardThreeAlarm[2] === 'disable'){
+    boardThreeAlarmStatus = lang.echo('disable')
+    }
+    if (global.boardThreeAlarm[2] === 'enable'){
+    boardThreeAlarmStatus = lang.echo('enable')
+    }
+    if (global.boardFourAlarm[2] === 'disable'){
+    boardFourAlarmStatus = lang.echo('disable')
+    }
+    if (global.boardFourAlarm[2] === 'enable'){
+    boardFourAlarmStatus = lang.echo('enable')
+    }
+    if (global.licenseRender === 'true') {
+    if (global.boardFiveAlarm[2] === 'disable'){
+    boardFiveAlarmStatus = lang.echo('disable')
+    }
+    if (global.boardFiveAlarm[2] === 'enable'){
+    boardFiveAlarmStatus = lang.echo('enable')
+    }
+    if (global.boardSixAlarm[2] === 'disable'){
+    boardSixAlarmStatus = lang.echo('disable')
+    }
+    if (global.boardSixAlarm[2] === 'enable'){
+    boardSixAlarmStatus = lang.echo('enable')
+    }
+    if (global.boardSevenAlarm[2] === 'disable'){
+    boardSevenAlarmStatus = lang.echo('disable')
+    }
+    if (global.boardSevenAlarm[2] === 'enable'){
+    boardSevenAlarmStatus = lang.echo('enable')
+    }
+    if (global.boardEightAlarm[2] === 'disable'){
+    boardEightAlarmStatus = lang.echo('disable')
+    }
+    if (global.boardEightAlarm[2] === 'enable'){
+    boardEightAlarmStatus = lang.echo('enable')
+    }
+    if (global.boardNineAlarm[2] === 'disable'){
+    boardNineAlarmStatus = lang.echo('disable')
+    }
+    if (global.boardNineAlarm[2] === 'enable'){
+    boardNineAlarmStatus = lang.echo('enable')
+    }
+    if (global.boardTenAlarm[2] === 'disable'){
+    boardTenAlarmStatus = lang.echo('disable')
+    }
+    if (global.boardTenAlarm[2] === 'enable'){
+    boardTenAlarmStatus = lang.echo('enable')
+    }
+    if (global.boardElevenAlarm[2] === 'disable'){
+    boardElevenAlarmStatus = lang.echo('disable')
+    }
+    if (global.boardElevenAlarm[2] === 'enable'){
+    boardElevenAlarmStatus = lang.echo('enable')
+    }
+    if (global.boardTwelveAlarm[2] === 'disable'){
+    boardTwelveAlarmStatus = lang.echo('disable')
+    }
+    if (global.boardTwelveAlarm[2] === 'enable'){
+    boardTwelveAlarmStatus = lang.echo('enable')
+    }
+    if (global.boardThirteenAlarm[2] === 'disable'){
+    boardThirteenAlarmStatus = lang.echo('disable')
+    }
+    if (global.boardThirteenAlarm[2] === 'enable'){
+    boardThirteenAlarmStatus = lang.echo('enable')
+    }
+    if (global.boardFourteenAlarm[2] === 'disable'){
+    boardFourteenAlarmStatus = lang.echo('disable')
+    }
+    if (global.boardFourteenAlarm[2] === 'enable'){
+    boardFourteenAlarmStatus = lang.echo('enable')
+    }
+    if (global.boardFifteenAlarm[2] === 'disable'){
+    boardFifteenAlarmStatus = lang.echo('disable')
+    }
+    if (global.boardFifteenAlarm[2] === 'enable'){
+    boardFifteenAlarmStatus = lang.echo('enable')
+    }
+    if (global.boardSixteenAlarm[2] === 'disable'){
+    boardSixteenAlarmStatus = lang.echo('disable')
+    }
+    if (global.boardSixteenAlarm[2] === 'enable'){
+    boardSixteenAlarmStatus = lang.echo('enable')
+    }
+    }
+
+    if (global.mainWindow.window.document.getElementById('board5') === null) {
+    board5  = ''
+    board6 = ''
+    board7 = ''
+    board8 = ''
+    board9 = ''
+    board10 = ''
+    board11 = ''
+    board12 = ''
+    board13 = ''
+    board14 = ''
+    board15 = ''
+    board16 = ''
+    } else {
+    board5 = global.mainWindow.window.document.getElementById('board5').innerHTML
+    board6 = global.mainWindow.window.document.getElementById('board6').innerHTML
+    board7 = global.mainWindow.window.document.getElementById('board7').innerHTML
+    board8 = global.mainWindow.window.document.getElementById('board8').innerHTML
+    board9 = global.mainWindow.window.document.getElementById('board9').innerHTML
+    board10 = global.mainWindow.window.document.getElementById('board10').innerHTML
+    board11 = global.mainWindow.window.document.getElementById('board11').innerHTML
+    board12 = global.mainWindow.window.document.getElementById('board12').innerHTML
+    board13 = global.mainWindow.window.document.getElementById('board13').innerHTML
+    board14 = global.mainWindow.window.document.getElementById('board14').innerHTML
+    board15 = global.mainWindow.window.document.getElementById('board15').innerHTML
+    board16 = global.mainWindow.window.document.getElementById('board16').innerHTML
+    }
+    var data = {
+    licenseRender: global.licenseRender,
+    stylesFile: global.stylesFile,
+    boardOneAlarm: global.boardOneAlarm,    
+    boardTwoAlarm: global.boardTwoAlarm,
+    boardThreeAlarm: global.boardThreeAlarm, 
+    boardFourAlarm: global.boardFourAlarm, 
+    boardFiveAlarm: global.boardFiveAlarm, 
+    boardSixAlarm: global.boardSixAlarm, 
+    boardSevenAlarm: global.boardSevenAlarm, 
+    boardEightAlarm: global.boardEightAlarm, 
+    boardNineAlarm: global.boardNineAlarm, 
+    boardTenAlarm: global.boardTenAlarm,
+    boardElevenAlarm: global.boardElevenAlarm,
+    boardTwelveAlarm: global.boardTwelveAlarm,
+    boardThirteenAlarm: global.boardThirteenAlarm,
+    boardFourteenAlarm: global.boardFourteenAlarm,
+    boardFifteenAlarm: global.boardFifteenAlarm,
+    boardSixteenAlarm: global.boardSixteenAlarm,
+    boardOneAlarmSign: boardOneAlarmSign,
+    boardTwoAlarmSign: boardTwoAlarmSign,
+    boardThreeAlarmSign: boardThreeAlarmSign, 
+    boardFourAlarmSign: boardFourAlarmSign, 
+    boardFiveAlarmSign: boardFiveAlarmSign, 
+    boardSixAlarmSign: boardSixAlarmSign, 
+    boardSevenAlarmSign: boardSevenAlarmSign, 
+    boardEightAlarmSign: boardEightAlarmSign, 
+    boardNineAlarmSign: boardNineAlarmSign, 
+    boardTenAlarmSign: boardTenAlarmSign,
+    boardElevenAlarmSign: boardElevenAlarmSign,
+    boardTwelveAlarmSign: boardTwelveAlarmSign,
+    boardThirteenAlarmSign: boardThirteenAlarmSign,
+    boardFourteenAlarmSign: boardFourteenAlarmSign,
+    boardFifteenAlarmSign: boardFifteenAlarmSign,
+    boardSixteenAlarmSign: boardSixteenAlarmSign,
+    boardOneAlarmStatus: boardOneAlarmStatus,
+    boardTwoAlarmStatus: boardTwoAlarmStatus,
+    boardThreeAlarmStatus: boardThreeAlarmStatus, 
+    boardFourAlarmStatus: boardFourAlarmStatus, 
+    boardFiveAlarmStatus: boardFiveAlarmStatus, 
+    boardSixAlarmStatus: boardSixAlarmStatus, 
+    boardSevenAlarmStatus: boardSevenAlarmStatus, 
+    boardEightAlarmStatus: boardEightAlarmStatus, 
+    boardNineAlarmStatus: boardNineAlarmStatus, 
+    boardTenAlarmStatus: boardTenAlarmStatus,
+    boardElevenAlarmStatus: boardElevenAlarmStatus,
+    boardTwelveAlarmStatus: boardTwelveAlarmStatus,
+    boardThirteenAlarmStatus: boardThirteenAlarmStatus,
+    boardFourteenAlarmStatus: boardFourteenAlarmStatus,
+    boardFifteenAlarmStatus: boardFifteenAlarmStatus,
+    boardSixteenAlarmStatus: boardSixteenAlarmStatus,
+    boardOneTicker: global.boardOneTicker,
+    boardTwoTicker: global.boardTwoTicker,
+    boardThreeTicker: global.boardThreeTicker,
+    boardFourTicker: global.boardFourTicker,
+    boardFiveTicker: global.boardFiveTicker,
+    boardSixTicker: global.boardSixTicker,
+    boardSevenTicker: global.boardSevenTicker,
+    boardEightTicker: global.boardEightTicker,
+    boardNineTicker: global.boardNineTicker,
+    boardTenTicker: global.boardTenTicker,
+    boardElevenTicker: global.boardElevenTicker,
+    boardTwelveTicker: global.boardTwelveTicker,
+    boardThirteenTicker: global.boardThirteenTicker,
+    boardFourteenTicker: global.boardFourteenTicker,
+    boardFifteenTicker: global.boardFifteenTicker,
+    boardSixteenTicker: global.boardSixteenTicker,
+    board1: global.mainWindow.window.document.getElementById('board1').innerHTML,
+    board2: global.mainWindow.window.document.getElementById('board2').innerHTML,
+    board3: global.mainWindow.window.document.getElementById('board3').innerHTML,
+    board4: global.mainWindow.window.document.getElementById('board4').innerHTML,
+    board5: board5,
+    board6: board6,
+    board7: board7,
+    board8: board8,
+    board9: board9,
+    board10: board10,
+    board11: board11,
+    board12: board12,
+    board13: board13,
+    board14: board14,
+    board15: board15,
+    board16: board16,
+    pair: lang.echo('Pair'),
+    currentVal: lang.echo('Current Value'),
+    compVal: lang.echo('Compare Value'),
+    siqn: lang.echo('Comparing Siqn'),
+    status: lang.echo('Status'),
+    updEvery: lang.echo('List updated automatically every '),
+    seconds: lang.echo('seconds'),
+    clickRow: lang.echo('Click row'),
+    changeAlarmStatus: lang.echo('to change alarm status'),
+    enableDisable: lang.echo('enable/disable')
+    }
+    var html = template('template', data)
+    document.getElementById('content').innerHTML = html
+    var win = nw.Window.get()
+    win.menu = null
+    document.title = lang.echo('Alarm List')
+    </script>
+</body>
+
+</html>

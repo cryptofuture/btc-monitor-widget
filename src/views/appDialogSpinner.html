@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../styles/uikit/css/uikit.min.css" />
+    <script src="../styles/uikit/js/uikit.min.js"></script>
+    <script src="../styles/uikit/js/uikit-icons.min.js"></script>
+    <script src="../app/index.js"></script>
+    <script src="../styles/art/js/template-web.js"></script>
+</head>
+
+<body>
+    <div id="content"></div>
+    <script id="template" type="text/html">
+        <div id="notification" class="uk-modal-full" uk-modal>
+            <div class="uk-modal-dialog">
+                <div class="uk-modal-header">
+                    <h2 class="uk-text-center uk-modal-title">{{title}}</h2>
+                </div>
+                <div class="uk-modal-body">
+                    <div style="display: block;margin-left: auto;margin-right: auto;width: 50%;" uk-spinner="ratio: 3"></div>
+                </div>
+            </div>
+        </div>
+</script>
+<script>
+    function toTitle (str) {
+      return str.replace(/(^|\s)\S/g, function (t) { return t.toUpperCase() })
+    }
+    var win = nw.Window.get()
+    win.menu = null
+    global.windowSpinner = win
+    var content = JSON.parse(win.title)
+    var data = {
+        stylesFile: global.stylesFile,
+        title: toTitle(content.title)
+    }
+    var html = template('template', data)
+    document.getElementById('content').innerHTML = html
+    document.title = content.window
+    UIkit.modal('#notification', {escClose: false, bgClose: false}).show()
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "btc-monitor-widget",
+  "version": "1.0.0",
+  "devDependencies": {
+    "nw": "^*",
+    "nw-builder": "^*"
+  },
+  "scripts": {
+    "dev": "nw src/",
+    "build": "nwbuild --platforms win32,win64,osx64 --winIco=/home/user/workspace-new/btc-monitor-widget/src/assets/logo.ico --flavor=normal --appName 'Bitcoin Monitor Widget' --buildDir dist/ src/ && cd /home/user/workspace-new/btc-monitor-widget/dist/'Bitcoin Monitor Widget' && rm *.sha256sum || true && ./compress.sh",
+    "build-linux": "nwbuild --platforms linux32,linux64 --flavor=normal --appName 'Bitcoin Monitor Widget' --buildDir dist/ src/ && cd /home/user/workspace-new/btc-monitor-widget/dist/'Bitcoin Monitor Widget' && ./compress-linux.sh",
+    "build-all": "npm run build && npm run build-linux"
+  },
+  "dependencies": {}
+}

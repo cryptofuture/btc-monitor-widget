@@ -1,0 +1,165 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../styles/uikit/css/uikit.min.css" />
+    <link rel="stylesheet" href="../styles/flatpickr/css/flatpickr.min.css" />
+    <script src="../styles/uikit/js/uikit.min.js"></script>
+    <script src="../styles/uikit/js/uikit-icons.min.js"></script>
+    <script src="../app/index.js"></script>
+    <script type="text/javascript" src="../styles/flatpickr/js/flatpickr.js"></script>
+    <script src="../styles/art/js/template-web.js"></script>
+</head>
+
+<body>
+    <div id="content"></div>
+    <script id="template" type="text/html">
+        <style>{{stylesFile}}</style>
+        <div class="uk-section">
+            <div class="uk-container">
+            <form>
+                <fieldset class="uk-fieldset">
+            
+                    <span id="oldRate" class="uk-label" style="background: #5a8e53">{{boardRate}}</span>
+                    <legend class="uk-legend">{{tickerRate}}</legend>
+
+                    <div class="uk-margin">
+                        <select id="comparison" onchange="rememberSelection(this)" class="uk-select">
+                            <option value="more">{{moreThan}}</option>
+                            <option value="moreEqual">{{moreThanEq}}</option>
+                            <option value="equal">{{equal}}</option>
+                            <option value="less">{{lessThan}}</option>
+                            <option value="lessEqual">{{lessThanEq}}</option>
+                            <option value="date">{{atDate}}</option>
+                        </select>
+                    </div>
+
+                    <div class="uk-margin">
+                        <input type="number" min="0" step="any" id="compValue" class="uk-input" placeholder={{BTCUSDTPlusFive}}>
+                    </div>
+
+                    <div class="uk-margin">
+                        <input id="calendar" autocomplete="off" class="tail-datetime-field" placeholder="2021-06-24 19:40:00"><span class="uk-badge" style="background :#ffffff; color: #3a3a3a;">{{onlyUsed}}</span>
+                    </div>
+
+                    <p uk-margin>
+                        <button onclick="prefs.testBoardAlarm({{boardTicker}}, document.getElementById('compValue').value, document.getElementById('comparison').value, 'enable', document.getElementById('calendar').value)" class="uk-button uk-button-secondary">{{test}}</button>
+                        <button onclick="prefs.disableBoardAlarm({{boardTicker}})" class="uk-button uk-button-default">{{disable}}</button>
+                        <button onclick="prefs.changeBoardAlarm({{boardTicker}}, document.getElementById('compValue').value, document.getElementById('comparison').value, 'enable', document.getElementById('calendar').value)" class="uk-button uk-button-primary">{{save}}</button>
+                    </p>
+                    <div uk-alert>1. {{select}} <b>{{sign}}</b> {{or}} <b>{{dataTime}}</b><br>2. {{setTime}} <b>{{value}}</b> {{compVs}}<br><i>{{savedFired}}</i><br><br>{{canUse}} <span class="uk-label" style="background: #151515">{{test}}</span> {{btnTest}}<br><span class="uk-label" style="background :#ffffff; color: #3a3a3a;">{{disable}}</span> {{btnDisableNotify}}<br><span class="uk-label">{{save}}</span> {{bSave}}<br><br><b>{{example}}</b>: {{current}} <b>BTC/USDT</b> {{rateIs}} <b>{{BTCUSDT}}</b> {{trMoreThan}} <b>{{BTCUSDTPlusFive}}</b><br>{{thisMeans}} <span class="uk-label" style="background :#ffffff; color: #3a3a3a;">></span> {{andType}} <b>{{BTCUSDTPlusFive}}</b></div>
+                </fieldset>
+            </form>
+        </div>
+        </div>
+</script>
+<script>
+    var data = {
+        stylesFile: global.stylesFile,
+        boardTicker: nw.Window.get().title,
+        BTCUSDT: process.env.BTC_USD,
+        BTCUSDTPlusFive: (process.env.BTC_USD * 1.05).toFixed(0),
+        boardRate: global.mainWindow.window.document.getElementById('board' + nw.Window.get().title).innerHTML,
+        tickerRate: lang.echo('Ticker\'s Rate'),
+        moreThan: lang.echo('More than >'),
+        moreThanEq: lang.echo('More than or equal >='),
+        equal: lang.echo('Equal ='),
+        lessThan: lang.echo('Less than <'),
+        lessThanEq: lang.echo('Less than or equal <='),
+        atDate: lang.echo('At date (at time)'),
+        onlyUsed: lang.echo('ONLY USED WITH AT DATE (AT TIME) SELECTION'),
+        save: lang.echo('Save'),
+        test: lang.echo('Test'),
+        disable: lang.echo('Disable'),
+        select: lang.echo('Select the'),
+        sign: lang.echo('sign'),
+        or: lang.echo('or'),
+        dataTime: lang.echo('date and time'),
+        setTime: lang.echo('Set the'),
+        value: lang.echo('value'),
+        compVs: lang.echo('you comparing ticker\'s rate with'),
+        savedFired: lang.echo('Saved and fired notification automatically disables!'),
+        canUse: lang.echo('You can use'),
+        btnTest: lang.echo('button to test the rule'),
+        btnDisableNotify: lang.echo('button to disable notification'),
+        bSave: lang.echo('button to save and activate rule'),
+        example: lang.echo('Example'),
+        current: lang.echo('Current'),
+        rateIs: lang.echo('rate is'),
+        trMoreThan: lang.echo('and you need to trigger notification when rate is more than'),
+        thisMeans: lang.echo('This is means you need to select'),
+        andType: lang.echo('and type')
+    }
+    var html = template('template', data)
+    document.getElementById('content').innerHTML = html
+    var win = nw.Window.get()
+    win.menu = null
+    if (win.title === '1') {
+        document.getElementById('compValue').placeholder = global.boardOneAlarm[0]
+    }
+    if (win.title === '2') {
+        document.getElementById('compValue').placeholder = global.boardTwoAlarm[0]
+    }
+    if (win.title === '3') {
+        document.getElementById('compValue').placeholder = global.boardThreeAlarm[0]
+    }
+    if (win.title === '4') {
+        document.getElementById('compValue').placeholder = global.boardFourAlarm[0]
+    }
+    if (win.title === '5') {
+        document.getElementById('compValue').placeholder = global.boardFiveAlarm[0]
+    }
+    if (win.title === '6') {
+        document.getElementById('compValue').placeholder = global.boardSixAlarm[0]
+    }
+    if (win.title === '7') {
+        document.getElementById('compValue').placeholder = global.boardSevenAlarm[0]
+    }
+    if (win.title === '8') {
+        document.getElementById('compValue').placeholder = global.boardEightAlarm[0]
+    }
+    if (win.title === '9') {
+        document.getElementById('compValue').placeholder = global.boardNineAlarm[0]
+    }
+    if (win.title === '10') {
+        document.getElementById('compValue').placeholder = global.boardTenAlarm[0]
+    }
+    if (win.title === '11') {
+        document.getElementById('compValue').placeholder = global.boardElevenAlarm[0]
+    }
+    if (win.title === '12') {
+        document.getElementById('compValue').placeholder = global.boardTwelveAlarm[0]
+    }
+    if (win.title === '13') {
+        document.getElementById('compValue').placeholder = global.boardThirteenAlarm[0]
+    }
+    if (win.title === '14') {
+        document.getElementById('compValue').placeholder = global.boardFourteenAlarm[0]
+    }
+    if (win.title === '15') {
+        document.getElementById('compValue').placeholder = global.boardFifteenAlarm[0]
+    }
+    if (win.title === '16') {
+        document.getElementById('compValue').placeholder = global.boardSixteenAlarm[0]
+    }
+    const oldTitle = nw.Window.get().title
+    document.title = lang.echo('Board Alarm Configuration ') + win.title
+    function rememberSelection(obj) {
+    localStorage.setItem("selectionAlarm" + win.title, obj.options[obj.selectedIndex].value)
+    }
+    document.getElementById("comparison").value = localStorage.getItem("selectionAlarm" + win.title)
+    if (document.getElementById("comparison").value === ''){
+    document.getElementById("comparison").value = 'more'
+    }
+    setInterval(function () {
+        document.getElementById('oldRate').innerHTML = global.mainWindow.window.document.getElementById('board' + oldTitle).innerHTML
+      }, 2000)
+      document.addEventListener("DOMContentLoaded", function(){
+        flatpickr(".tail-datetime-field", {enableTime: true, time_24hr: true})
+      })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+{
+  "name": "Bitcoin Monitor Widget",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Bitcoin Monitor Widget",
+  "main": "views/index.html",
+  "chromium-args": "--enable-logging=stderr",
+  "window": {
+    "width": 960,
+    "height": 720,
+    "position": "center",
+    "icon": "assets/logo.png"
+  },
+  "dependencies": {
+    "request": "^*",
+    "requestretry": "^5.0.0",
+    "telegraf": "^4.3.0",
+    "y18n": "^*"
+  }
+}

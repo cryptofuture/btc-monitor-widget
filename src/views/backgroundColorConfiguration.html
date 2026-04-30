@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../styles/uikit/css/uikit.min.css" />
+    <link rel="stylesheet" href="../styles/color-picker/css/color-picker.min.css">
+    <script src="../styles/uikit/js/uikit.min.js"></script>
+    <script src="../styles/uikit/js/uikit-icons.min.js"></script>
+    <script src="../styles/huebee/js/huebee.pkgd.min.js"></script>
+    <script src="../app/index.js"></script>
+    <script src="../styles/color-picker/js/color-picker.min.js"></script>
+    <script src="../styles/art/js/template-web.js"></script>
+</head>
+
+<body>
+    <div id="content"></div>
+    <script id="template" type="text/html">
+        <style>{{stylesFile}}</style>
+        <div class="uk-section">
+            <div class="uk-container">
+                    <legend class="uk-legend">{{bgColor}}</legend>
+                    <div uk-alert><code>{{activeColor}}</code> <pre id="currentColor">{{currentColor}}</pre></div>
+                    <div class="uk-child-width-1-2@s uk-grid-collapse uk-text-center" uk-grid>
+                        <div>
+                            <div style="cursor: pointer" onclick="prefs.changeBackgroundColor('#ffffff')" class="uk-tile uk-tile-default">
+                                <p class="uk-h4">{{light}}</p>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="cursor: pointer" onclick="prefs.changeBackgroundColor('#222222')" class="uk-tile uk-tile-secondary">
+                                <p class="uk-h4">{{dark}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <form method="get" target="_blank">
+                        <div style="background-image: linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%, #eee 100%), linear-gradient(45deg, #eee 25%, #fff 25%, #fff 75%, #eee 75%, #eee 100%); background-size: 20px 20px; background-position: 0 0, 10px 10px;">
+                          <p style="margin: 0; padding: 3em;"><code>{{custom}}</code>
+                            <input name="color" type="text" value="#222222">
+                          </p>
+                        </div>
+                    </form>
+                    <br>
+                    <button onclick="prefs.changeBackgroundColor(CP.HEX(picker.get()))" class="uk-button uk-button-primary">{{saveColor}}</button>
+            </div>
+        </div>
+</script>
+<script>
+    var data = {
+        stylesFile: global.stylesFile,
+        bgColor: lang.echo('Select Background Color'),
+        light: lang.echo('Light'),
+        dark: lang.echo('Dark'),
+        saveColor: lang.echo('Save Custom Color'),
+        custom: lang.echo('Custom'),
+        currentColor: global.backgroundColor,
+        activeColor: lang.echo('Current color')
+    }
+    var html = template('template', data)
+    var win = nw.Window.get()
+    win.menu = null
+    document.getElementById('content').innerHTML = html
+    document.title = lang.echo('Background Color Configuration')
+    let source = document.forms[0].color
+    source.value = '#' + ('00000' + (Math.random() * (1 << 24) | 0).toString(16)).slice(-6)
+    const picker = new CP(source)
+    picker.on('change', function(r, g, b, a) {
+        this.source.value = this.color(r, g, b, a)
+        this.source.parentNode.style.backgroundColor = 'rgba(' + r + ', ' + g + ', ' + b + ', ' + a + ')'
+    })
+    </script>
+</body>
+
+</html>

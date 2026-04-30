@@ -1,0 +1,12 @@
+node_modules
+dist/linux32
+dist/linux64
+dist/osx64
+dist/win64
+dist/win32
+dist/'Bitcoin Monitor Widget'/btc-monitor-widget-linux64.tar.xz
+dist/'Bitcoin Monitor Widget'/btc-monitor-widget-linux32.tar.xz
+src/node_modules
+light/node_modules
+package-lock.json
+src/package-lock.json

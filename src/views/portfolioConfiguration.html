@@ -1,0 +1,1607 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../styles/uikit/css/uikit.min.css" />
+
+    <script src="../styles/uikit/js/uikit.min.js"></script>
+    <script src="../styles/uikit/js/uikit-icons.min.js"></script>
+    <script src="../app/index.js"></script>
+    <script src="../styles/art/js/template-web.js"></script>
+</head>
+
+<body>
+    <div id="content"></div>
+    <script id="template" type="text/html">
+        <style>{{stylesFile}}</style>
+        <div class="uk-section">
+            <div class="uk-container">
+                <div class="uk-overflow-auto">
+                    <table class="uk-table uk-table-hover uk-table-middle uk-table-divider">
+                        <thead>
+                            <button class="uk-button uk-button-secondary" onclick="tickers.appDialogWindowPortfolio('{}')">{{addAsset}}</button>&nbsp;&nbsp;<a onclick="prefs.totalAssetCostDialog()" style="cursor:pointer" class="uk-icon-link" uk-icon="info"></a>
+                            <tr>
+                                <th class="uk-table-shrink">{{name}}</th>
+                                <th class="uk-table-shrink">{{price}}</th>
+                                <th class="uk-table-shrink">24H</th>
+                                <th class="uk-table-shrink">{{asset}}</th>
+                                <th class="uk-table-shrink">{{profit}}</th>
+                                <th class="uk-table-shrink"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="asset1">
+                                <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset1[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('1')"> {{asset1[1]}}</td>
+                                <td id="asset1value" class="uk-text-truncate"></td>
+                                <td id="asset1change" class="uk-text-truncate"></td>
+                                <td id="asset1count" class="uk-text-truncate">{{asset1[2]}}</td>
+                                <td id="asset1profit" class="uk-text-truncate"></td>
+                                <td onclick="prefs.assetDisable('1')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr id="asset2">
+                                <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset2[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('2')"> {{asset2[1]}}</td>
+                                <td id="asset2value" class="uk-text-truncate"></td>
+                                <td id="asset2change" class="uk-text-truncate"></td>
+                                <td id="asset2count" class="uk-text-truncate">{{asset2[2]}}</td>
+                                <td id="asset2profit" class="uk-text-truncate"></td>
+                                <td onclick="prefs.assetDisable('2')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr id="asset3">
+                                <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset3[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('3')"> {{asset3[1]}}</td>
+                                <td id="asset3value" class="uk-text-truncate"></td>
+                                <td id="asset3change" class="uk-text-truncate"></td>
+                                <td id="asset3count" class="uk-text-truncate">{{asset3[2]}}</td>
+                                <td id="asset3profit" class="uk-text-truncate"></td>
+                                <td onclick="prefs.assetDisable('3')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr id="asset4">
+                                <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset4[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('4')"> {{asset4[1]}}</td>
+                                <td id="asset4value" class="uk-text-truncate"></td>
+                                <td id="asset4change" class="uk-text-truncate"></td>
+                                <td id="asset4count" class="uk-text-truncate">{{asset4[2]}}</td>
+                                <td id="asset4profit" class="uk-text-truncate"></td>
+                                <td onclick="prefs.assetDisable('4')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr id="asset5">
+                                <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset5[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('5')"> {{asset5[1]}}</td>
+                                <td id="asset5value" class="uk-text-truncate"></td>
+                                <td id="asset5change" class="uk-text-truncate"></td>
+                                <td id="asset5count" class="uk-text-truncate">{{asset5[2]}}</td>
+                                <td id="asset5profit" class="uk-text-truncate"></td>
+                                <td onclick="prefs.assetDisable('5')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr id="asset6">
+                                <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset6[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('6')"> {{asset6[1]}}</td>
+                                <td id="asset6value" class="uk-text-truncate"></td>
+                                <td id="asset6change" class="uk-text-truncate"></td>
+                                <td id="asset6count" class="uk-text-truncate">{{asset6[2]}}</td>
+                                <td id="asset6profit" class="uk-text-truncate"></td>
+                                <td onclick="prefs.assetDisable('6')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr id="asset7">
+                                <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset7[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('7')"> {{asset7[1]}}</td>
+                                <td id="asset7value" class="uk-text-truncate"></td>
+                                <td id="asset7change" class="uk-text-truncate"></td>
+                                <td id="asset7count" class="uk-text-truncate">{{asset7[2]}}</td>
+                                <td id="asset7profit" class="uk-text-truncate"></td>
+                                <td onclick="prefs.assetDisable('7')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr id="asset8">
+                                <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset8[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('8')"> {{asset8[1]}}</td>
+                                <td id="asset8value" class="uk-text-truncate"></td>
+                                <td id="asset8change" class="uk-text-truncate"></td>
+                                <td id="asset8count" class="uk-text-truncate">{{asset8[2]}}</td>
+                                <td id="asset8profit" class="uk-text-truncate"></td>
+                                <td onclick="prefs.assetDisable('8')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr id="asset9">
+                                <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset9[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('9')"> {{asset9[1]}}</td>
+                                <td id="asset9value" class="uk-text-truncate"></td>
+                                <td id="asset9change" class="uk-text-truncate"></td>
+                                <td id="asset9count" class="uk-text-truncate">{{asset9[2]}}</td>
+                                <td id="asset9profit" class="uk-text-truncate"></td>
+                                <td onclick="prefs.assetDisable('9')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr id="asset10">
+                                <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset10[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('10')"> {{asset10[1]}}</td>
+                                <td id="asset10value" class="uk-text-truncate"></td>
+                                <td id="asset10change" class="uk-text-truncate"></td>
+                                <td id="asset10count" class="uk-text-truncate">{{asset10[2]}}</td>
+                                <td id="asset10profit" class="uk-text-truncate"></td>
+                                <td onclick="prefs.assetDisable('10')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr id="asset11">
+                                <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset11[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('11')"> {{asset11[1]}}</td>
+                                <td id="asset11value" class="uk-text-truncate"></td>
+                                <td id="asset11change" class="uk-text-truncate"></td>
+                                <td id="asset11count" class="uk-text-truncate">{{asset11[2]}}</td>
+                                <td id="asset11profit" class="uk-text-truncate"></td>
+                                <td onclick="prefs.assetDisable('11')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr id="asset12">
+                                <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset12[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('12')"> {{asset12[1]}}</td>
+                                <td id="asset12value" class="uk-text-truncate"></td>
+                                <td id="asset12change" class="uk-text-truncate"></td>
+                                <td id="asset12count" class="uk-text-truncate">{{asset12[2]}}</td>
+                                <td id="asset12profit" class="uk-text-truncate"></td>
+                                <td onclick="prefs.assetDisable('12')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr id="asset13">
+                                <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset13[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('13')"> {{asset13[1]}}</td>
+                                <td id="asset13value" class="uk-text-truncate"></td>
+                                <td id="asset13change" class="uk-text-truncate"></td>
+                                <td id="asset13count" class="uk-text-truncate">{{asset13[2]}}</td>
+                                <td id="asset13profit" class="uk-text-truncate"></td>
+                                <td onclick="prefs.assetDisable('13')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr id="asset14">
+                                <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset14[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('14')"> {{asset14[1]}}</td>
+                                <td id="asset14value" class="uk-text-truncate"></td>
+                                <td id="asset14change" class="uk-text-truncate"></td>
+                                <td id="asset14count" class="uk-text-truncate">{{asset14[2]}}</td>
+                                <td id="asset14profit" class="uk-text-truncate"></td>
+                                <td onclick="prefs.assetDisable('14')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr id="asset15">
+                                <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset15[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('15')"> {{asset15[1]}}</td>
+                                <td id="asset15value" class="uk-text-truncate"></td>
+                                <td id="asset15change" class="uk-text-truncate"></td>
+                                <td id="asset15count" class="uk-text-truncate">{{asset15[2]}}</td>
+                                <td id="asset15profit" class="uk-text-truncate"></td>
+                                <td onclick="prefs.assetDisable('15')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr id="asset16">
+                                <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset16[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('16')"> {{asset16[1]}}</td>
+                                <td id="asset16value" class="uk-text-truncate"></td>
+                                <td id="asset16change" class="uk-text-truncate"></td>
+                                <td id="asset16count" class="uk-text-truncate">{{asset16[2]}}</td>
+                                <td id="asset16profit" class="uk-text-truncate"></td>
+                                <td onclick="prefs.assetDisable('16')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr id="asset17">
+                                <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset17[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('17')"> {{asset17[1]}}</td>
+                                <td id="asset17value" class="uk-text-truncate"></td>
+                                <td id="asset17change" class="uk-text-truncate"></td>
+                                <td id="asset17count" class="uk-text-truncate">{{asset17[2]}}</td>
+                                <td id="asset17profit" class="uk-text-truncate"></td>
+                                <td onclick="prefs.assetDisable('17')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr id="asset18">
+                                <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset18[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('18')"> {{asset18[1]}}</td>
+                                <td id="asset18value" class="uk-text-truncate"></td>
+                                <td id="asset18change" class="uk-text-truncate"></td>
+                                <td id="asset18count" class="uk-text-truncate">{{asset18[2]}}</td>
+                                <td id="asset18profit" class="uk-text-truncate"></td>
+                                <td onclick="prefs.assetDisable('18')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                            </tr>
+                        </tbody>
+
+                    </thead>
+                    <tbody>
+                        <tr id="asset19">
+                            <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset19[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('19')"> {{asset19[1]}}</td>
+                            <td id="asset19value" class="uk-text-truncate"></td>
+                            <td id="asset19change" class="uk-text-truncate"></td>
+                            <td id="asset19count" class="uk-text-truncate">{{asset19[2]}}</td>
+                            <td id="asset19profit" class="uk-text-truncate"></td>
+                            <td onclick="prefs.assetDisable('19')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr id="asset20">
+                            <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset20[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('20')"> {{asset20[1]}}</td>
+                            <td id="asset20value" class="uk-text-truncate"></td>
+                            <td id="asset20change" class="uk-text-truncate"></td>
+                            <td id="asset20count" class="uk-text-truncate">{{asset20[2]}}</td>
+                            <td id="asset20profit" class="uk-text-truncate"></td>
+                            <td onclick="prefs.assetDisable('20')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                        </tr>
+                        <tbody>
+                            <tr id="asset21">
+                                <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset21[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('21')"> {{asset21[1]}}</td>
+                                <td id="asset21value" class="uk-text-truncate"></td>
+                                <td id="asset21change" class="uk-text-truncate"></td>
+                                <td id="asset21count" class="uk-text-truncate">{{asset21[2]}}</td>
+                                <td id="asset21profit" class="uk-text-truncate"></td>
+                                <td onclick="prefs.assetDisable('21')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr id="asset22">
+                                <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset22[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('22')"> {{asset22[1]}}</td>
+                                <td id="asset22value" class="uk-text-truncate"></td>
+                                <td id="asset22change" class="uk-text-truncate"></td>
+                                <td id="asset22count" class="uk-text-truncate">{{asset22[2]}}</td>
+                                <td id="asset22profit" class="uk-text-truncate"></td>
+                                <td onclick="prefs.assetDisable('22')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr id="asset23">
+                                <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset23[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('23')"> {{asset23[1]}}</td>
+                                <td id="asset23value" class="uk-text-truncate"></td>
+                                <td id="asset23change" class="uk-text-truncate"></td>
+                                <td id="asset23count" class="uk-text-truncate">{{asset23[2]}}</td>
+                                <td id="asset23profit" class="uk-text-truncate"></td>
+                                <td onclick="prefs.assetDisable('23')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr id="asset24">
+                                <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset24[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('24')"> {{asset24[1]}}</td>
+                                <td id="asset24value" class="uk-text-truncate"></td>
+                                <td id="asset24change" class="uk-text-truncate"></td>
+                                <td id="asset24count" class="uk-text-truncate">{{asset24[2]}}</td>
+                                <td id="asset24profit" class="uk-text-truncate"></td>
+                                <td onclick="prefs.assetDisable('24')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr id="asset25">
+                                <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset25[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('25')"> {{asset25[1]}}</td>
+                                <td id="asset25value" class="uk-text-truncate"></td>
+                                <td id="asset25change" class="uk-text-truncate"></td>
+                                <td id="asset25count" class="uk-text-truncate">{{asset25[2]}}</td>
+                                <td id="asset25profit" class="uk-text-truncate"></td>
+                                <td onclick="prefs.assetDisable('25')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr id="asset26">
+                                <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset26[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('26')"> {{asset26[1]}}</td>
+                                <td id="asset26value" class="uk-text-truncate"></td>
+                                <td id="asset26change" class="uk-text-truncate"></td>
+                                <td id="asset26count" class="uk-text-truncate">{{asset26[2]}}</td>
+                                <td id="asset26profit" class="uk-text-truncate"></td>
+                                <td onclick="prefs.assetDisable('26')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr id="asset27">
+                                <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset27[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('27')"> {{asset27[1]}}</td>
+                                <td id="asset27value" class="uk-text-truncate"></td>
+                                <td id="asset27change" class="uk-text-truncate"></td>
+                                <td id="asset27count" class="uk-text-truncate">{{asset27[2]}}</td>
+                                <td id="asset27profit" class="uk-text-truncate"></td>
+                                <td onclick="prefs.assetDisable('27')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr id="asset28">
+                                <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset28[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('28')"> {{asset28[1]}}</td>
+                                <td id="asset28value" class="uk-text-truncate"></td>
+                                <td id="asset28change" class="uk-text-truncate"></td>
+                                <td id="asset28count" class="uk-text-truncate">{{asset28[2]}}</td>
+                                <td id="asset28profit" class="uk-text-truncate"></td>
+                                <td onclick="prefs.assetDisable('28')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr id="asset29">
+                                <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset29[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('29')"> {{asset29[1]}}</td>
+                                <td id="asset29value" class="uk-text-truncate"></td>
+                                <td id="asset29change" class="uk-text-truncate"></td>
+                                <td id="asset29count" class="uk-text-truncate">{{asset29[2]}}</td>
+                                <td id="asset29profit" class="uk-text-truncate"></td>
+                                <td onclick="prefs.assetDisable('29')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr id="asset30">
+                                <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset30[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('30')"> {{asset30[1]}}</td>
+                                <td id="asset30value" class="uk-text-truncate"></td>
+                                <td id="asset30change" class="uk-text-truncate"></td>
+                                <td id="asset30count" class="uk-text-truncate">{{asset30[2]}}</td>
+                                <td id="asset30profit" class="uk-text-truncate"></td>
+                                <td onclick="prefs.assetDisable('30')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr id="asset31">
+                                <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset31[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('31')"> {{asset31[1]}}</td>
+                                <td id="asset31value" class="uk-text-truncate"></td>
+                                <td id="asset31change" class="uk-text-truncate"></td>
+                                <td id="asset31count" class="uk-text-truncate">{{asset31[2]}}</td>
+                                <td id="asset31profit" class="uk-text-truncate"></td>
+                                <td onclick="prefs.assetDisable('31')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr id="asset32">
+                                <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset32[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('32')"> {{asset32[1]}}</td>
+                                <td id="asset32value" class="uk-text-truncate"></td>
+                                <td id="asset32change" class="uk-text-truncate"></td>
+                                <td id="asset32count" class="uk-text-truncate">{{asset32[2]}}</td>
+                                <td id="asset32profit" class="uk-text-truncate"></td>
+                                <td onclick="prefs.assetDisable('32')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr id="asset33">
+                                <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset33[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('33')"> {{asset33[1]}}</td>
+                                <td id="asset33value" class="uk-text-truncate"></td>
+                                <td id="asset33change" class="uk-text-truncate"></td>
+                                <td id="asset33count" class="uk-text-truncate">{{asset33[2]}}</td>
+                                <td id="asset33profit" class="uk-text-truncate"></td>
+                                <td onclick="prefs.assetDisable('33')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr id="asset34">
+                                <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset34[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('34')"> {{asset34[1]}}</td>
+                                <td id="asset34value" class="uk-text-truncate"></td>
+                                <td id="asset34change" class="uk-text-truncate"></td>
+                                <td id="asset34count" class="uk-text-truncate">{{asset34[2]}}</td>
+                                <td id="asset34profit" class="uk-text-truncate"></td>
+                                <td onclick="prefs.assetDisable('34')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr id="asset35">
+                                <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset35[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('35')"> {{asset35[1]}}</td>
+                                <td id="asset35value" class="uk-text-truncate"></td>
+                                <td id="asset35change" class="uk-text-truncate"></td>
+                                <td id="asset35count" class="uk-text-truncate">{{asset35[2]}}</td>
+                                <td id="asset35profit" class="uk-text-truncate"></td>
+                                <td onclick="prefs.assetDisable('35')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr id="asset36">
+                                <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset36[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('36')"> {{asset36[1]}}</td>
+                                <td id="asset36value" class="uk-text-truncate"></td>
+                                <td id="asset36change" class="uk-text-truncate"></td>
+                                <td id="asset36count" class="uk-text-truncate">{{asset36[2]}}</td>
+                                <td id="asset36profit" class="uk-text-truncate"></td>
+                                <td onclick="prefs.assetDisable('36')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr id="asset37">
+                                <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset37[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('37')"> {{asset37[1]}}</td>
+                                <td id="asset37value" class="uk-text-truncate"></td>
+                                <td id="asset37change" class="uk-text-truncate"></td>
+                                <td id="asset37count" class="uk-text-truncate">{{asset37[2]}}</td>
+                                <td id="asset37profit" class="uk-text-truncate"></td>
+                                <td onclick="prefs.assetDisable('37')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr id="asset38">
+                                <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset38[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('38')"> {{asset38[1]}}</td>
+                                <td id="asset38value" class="uk-text-truncate"></td>
+                                <td id="asset38change" class="uk-text-truncate"></td>
+                                <td id="asset38count" class="uk-text-truncate">{{asset38[2]}}</td>
+                                <td id="asset38profit" class="uk-text-truncate"></td>
+                                <td onclick="prefs.assetDisable('38')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                            </tr>
+                        </tbody>
+
+                    </thead>
+                    <tbody>
+                        <tr id="asset39">
+                            <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset39[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('39')"> {{asset39[1]}}</td>
+                            <td id="asset39value" class="uk-text-truncate"></td>
+                            <td id="asset39change" class="uk-text-truncate"></td>
+                            <td id="asset39count" class="uk-text-truncate">{{asset39[2]}}</td>
+                            <td id="asset39profit" class="uk-text-truncate"></td>
+                            <td onclick="prefs.assetDisable('39')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr id="asset40">
+                            <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset40[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('40')"> {{asset40[1]}}</td>
+                            <td id="asset40value" class="uk-text-truncate"></td>
+                            <td id="asset40change" class="uk-text-truncate"></td>
+                            <td id="asset40count" class="uk-text-truncate">{{asset40[2]}}</td>
+                            <td id="asset40profit" class="uk-text-truncate"></td>
+                            <td onclick="prefs.assetDisable('40')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="asset41">
+                            <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset41[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('41')"> {{asset41[1]}}</td>
+                            <td id="asset41value" class="uk-text-truncate"></td>
+                            <td id="asset41change" class="uk-text-truncate"></td>
+                            <td id="asset41count" class="uk-text-truncate">{{asset41[2]}}</td>
+                            <td id="asset41profit" class="uk-text-truncate"></td>
+                            <td onclick="prefs.assetDisable('41')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr id="asset42">
+                            <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset42[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('42')"> {{asset42[1]}}</td>
+                            <td id="asset42value" class="uk-text-truncate"></td>
+                            <td id="asset42change" class="uk-text-truncate"></td>
+                            <td id="asset42count" class="uk-text-truncate">{{asset42[2]}}</td>
+                            <td id="asset42profit" class="uk-text-truncate"></td>
+                            <td onclick="prefs.assetDisable('42')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr id="asset43">
+                            <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset43[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('43')"> {{asset43[1]}}</td>
+                            <td id="asset43value" class="uk-text-truncate"></td>
+                            <td id="asset43change" class="uk-text-truncate"></td>
+                            <td id="asset43count" class="uk-text-truncate">{{asset43[2]}}</td>
+                            <td id="asset43profit" class="uk-text-truncate"></td>
+                            <td onclick="prefs.assetDisable('43')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr id="asset44">
+                            <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset44[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('44')"> {{asset44[1]}}</td>
+                            <td id="asset44value" class="uk-text-truncate"></td>
+                            <td id="asset44change" class="uk-text-truncate"></td>
+                            <td id="asset44count" class="uk-text-truncate">{{asset44[2]}}</td>
+                            <td id="asset44profit" class="uk-text-truncate"></td>
+                            <td onclick="prefs.assetDisable('44')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr id="asset45">
+                            <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset45[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('45')"> {{asset45[1]}}</td>
+                            <td id="asset45value" class="uk-text-truncate"></td>
+                            <td id="asset45change" class="uk-text-truncate"></td>
+                            <td id="asset45count" class="uk-text-truncate">{{asset45[2]}}</td>
+                            <td id="asset45profit" class="uk-text-truncate"></td>
+                            <td onclick="prefs.assetDisable('45')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr id="asset46">
+                            <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset46[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('46')"> {{asset46[1]}}</td>
+                            <td id="asset46value" class="uk-text-truncate"></td>
+                            <td id="asset46change" class="uk-text-truncate"></td>
+                            <td id="asset46count" class="uk-text-truncate">{{asset46[2]}}</td>
+                            <td id="asset46profit" class="uk-text-truncate"></td>
+                            <td onclick="prefs.assetDisable('46')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr id="asset47">
+                            <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset47[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('47')"> {{asset47[1]}}</td>
+                            <td id="asset47value" class="uk-text-truncate"></td>
+                            <td id="asset47change" class="uk-text-truncate"></td>
+                            <td id="asset47count" class="uk-text-truncate">{{asset47[2]}}</td>
+                            <td id="asset47profit" class="uk-text-truncate"></td>
+                            <td onclick="prefs.assetDisable('47')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr id="asset48">
+                            <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset48[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('48')"> {{asset48[1]}}</td>
+                            <td id="asset48value" class="uk-text-truncate"></td>
+                            <td id="asset48change" class="uk-text-truncate"></td>
+                            <td id="asset48count" class="uk-text-truncate">{{asset48[2]}}</td>
+                            <td id="asset48profit" class="uk-text-truncate"></td>
+                            <td onclick="prefs.assetDisable('48')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr id="asset49">
+                            <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset49[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('49')"> {{asset49[1]}}</td>
+                            <td id="asset49value" class="uk-text-truncate"></td>
+                            <td id="asset49change" class="uk-text-truncate"></td>
+                            <td id="asset49count" class="uk-text-truncate">{{asset49[2]}}</td>
+                            <td id="asset49profit" class="uk-text-truncate"></td>
+                            <td onclick="prefs.assetDisable('49')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr id="asset50">
+                            <td><img class="uk-preserve-width uk-border-circle" src="../assets/icons/{{asset50[0].toLowerCase()}}.png" style="cursor:pointer;" onclick="prefs.openMarketCapAsset('50')"> {{asset50[1]}}</td>
+                            <td id="asset50value" class="uk-text-truncate"></td>
+                            <td id="asset50change" class="uk-text-truncate"></td>
+                            <td id="asset50count" class="uk-text-truncate">{{asset50[2]}}</td>
+                            <td id="asset50profit" class="uk-text-truncate"></td>
+                            <td onclick="prefs.assetDisable('50')" style="cursor:pointer" class="uk-icon-link" uk-icon="close"></td>
+                        </tr>
+
+                    </thead>
+                    </table>
+                </div>
+        </div>
+        </div>
+</script>
+<script>
+     var data = {
+    stylesFile: global.stylesFile,
+    asset1: global.asset1,    
+    asset2: global.asset2,
+    asset3: global.asset3, 
+    asset4: global.asset4, 
+    asset5: global.asset5, 
+    asset6: global.asset6, 
+    asset7: global.asset7, 
+    asset8: global.asset8, 
+    asset9: global.asset9, 
+    asset10: global.asset10,
+    asset11: global.asset11,
+    asset12: global.asset12,
+    asset13: global.asset13,
+    asset14: global.asset14,
+    asset15: global.asset15,
+    asset16: global.asset16,
+    asset17: global.asset17,
+    asset18: global.asset18,
+    asset19: global.asset19,
+    asset20: global.asset20,
+    asset21: global.asset21,    
+    asset22: global.asset22,
+    asset23: global.asset23, 
+    asset24: global.asset24, 
+    asset25: global.asset25, 
+    asset26: global.asset26, 
+    asset27: global.asset27, 
+    asset28: global.asset28, 
+    asset29: global.asset29, 
+    asset30: global.asset30,
+    asset31: global.asset31,
+    asset32: global.asset32,
+    asset33: global.asset33,
+    asset34: global.asset34,
+    asset35: global.asset35,
+    asset36: global.asset36,
+    asset37: global.asset37,
+    asset38: global.asset38,
+    asset39: global.asset39,
+    asset40: global.asset40,
+    asset41: global.asset41,    
+    asset42: global.asset42,
+    asset43: global.asset43, 
+    asset44: global.asset44, 
+    asset45: global.asset45, 
+    asset46: global.asset46, 
+    asset47: global.asset47, 
+    asset48: global.asset48, 
+    asset49: global.asset49, 
+    asset50: global.asset50,
+    addAsset: lang.echo('Add Asset'),
+    name: lang.echo('Name'),
+    price: lang.echo('Price'),
+    asset: lang.echo('Assets'),
+    profit: lang.echo('Profit')
+    }
+    var html = template('template', data)
+    document.getElementById('content').innerHTML = html
+    var win = nw.Window.get()
+    win.menu = null
+    global.portfolioWindow = win
+    document.title = lang.echo('Portfolio')
+    if (global.asset1[4] === 'enable') {
+    var sign
+    var percent
+       tickers.findMarketValue(global.asset1[0]).then((price) => {
+       document.getElementById('asset1value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset1count').innerHTML = (price[0] * global.asset1[3]).toFixed(2) + '<br>' + global.asset1[2]
+       document.getElementById('asset1change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset1[3] * price[0]) >= (global.asset1[2] * global.asset1[3])) {
+        sign = ''
+        percent = ((global.asset1[3] * price[0]) / (global.asset1[2] * global.asset1[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset1[3] * price[0]) / (global.asset1[2] * global.asset1[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset1profit').innerHTML = ((global.asset1[3] * price[0]) - (global.asset1[2] * global.asset1[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset1[3] + ')'
+    })
+    } else {
+        document.getElementById('asset1').style.display = 'none'
+    }
+    if (global.asset2[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset2[0]).then((price) => {
+       document.getElementById('asset2value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset2count').innerHTML = (price[0] * global.asset2[3]).toFixed(2) + '<br>' + global.asset2[2]
+       document.getElementById('asset2change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset2[3] * price[0]) >= (global.asset2[2] * global.asset2[3])) {
+        sign = ''
+        percent = ((global.asset2[3] * price[0]) / (global.asset2[2] * global.asset2[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset2[3] * price[0]) / (global.asset2[2] * global.asset2[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset2profit').innerHTML = ((global.asset2[3] * price[0]) - (global.asset2[2] * global.asset2[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset2[3] + ')'
+    })
+    } else {
+        document.getElementById('asset2').style.display = 'none'
+    }
+    if (global.asset3[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset3[0]).then((price) => {
+       document.getElementById('asset3value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset3count').innerHTML = (price[0] * global.asset3[3]).toFixed(2) + '<br>' + global.asset3[2]
+       document.getElementById('asset3change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset3[3] * price[0]) >= (global.asset3[2] * global.asset3[3])) {
+        sign = ''
+        percent = ((global.asset3[3] * price[0]) / (global.asset3[2] * global.asset3[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset3[3] * price[0]) / (global.asset3[2] * global.asset3[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset3profit').innerHTML = ((global.asset3[3] * price[0]) - (global.asset3[2] * global.asset3[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset3[3] + ')'
+    })
+    } else {
+        document.getElementById('asset3').style.display = 'none'
+    }
+    if (global.asset4[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset4[0]).then((price) => {
+       document.getElementById('asset4value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset4count').innerHTML = (price[0] * global.asset4[3]).toFixed(2) + '<br>' + global.asset4[2]
+       document.getElementById('asset4change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset4[3] * price[0]) >= (global.asset4[2] * global.asset4[3])) {
+        sign = ''
+        percent = ((global.asset4[3] * price[0]) / (global.asset4[2] * global.asset4[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset4[3] * price[0]) / (global.asset4[2] * global.asset4[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset4profit').innerHTML = ((global.asset4[3] * price[0]) - (global.asset4[2] * global.asset4[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset4[3] + ')'
+    })
+    } else {
+        document.getElementById('asset4').style.display = 'none'
+    }
+    if (global.asset5[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset5[0]).then((price) => {
+       document.getElementById('asset5value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset5count').innerHTML = (price[0] * global.asset5[3]).toFixed(2) + '<br>' + global.asset5[2]
+       document.getElementById('asset5change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset5[3] * price[0]) >= (global.asset5[2] * global.asset5[3])) {
+        sign = ''
+        percent = ((global.asset5[3] * price[0]) / (global.asset5[2] * global.asset5[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset5[3] * price[0]) / (global.asset5[2] * global.asset5[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset5profit').innerHTML = ((global.asset5[3] * price[0]) - (global.asset5[2] * global.asset5[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset5[3] + ')'
+    })
+    } else {
+        document.getElementById('asset5').style.display = 'none'
+    }
+    if (global.asset6[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset6[0]).then((price) => {
+       document.getElementById('asset6value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset6count').innerHTML = (price[0] * global.asset6[3]).toFixed(2) + '<br>' + global.asset6[2]
+       document.getElementById('asset6change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset6[3] * price[0]) >= (global.asset6[2] * global.asset6[3])) {
+        sign = ''
+        percent = ((global.asset6[3] * price[0]) / (global.asset6[2] * global.asset6[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset6[3] * price[0]) / (global.asset6[2] * global.asset6[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset6profit').innerHTML = ((global.asset6[3] * price[0]) - (global.asset6[2] * global.asset6[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset6[3] + ')'
+    })
+    } else {
+        document.getElementById('asset6').style.display = 'none'
+    }
+    if (global.asset7[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset7[0]).then((price) => {
+       document.getElementById('asset7value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset7count').innerHTML = (price[0] * global.asset7[3]).toFixed(2) + '<br>' + global.asset7[2]
+       document.getElementById('asset7change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset7[3] * price[0]) >= (global.asset7[2] * global.asset7[3])) {
+        sign = ''
+        percent = ((global.asset7[3] * price[0]) / (global.asset7[2] * global.asset7[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset7[3] * price[0]) / (global.asset7[2] * global.asset7[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset7profit').innerHTML = ((global.asset7[3] * price[0]) - (global.asset7[2] * global.asset7[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset7[3] + ')'
+    })
+    } else {
+        document.getElementById('asset7').style.display = 'none'
+    }
+    if (global.asset8[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset8[0]).then((price) => {
+       document.getElementById('asset8value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset8count').innerHTML = (price[0] * global.asset8[3]).toFixed(2) + '<br>' + global.asset8[2]
+       document.getElementById('asset8change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset8[3] * price[0]) >= (global.asset8[2] * global.asset8[3])) {
+        sign = ''
+        percent = ((global.asset8[3] * price[0]) / (global.asset8[2] * global.asset8[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset8[3] * price[0]) / (global.asset8[2] * global.asset8[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset8profit').innerHTML = ((global.asset8[3] * price[0]) - (global.asset8[2] * global.asset8[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset8[3] + ')'
+    })
+    } else {
+        document.getElementById('asset8').style.display = 'none'
+    }
+    if (global.asset9[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset9[0]).then((price) => {
+       document.getElementById('asset9value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset9count').innerHTML = (price[0] * global.asset9[3]).toFixed(2) + '<br>' + global.asset9[2]
+       document.getElementById('asset9change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset9[3] * price[0]) >= (global.asset9[2] * global.asset9[3])) {
+        sign = ''
+        percent = ((global.asset9[3] * price[0]) / (global.asset9[2] * global.asset9[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset9[3] * price[0]) / (global.asset9[2] * global.asset9[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset9profit').innerHTML = ((global.asset9[3] * price[0]) - (global.asset9[2] * global.asset9[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset9[3] + ')'
+    })
+    } else {
+        document.getElementById('asset9').style.display = 'none'
+    }
+    if (global.asset10[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset10[0]).then((price) => {
+       document.getElementById('asset10value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset10count').innerHTML = (price[0] * global.asset10[3]).toFixed(2) + '<br>' + global.asset10[2]
+       document.getElementById('asset10change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset10[3] * price[0]) >= (global.asset10[2] * global.asset10[3])) {
+        sign = ''
+        percent = ((global.asset10[3] * price[0]) / (global.asset10[2] * global.asset10[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset10[3] * price[0]) / (global.asset10[2] * global.asset10[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset10profit').innerHTML = ((global.asset10[3] * price[0]) - (global.asset10[2] * global.asset10[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset10[3] + ')'
+    })
+    } else {
+        document.getElementById('asset10').style.display = 'none'
+    }
+    if (global.asset11[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset11[0]).then((price) => {
+       document.getElementById('asset11value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset11count').innerHTML = (price[0] * global.asset11[3]).toFixed(2) + '<br>' + global.asset11[2]
+       document.getElementById('asset11change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset11[3] * price[0]) >= (global.asset11[2] * global.asset11[3])) {
+        sign = ''
+        percent = ((global.asset11[3] * price[0]) / (global.asset11[2] * global.asset11[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset11[3] * price[0]) / (global.asset11[2] * global.asset11[3]) * 100)).toFixed(2)
+       }
+       docu
+       document.getElementById('asset11profit').innerHTML = ((global.asset11[3] * price[0]) - (global.asset11[2] * global.asset11[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset11[3] + ')'
+    })
+    } else {
+        document.getElementById('asset11').style.display = 'none'
+    }
+    if (global.asset12[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset12[0]).then((price) => {
+       document.getElementById('asset12value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset12count').innerHTML = (price[0] * global.asset12[3]).toFixed(2) + '<br>' + global.asset12[2]
+       document.getElementById('asset12change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset12[3] * price[0]) >= (global.asset12[2] * global.asset12[3])) {
+        sign = ''
+        percent = ((global.asset12[3] * price[0]) / (global.asset12[2] * global.asset12[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = ((global.asset12[3] * price[0]) / (global.asset12[2] * global.asset12[3]) * 100).toFixed(2)
+       }
+       document.getElementById('asset12profit').innerHTML = ((global.asset12[3] * price[0]) - (global.asset12[2] * global.asset12[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset12[3] + ')'
+    })
+    } else {
+        document.getElementById('asset12').style.display = 'none'
+    }
+    if (global.asset13[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset13[0]).then((price) => {
+       document.getElementById('asset13value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset13count').innerHTML = (price[0] * global.asset13[3]).toFixed(2) + '<br>' + global.asset13[2]
+       document.getElementById('asset13change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset13[3] * price[0]) >= (global.asset13[2] * global.asset13[3])) {
+        sign = ''
+        percent = ((global.asset13[3] * price[0]) / (global.asset13[2] * global.asset13[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset13[3] * price[0]) / (global.asset13[2] * global.asset13[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset13profit').innerHTML = ((global.asset13[3] * price[0]) - (global.asset13[2] * global.asset13[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset13[3] + ')'
+    })
+    } else {
+        document.getElementById('asset13').style.display = 'none'
+    }
+    if (global.asset14[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset14[0]).then((price) => {
+       document.getElementById('asset14value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset14count').innerHTML = (price[0] * global.asset14[3]).toFixed(2) + '<br>' + global.asset14[2]
+       document.getElementById('asset14change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset14[3] * price[0]) >= (global.asset14[2] * global.asset14[3])) {
+        sign = ''
+        percent = ((global.asset14[3] * price[0]) / (global.asset14[2] * global.asset14[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset14[3] * price[0]) / (global.asset14[2] * global.asset14[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset14profit').innerHTML = ((global.asset14[3] * price[0]) - (global.asset14[2] * global.asset14[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset14[3] + ')'
+    })
+    } else {
+        document.getElementById('asset14').style.display = 'none'
+    }
+    if (global.asset15[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset15[0]).then((price) => {
+       document.getElementById('asset15value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset15count').innerHTML = (price[0] * global.asset15[3]).toFixed(2) + '<br>' + global.asset15[2]
+       document.getElementById('asset15change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset15[3] * price[0]) >= (global.asset15[2] * global.asset15[3])) {
+        sign = ''
+        percent = ((global.asset15[3] * price[0]) / (global.asset15[2] * global.asset15[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset15[3] * price[0]) / (global.asset15[2] * global.asset15[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset15profit').innerHTML = ((global.asset15[3] * price[0]) - (global.asset15[2] * global.asset15[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset15[3] + ')'
+    })
+    } else {
+        document.getElementById('asset15').style.display = 'none'
+    }
+    if (global.asset16[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset16[0]).then((price) => {
+       document.getElementById('asset16value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset16count').innerHTML = (price[0] * global.asset16[3]).toFixed(2) + '<br>' + global.asset16[2]
+       document.getElementById('asset16change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset16[3] * price[0]) >= (global.asset16[2] * global.asset16[3])) {
+        sign = ''
+        percent = ((global.asset16[3] * price[0]) / (global.asset16[2] * global.asset16[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset16[3] * price[0]) / (global.asset16[2] * global.asset16[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset16profit').innerHTML = ((global.asset16[3] * price[0]) - (global.asset16[2] * global.asset16[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset16[3] + ')'
+    })
+    } else {
+        document.getElementById('asset16').style.display = 'none'
+    }
+    if (global.asset17[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset17[0]).then((price) => {
+       document.getElementById('asset17value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset17count').innerHTML = (price[0] * global.asset17[3]).toFixed(2) + '<br>' + global.asset17[2]
+       document.getElementById('asset17change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset17[3] * price[0]) >= (global.asset17[2] * global.asset17[3])) {
+        sign = ''
+        percent = ((global.asset17[3] * price[0]) / (global.asset17[2] * global.asset17[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset17[3] * price[0]) / (global.asset17[2] * global.asset17[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset17profit').innerHTML = ((global.asset17[3] * price[0]) - (global.asset17[2] * global.asset17[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset17[3] + ')'
+    })
+    } else {
+        document.getElementById('asset17').style.display = 'none'
+    }
+    if (global.asset18[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset18[0]).then((price) => {
+       document.getElementById('asset18value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset18count').innerHTML = (price[0] * global.asset18[3]).toFixed(2) + '<br>' + global.asset18[2]
+       document.getElementById('asset18change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset18[3] * price[0]) >= (global.asset18[2] * global.asset18[3])) {
+        sign = ''
+        percent = ((global.asset18[3] * price[0]) / (global.asset18[2] * global.asset18[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset18[3] * price[0]) / (global.asset18[2] * global.asset18[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset18profit').innerHTML = ((global.asset18[3] * price[0]) - (global.asset18[2] * global.asset18[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset18[3] + ')'
+    })
+    } else {
+        document.getElementById('asset18').style.display = 'none'
+    }
+    if (global.asset19[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset19[0]).then((price) => {
+       document.getElementById('asset19value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset19count').innerHTML = (price[0] * global.asset19[3]).toFixed(2) + '<br>' + global.asset19[2]
+       document.getElementById('asset19change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset19[3] * price[0]) >= (global.asset19[2] * global.asset19[3])) {
+        sign = ''
+        percent = ((global.asset19[3] * price[0]) / (global.asset19[2] * global.asset19[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset19[3] * price[0]) / (global.asset19[2] * global.asset19[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset19profit').innerHTML = ((global.asset19[3] * price[0]) - (global.asset19[2] * global.asset19[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset19[3] + ')'
+    })
+    } else {
+        document.getElementById('asset19').style.display = 'none'
+    }
+    if (global.asset20[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset20[0]).then((price) => {
+       document.getElementById('asset20value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset20count').innerHTML = (price[0] * global.asset20[3]).toFixed(2) + '<br>' + global.asset20[2]
+       document.getElementById('asset20change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset20[3] * price[0]) >= (global.asset20[2] * global.asset20[3])) {
+        sign = ''
+        percent = ((global.asset20[3] * price[0]) / (global.asset20[2] * global.asset20[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset20[3] * price[0]) / (global.asset20[2] * global.asset20[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset20profit').innerHTML = ((global.asset20[3] * price[0]) - (global.asset20[2] * global.asset20[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset20[3] + ')'
+    })
+    } else {
+        document.getElementById('asset20').style.display = 'none'
+    }
+    if (global.asset21[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset21[0]).then((price) => {
+       document.getElementById('asset21value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset21count').innerHTML = (price[0] * global.asset21[3]).toFixed(2) + '<br>' + global.asset21[2]
+       document.getElementById('asset21change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset21[3] * price[0]) >= (global.asset21[2] * global.asset21[3])) {
+        sign = ''
+        percent = ((global.asset21[3] * price[0]) / (global.asset21[2] * global.asset21[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset21[3] * price[0]) / (global.asset21[2] * global.asset21[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset21profit').innerHTML = ((global.asset21[3] * price[0]) - (global.asset21[2] * global.asset21[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset21[3] + ')'
+    })
+    } else {
+        document.getElementById('asset21').style.display = 'none'
+    }
+    if (global.asset22[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset22[0]).then((price) => {
+       document.getElementById('asset22value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset22count').innerHTML = (price[0] * global.asset22[3]).toFixed(2) + '<br>' + global.asset22[2]
+       document.getElementById('asset22change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset22[3] * price[0]) >= (global.asset22[2] * global.asset22[3])) {
+        sign = ''
+        percent = ((global.asset22[3] * price[0]) / (global.asset22[2] * global.asset22[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset22[3] * price[0]) / (global.asset22[2] * global.asset22[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset22profit').innerHTML = ((global.asset22[3] * price[0]) - (global.asset22[2] * global.asset22[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset22[3] + ')'
+    })
+    } else {
+        document.getElementById('asset22').style.display = 'none'
+    }
+    if (global.asset23[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset23[0]).then((price) => {
+       document.getElementById('asset23value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset23count').innerHTML = (price[0] * global.asset23[3]).toFixed(2) + '<br>' + global.asset23[2]
+       document.getElementById('asset23change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset23[3] * price[0]) >= (global.asset23[2] * global.asset23[3])) {
+        sign = ''
+        percent = ((global.asset23[3] * price[0]) / (global.asset23[2] * global.asset23[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset23[3] * price[0]) / (global.asset23[2] * global.asset23[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset23profit').innerHTML = ((global.asset23[3] * price[0]) - (global.asset23[2] * global.asset23[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset23[3] + ')'
+    })
+    } else {
+        document.getElementById('asset23').style.display = 'none'
+    }
+    if (global.asset24[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset24[0]).then((price) => {
+       document.getElementById('asset24value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset24count').innerHTML = (price[0] * global.asset24[3]).toFixed(2) + '<br>' + global.asset24[2]
+       document.getElementById('asset24change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset24[3] * price[0]) >= (global.asset24[2] * global.asset24[3])) {
+        sign = ''
+        percent = ((global.asset24[3] * price[0]) / (global.asset24[2] * global.asset24[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset24[3] * price[0]) / (global.asset24[2] * global.asset24[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset24profit').innerHTML = ((global.asset24[3] * price[0]) - (global.asset24[2] * global.asset24[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset24[3] + ')'
+    })
+    } else {
+        document.getElementById('asset24').style.display = 'none'
+    }
+    if (global.asset25[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset25[0]).then((price) => {
+       document.getElementById('asset25value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset25count').innerHTML = (price[0] * global.asset25[3]).toFixed(2) + '<br>' + global.asset25[2]
+       document.getElementById('asset25change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset25[3] * price[0]) >= (global.asset25[2] * global.asset25[3])) {
+        sign = ''
+        percent = ((global.asset25[3] * price[0]) / (global.asset25[2] * global.asset25[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset25[3] * price[0]) / (global.asset25[2] * global.asset25[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset25profit').innerHTML = ((global.asset25[3] * price[0]) - (global.asset25[2] * global.asset25[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset25[3] + ')'
+    })
+    } else {
+        document.getElementById('asset25').style.display = 'none'
+    }
+    if (global.asset26[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset26[0]).then((price) => {
+       document.getElementById('asset26value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset26count').innerHTML = (price[0] * global.asset26[3]).toFixed(2) + '<br>' + global.asset26[2]
+       document.getElementById('asset26change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset26[3] * price[0]) >= (global.asset26[2] * global.asset26[3])) {
+        sign = ''
+        percent = ((global.asset26[3] * price[0]) / (global.asset26[2] * global.asset26[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset26[3] * price[0]) / (global.asset26[2] * global.asset26[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset26profit').innerHTML = ((global.asset26[3] * price[0]) - (global.asset26[2] * global.asset26[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset26[3] + ')'
+    })
+    } else {
+        document.getElementById('asset26').style.display = 'none'
+    }
+    if (global.asset27[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset27[0]).then((price) => {
+       document.getElementById('asset27value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset27count').innerHTML = (price[0] * global.asset27[3]).toFixed(2) + '<br>' + global.asset27[2]
+       document.getElementById('asset27change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset27[3] * price[0]) >= (global.asset27[2] * global.asset27[3])) {
+        sign = ''
+        percent = ((global.asset27[3] * price[0]) / (global.asset27[2] * global.asset27[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset27[3] * price[0]) / (global.asset27[2] * global.asset27[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset27profit').innerHTML = ((global.asset27[3] * price[0]) - (global.asset27[2] * global.asset27[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset27[3] + ')'
+    })
+    } else {
+        document.getElementById('asset27').style.display = 'none'
+    }
+    if (global.asset28[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset28[0]).then((price) => {
+       document.getElementById('asset28value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset28count').innerHTML = (price[0] * global.asset28[3]).toFixed(2) + '<br>' + global.asset28[2]
+       document.getElementById('asset28change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset28[3] * price[0]) >= (global.asset28[2] * global.asset28[3])) {
+        sign = ''
+        percent = ((global.asset28[3] * price[0]) / (global.asset28[2] * global.asset28[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset28[3] * price[0]) / (global.asset28[2] * global.asset28[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset28profit').innerHTML = ((global.asset28[3] * price[0]) - (global.asset28[2] * global.asset28[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset28[3] + ')'
+    })
+    } else {
+        document.getElementById('asset28').style.display = 'none'
+    }
+    if (global.asset29[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset29[0]).then((price) => {
+       document.getElementById('asset29value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset29count').innerHTML = (price[0] * global.asset29[3]).toFixed(2) + '<br>' + global.asset29[2]
+       document.getElementById('asset29change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset29[3] * price[0]) >= (global.asset29[2] * global.asset29[3])) {
+        sign = ''
+        percent = ((global.asset29[3] * price[0]) / (global.asset29[2] * global.asset29[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset29[3] * price[0]) / (global.asset29[2] * global.asset29[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset29profit').innerHTML = ((global.asset29[3] * price[0]) - (global.asset29[2] * global.asset29[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset29[3] + ')'
+    })
+    } else {
+        document.getElementById('asset29').style.display = 'none'
+    }
+    if (global.asset30[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset30[0]).then((price) => {
+       document.getElementById('asset30value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset30count').innerHTML = (price[0] * global.asset30[3]).toFixed(2) + '<br>' + global.asset30[2]
+       document.getElementById('asset30change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset30[3] * price[0]) >= (global.asset30[2] * global.asset30[3])) {
+        sign = ''
+        percent = ((global.asset30[3] * price[0]) / (global.asset30[2] * global.asset30[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset30[3] * price[0]) / (global.asset30[2] * global.asset30[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset30profit').innerHTML = ((global.asset30[3] * price[0]) - (global.asset30[2] * global.asset30[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset30[3] + ')'
+    })
+    } else {
+        document.getElementById('asset30').style.display = 'none'
+    }
+    if (global.asset31[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset31[0]).then((price) => {
+       document.getElementById('asset31value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset31count').innerHTML = (price[0] * global.asset31[3]).toFixed(2) + '<br>' + global.asset31[2]
+       document.getElementById('asset31change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset31[3] * price[0]) >= (global.asset31[2] * global.asset31[3])) {
+        sign = ''
+        percent = ((global.asset31[3] * price[0]) / (global.asset31[2] * global.asset31[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset31[3] * price[0]) / (global.asset31[2] * global.asset31[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset31profit').innerHTML = ((global.asset31[3] * price[0]) - (global.asset31[2] * global.asset31[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset31[3] + ')'
+    })
+    } else {
+        document.getElementById('asset31').style.display = 'none'
+    }
+    if (global.asset32[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset32[0]).then((price) => {
+       document.getElementById('asset32value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset32count').innerHTML = (price[0] * global.asset32[3]).toFixed(2) + '<br>' + global.asset32[2]
+       document.getElementById('asset32change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset32[3] * price[0]) >= (global.asset32[2] * global.asset32[3])) {
+        sign = ''
+        percent = ((global.asset32[3] * price[0]) / (global.asset32[2] * global.asset32[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset32[3] * price[0]) / (global.asset32[2] * global.asset32[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset32profit').innerHTML = ((global.asset32[3] * price[0]) - (global.asset32[2] * global.asset32[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset32[3] + ')'
+    })
+    } else {
+        document.getElementById('asset32').style.display = 'none'
+    }
+    if (global.asset33[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset33[0]).then((price) => {
+       document.getElementById('asset33value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset33count').innerHTML = (price[0] * global.asset33[3]).toFixed(2) + '<br>' + global.asset33[2]
+       document.getElementById('asset33change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset33[3] * price[0]) >= (global.asset33[2] * global.asset33[3])) {
+        sign = ''
+        percent = ((global.asset33[3] * price[0]) / (global.asset33[2] * global.asset33[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset33[3] * price[0]) / (global.asset33[2] * global.asset33[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset33profit').innerHTML = ((global.asset33[3] * price[0]) - (global.asset33[2] * global.asset33[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset33[3] + ')'
+    })
+    } else {
+        document.getElementById('asset33').style.display = 'none'
+    }
+    if (global.asset34[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset34[0]).then((price) => {
+       document.getElementById('asset34value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset34count').innerHTML = (price[0] * global.asset34[3]).toFixed(2) + '<br>' + global.asset34[2]
+       document.getElementById('asset34change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset34[3] * price[0]) >= (global.asset34[2] * global.asset34[3])) {
+        sign = ''
+        percent = ((global.asset34[3] * price[0]) / (global.asset34[2] * global.asset34[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset34[3] * price[0]) / (global.asset34[2] * global.asset34[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset34profit').innerHTML = ((global.asset34[3] * price[0]) - (global.asset34[2] * global.asset34[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset34[3] + ')'
+    })
+    } else {
+        document.getElementById('asset34').style.display = 'none'
+    }
+    if (global.asset35[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset35[0]).then((price) => {
+       document.getElementById('asset35value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset35count').innerHTML = (price[0] * global.asset35[3]).toFixed(2) + '<br>' + global.asset35[2]
+       document.getElementById('asset35change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset35[3] * price[0]) >= (global.asset35[2] * global.asset35[3])) {
+        sign = ''
+        percent = ((global.asset35[3] * price[0]) / (global.asset35[2] * global.asset35[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset35[3] * price[0]) / (global.asset35[2] * global.asset35[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset35profit').innerHTML = ((global.asset35[3] * price[0]) - (global.asset35[2] * global.asset35[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset35[3] + ')'
+    })
+    } else {
+        document.getElementById('asset35').style.display = 'none'
+    }
+    if (global.asset36[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset36[0]).then((price) => {
+       document.getElementById('asset36value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset36count').innerHTML = (price[0] * global.asset36[3]).toFixed(2) + '<br>' + global.asset36[2]
+       document.getElementById('asset36change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset36[3] * price[0]) >= (global.asset36[2] * global.asset36[3])) {
+        sign = ''
+        percent = ((global.asset36[3] * price[0]) / (global.asset36[2] * global.asset36[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset36[3] * price[0]) / (global.asset36[2] * global.asset36[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset36profit').innerHTML = ((global.asset36[3] * price[0]) - (global.asset36[2] * global.asset36[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset36[3] + ')'
+    })
+    } else {
+        document.getElementById('asset36').style.display = 'none'
+    }
+    if (global.asset37[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset37[0]).then((price) => {
+       document.getElementById('asset37value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset37count').innerHTML = (price[0] * global.asset37[3]).toFixed(2) + '<br>' + global.asset37[2]
+       document.getElementById('asset37change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset37[3] * price[0]) >= (global.asset37[2] * global.asset37[3])) {
+        sign = ''
+        percent = ((global.asset37[3] * price[0]) / (global.asset37[2] * global.asset37[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset37[3] * price[0]) / (global.asset37[2] * global.asset37[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset37profit').innerHTML = ((global.asset37[3] * price[0]) - (global.asset37[2] * global.asset37[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset37[3] + ')'
+    })
+    } else {
+        document.getElementById('asset37').style.display = 'none'
+    }
+    if (global.asset38[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset38[0]).then((price) => {
+       document.getElementById('asset38value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset38count').innerHTML = (price[0] * global.asset38[3]).toFixed(2) + '<br>' + global.asset38[2]
+       document.getElementById('asset38change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset38[3] * price[0]) >= (global.asset38[2] * global.asset38[3])) {
+        sign = ''
+        percent = ((global.asset38[3] * price[0]) / (global.asset38[2] * global.asset38[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset38[3] * price[0]) / (global.asset38[2] * global.asset38[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset38profit').innerHTML = ((global.asset38[3] * price[0]) - (global.asset38[2] * global.asset38[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset38[3] + ')'
+    })
+    } else {
+        document.getElementById('asset38').style.display = 'none'
+    }
+    if (global.asset39[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset39[0]).then((price) => {
+       document.getElementById('asset39value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset39count').innerHTML = (price[0] * global.asset39[3]).toFixed(2) + '<br>' + global.asset39[2]
+       document.getElementById('asset39change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset39[3] * price[0]) >= (global.asset39[2] * global.asset39[3])) {
+        sign = ''
+        percent = ((global.asset39[3] * price[0]) / (global.asset39[2] * global.asset39[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset39[3] * price[0]) / (global.asset39[2] * global.asset39[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset39profit').innerHTML = ((global.asset39[3] * price[0]) - (global.asset39[2] * global.asset39[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset39[3] + ')'
+    })
+    } else {
+        document.getElementById('asset39').style.display = 'none'
+    }
+    if (global.asset40[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset40[0]).then((price) => {
+       document.getElementById('asset40value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset40count').innerHTML = (price[0] * global.asset40[3]).toFixed(2) + '<br>' + global.asset40[2]
+       document.getElementById('asset40change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset40[3] * price[0]) >= (global.asset40[2] * global.asset40[3])) {
+        sign = ''
+        percent = ((global.asset40[3] * price[0]) / (global.asset40[2] * global.asset40[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset40[3] * price[0]) / (global.asset40[2] * global.asset40[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset40profit').innerHTML = ((global.asset40[3] * price[0]) - (global.asset40[2] * global.asset40[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset40[3] + ')'
+    })
+    } else {
+        document.getElementById('asset40').style.display = 'none'
+    }
+    if (global.asset41[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset41[0]).then((price) => {
+       document.getElementById('asset41value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset41count').innerHTML = (price[0] * global.asset41[3]).toFixed(2) + '<br>' + global.asset41[2]
+       document.getElementById('asset41change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset41[3] * price[0]) >= (global.asset41[2] * global.asset41[3])) {
+        sign = ''
+        percent = ((global.asset41[3] * price[0]) / (global.asset41[2] * global.asset41[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset41[3] * price[0]) / (global.asset41[2] * global.asset41[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset41profit').innerHTML = ((global.asset41[3] * price[0]) - (global.asset41[2] * global.asset41[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset41[3] + ')'
+    })
+    } else {
+        document.getElementById('asset41').style.display = 'none'
+    }
+    if (global.asset42[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset42[0]).then((price) => {
+       document.getElementById('asset42value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset42count').innerHTML = (price[0] * global.asset42[3]).toFixed(2) + '<br>' + global.asset42[2]
+       document.getElementById('asset42change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset42[3] * price[0]) >= (global.asset42[2] * global.asset42[3])) {
+        sign = ''
+        percent = ((global.asset42[3] * price[0]) / (global.asset42[2] * global.asset42[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset42[3] * price[0]) / (global.asset42[2] * global.asset42[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset42profit').innerHTML = ((global.asset42[3] * price[0]) - (global.asset42[2] * global.asset42[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset42[3] + ')'
+    })
+    } else {
+        document.getElementById('asset42').style.display = 'none'
+    }
+    if (global.asset43[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset43[0]).then((price) => {
+       document.getElementById('asset43value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset43count').innerHTML = (price[0] * global.asset43[3]).toFixed(2) + '<br>' + global.asset43[2]
+       document.getElementById('asset43change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset43[3] * price[0]) >= (global.asset43[2] * global.asset43[3])) {
+        sign = ''
+        percent = ((global.asset43[3] * price[0]) / (global.asset43[2] * global.asset43[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset43[3] * price[0]) / (global.asset43[2] * global.asset43[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset43profit').innerHTML = ((global.asset43[3] * price[0]) - (global.asset43[2] * global.asset43[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset43[3] + ')'
+    })
+    } else {
+        document.getElementById('asset43').style.display = 'none'
+    }
+    if (global.asset44[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset44[0]).then((price) => {
+       document.getElementById('asset44value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset44count').innerHTML = (price[0] * global.asset44[3]).toFixed(2) + '<br>' + global.asset44[2]
+       document.getElementById('asset44change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset44[3] * price[0]) >= (global.asset44[2] * global.asset44[3])) {
+        sign = ''
+        percent = ((global.asset44[3] * price[0]) / (global.asset44[2] * global.asset44[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset44[3] * price[0]) / (global.asset44[2] * global.asset44[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset44profit').innerHTML = ((global.asset44[3] * price[0]) - (global.asset44[2] * global.asset44[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset44[3] + ')'
+    })
+    } else {
+        document.getElementById('asset44').style.display = 'none'
+    }
+    if (global.asset45[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset45[0]).then((price) => {
+       document.getElementById('asset45value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset45count').innerHTML = (price[0] * global.asset45[3]).toFixed(2) + '<br>' + global.asset45[2]
+       document.getElementById('asset45change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset45[3] * price[0]) >= (global.asset45[2] * global.asset45[3])) {
+        sign = ''
+        percent = ((global.asset45[3] * price[0]) / (global.asset45[2] * global.asset45[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset45[3] * price[0]) / (global.asset45[2] * global.asset45[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset45profit').innerHTML = ((global.asset45[3] * price[0]) - (global.asset45[2] * global.asset45[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset45[3] + ')'
+    })
+    } else {
+        document.getElementById('asset45').style.display = 'none'
+    }
+    if (global.asset46[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset46[0]).then((price) => {
+       document.getElementById('asset46value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset46count').innerHTML = (price[0] * global.asset46[3]).toFixed(2) + '<br>' + global.asset46[2]
+       document.getElementById('asset46change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset46[3] * price[0]) >= (global.asset46[2] * global.asset46[3])) {
+        sign = ''
+        percent = ((global.asset46[3] * price[0]) / (global.asset46[2] * global.asset46[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset46[3] * price[0]) / (global.asset46[2] * global.asset46[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset46profit').innerHTML = ((global.asset46[3] * price[0]) - (global.asset46[2] * global.asset46[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset46[3] + ')'
+    })
+    } else {
+        document.getElementById('asset46').style.display = 'none'
+    }
+    if (global.asset47[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset47[0]).then((price) => {
+       document.getElementById('asset47value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset47count').innerHTML = (price[0] * global.asset47[3]).toFixed(2) + '<br>' + global.asset47[2]
+       document.getElementById('asset47change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset47[3] * price[0]) >= (global.asset47[2] * global.asset47[3])) {
+        sign = ''
+        percent = ((global.asset47[3] * price[0]) / (global.asset47[2] * global.asset47[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset47[3] * price[0]) / (global.asset47[2] * global.asset47[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset47profit').innerHTML = ((global.asset47[3] * price[0]) - (global.asset47[2] * global.asset47[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset47[3] + ')'
+    })
+    } else {
+        document.getElementById('asset47').style.display = 'none'
+    }
+    if (global.asset48[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset48[0]).then((price) => {
+       document.getElementById('asset48value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset48count').innerHTML = (price[0] * global.asset48[3]).toFixed(2) + '<br>' + global.asset48[2]
+       document.getElementById('asset48change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset48[3] * price[0]) >= (global.asset48[2] * global.asset48[3])) {
+        sign = ''
+        percent = ((global.asset48[3] * price[0]) / (global.asset48[2] * global.asset48[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset48[3] * price[0]) / (global.asset48[2] * global.asset48[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset48profit').innerHTML = ((global.asset48[3] * price[0]) - (global.asset48[2] * global.asset48[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset48[3] + ')'
+    })
+    } else {
+        document.getElementById('asset48').style.display = 'none'
+    }
+    if (global.asset49[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset49[0]).then((price) => {
+       document.getElementById('asset49value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset49count').innerHTML = (price[0] * global.asset49[3]).toFixed(2) + '<br>' + global.asset49[2]
+       document.getElementById('asset49change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset49[3] * price[0]) >= (global.asset49[2] * global.asset49[3])) {
+        sign = ''
+        percent = ((global.asset49[3] * price[0]) / (global.asset49[2] * global.asset49[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset49[3] * price[0]) / (global.asset49[2] * global.asset49[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset49profit').innerHTML = ((global.asset49[3] * price[0]) - (global.asset49[2] * global.asset49[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset49[3] + ')'
+    })
+    } else {
+        document.getElementById('asset49').style.display = 'none'
+    }
+    if (global.asset50[4] === 'enable') {
+    var sign
+    var percent
+    tickers.findMarketValue(global.asset50[0]).then((price) => {
+       document.getElementById('asset50value').innerHTML = (price[0]).toFixed(2)
+       document.getElementById('asset50count').innerHTML = (price[0] * global.asset50[3]).toFixed(2) + '<br>' + global.asset50[2]
+       document.getElementById('asset50change').innerHTML = (price[1]).toFixed(2) + '%'
+       if ((global.asset50[3] * price[0]) >= (global.asset50[2] * global.asset50[3])) {
+        sign = ''
+        percent = ((global.asset50[3] * price[0]) / (global.asset50[2] * global.asset50[3]) * 100).toFixed(2)
+       } else {
+        sign = '-'
+        percent = (100 - ((global.asset50[3] * price[0]) / (global.asset50[2] * global.asset50[3]) * 100)).toFixed(2)
+       }
+       document.getElementById('asset50profit').innerHTML = ((global.asset50[3] * price[0]) - (global.asset50[2] * global.asset50[3])).toFixed(2) + '<br>' + sign + percent + '%' + ' (' + global.asset50[3] + ')'
+    })
+    } else {
+        document.getElementById('asset50').style.display = 'none'
+    }
+    </script>
+</body>
+
+</html>

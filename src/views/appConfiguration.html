@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../styles/uikit/css/uikit.min.css" />
+    <script src="../styles/uikit/js/uikit.min.js"></script>
+    <script src="../styles/uikit/js/uikit-icons.min.js"></script>
+    <script src="../app/index.js"></script>
+    <script src="../styles/art/js/template-web.js"></script>
+</head>
+
+<body>
+    <div id="content"></div>
+    <script id="template" type="text/html">
+        <style>{{stylesFile}}</style>
+        <div class="uk-section">
+            <div class="uk-container">
+            <form>
+                <fieldset class="uk-fieldset">
+                    <legend class="uk-legend">{{logoOnclick}}</legend>
+
+                    <div class="uk-margin">
+                        <select id="marketcap" onchange="rememberSelection(this)" class="uk-select">
+                            <option value="coinmarketcap">CoinMarketCap</option>
+                            <option value="coingecko">CoinGecko</option>
+                        </select>
+                    </div>
+
+                    {{if licenseRender === 'true'}}
+                    <legend class="uk-legend">{{tgNotify}}</legend>
+                        <div class="uk-margin">
+                            <input id="telegramApi" value="{{tgBotApiKey}}" class="uk-input" type="text" placeholder="{{httpApi}}">
+                            <input id="telegramChatId" value="{{tgBotChatId}}" class="uk-input" type="text" placeholder="{{chatId}}">
+                        </div>
+                    {{/if}}
+
+                    {{if licenseRender === 'false'}}
+                    <legend class="uk-legend">{{tgNotify}}</legend>
+                    <div class="uk-margin">
+                    <div uk-alert>{{aPro}}</div>
+                    <input id="telegramApi" value="" class="uk-input" type="text" style="display:none">
+                    <input id="telegramChatId" value="" class="uk-input" type="text" style="display:none">
+                    </div>
+                    {{/if}}
+
+                    <p uk-margin>
+                        <button onclick="prefs.saveMarketCapAndTg(document.getElementById('marketcap').value, document.getElementById('telegramApi').value, document.getElementById('telegramChatId').value)" class="uk-button uk-button-primary">{{save}}</button>
+                    </p>
+                </fieldset>
+            </form>
+        </div>
+        </div>
+</script>
+<script>
+    var data = {
+        licenseRender: global.licenseRender,
+        stylesFile: global.stylesFile,
+        logoOnclick: lang.echo('Cryptocurrency logo on-click'),
+        save: lang.echo('Save'),
+        httpApi: lang.echo("Bot's HTTP API Token"),
+        chatId: lang.echo("User's Chat Id"),
+        tgNotify: lang.echo('Telegram Notifications'),
+        tgBotChatId: global.tgBotChatId,
+        tgBotApiKey: global.tgBotApiKey,
+        aPro: lang.echo("Available only in Pro and Pro Supporter Pack")
+    }
+    var win = nw.Window.get()
+    win.menu = null
+    var html = template('template', data)
+    document.getElementById('content').innerHTML = html
+    document.title = lang.echo('Preferences')
+    function rememberSelection(obj) {
+    localStorage.setItem("selectionMarketcap", obj.options[obj.selectedIndex].value)
+    }
+    document.getElementById("marketcap").value = localStorage.getItem("selectionMarketcap")
+    if (document.getElementById("marketcap").value === ''){
+    document.getElementById("marketcap").value = 'coinmarketcap'
+    }
+    </script>
+</body>
+
+</html>

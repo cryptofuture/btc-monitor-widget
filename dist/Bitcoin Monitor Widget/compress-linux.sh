@@ -1,0 +1,3 @@
+rm ./*.xz || true &&  mv ./linux32/ ./bitcoin-monitor-widget-linux32/ && XZ_OPT=-9 tar -Jcvf ./btc-monitor-widget-linux32.tar.xz ./bitcoin-monitor-widget-linux32/ && rm -r /home/user/workspace-new/btc-monitor-widget/dist/'Bitcoin Monitor Widget'/bitcoin-monitor-widget-linux32 && sha256sum btc-monitor-widget-linux32.tar.xz > btc-monitor-widget-linux32.tar.xz.sha256sum
+mv ./linux64/ ./bitcoin-monitor-widget-linux64/ && XZ_OPT=-9 tar -Jcvf ./btc-monitor-widget-linux64.tar.xz ./bitcoin-monitor-widget-linux64/ && rm -r /home/user/workspace-new/btc-monitor-widget/dist/'Bitcoin Monitor Widget'/bitcoin-monitor-widget-linux64 && sha256sum btc-monitor-widget-linux64.tar.xz > btc-monitor-widget-linux64.tar.xz.sha256sum
+

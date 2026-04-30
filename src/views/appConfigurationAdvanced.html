@@ -1,0 +1,162 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../styles/uikit/css/uikit.min.css" />
+    <link rel="stylesheet" href="../styles/main/css/scrollbar.css" />
+    <script src="../styles/uikit/js/uikit.min.js"></script>
+    <script src="../styles/uikit/js/uikit-icons.min.js"></script>
+    <script src="../app/index.js"></script>
+    <script src="../styles/art/js/template-web.js"></script>
+</head>
+
+<body>
+    <div id="content"></div>
+    <script id="template" type="text/html">
+        <style>{{stylesFile}}</style>
+        <div class="uk-section">
+            <div class="uk-container">
+            <form>
+                <fieldset class="uk-fieldset">
+                    <legend class="uk-legend">{{tls}}</legend>
+
+                    <div class="uk-margin">
+                        <select id="tls" onchange="rememberSelectionTls(this)" class="uk-select">
+                            <option value="yesTls">{{enableDefault}}</option>
+                            <option value="noTls">{{disable}}</option>
+                        </select>
+                    </div>
+                   {{if licenseRender === 'true'}}
+                    <legend class="uk-legend">{{cors}}</legend>
+
+                    <div class="uk-margin">
+                        <select id="cors" onchange="rememberSelectionCors(this)" class="uk-select">
+                            <option value="noProxy">{{disableDefault}}</option>
+                            <option value="yesProxy">{{enable}}</option>
+                        </select>
+                    </div>
+                    {{/if}}
+                    {{if licenseRender === 'false'}}
+                    <legend class="uk-legend">{{cors}}</legend>
+                    <div uk-alert>{{aPro}}</div>
+                        <select id="cors" onchange="rememberSelectionCors(this)" class="uk-select" style="display:none">
+                            <option value="noProxy">{{disableDefault}}</option>
+                            <option value="yesProxy">{{enable}}</option>
+                        </select>
+                    {{/if}}
+                    <legend class="uk-legend">{{updCoinGecko}}</legend>
+
+                    <div class="uk-margin">
+                        <select id="coins" onchange="rememberSelectionCoins(this)" class="uk-select">
+                            <option value="noUpdCoins">{{doNothing}}</option>
+                            <option value="updCoins">{{tryToUpdate}}</option>
+                        </select>
+                    </div>
+
+                    <legend class="uk-legend">{{updCmc}}</legend>
+
+                    <div class="uk-margin">
+                        <select id="coinsCmc" onchange="rememberSelectionCoinsCmc(this)" class="uk-select">
+                            <option value="noUpdCoinMarketCap">{{doNothing}}</option>
+                            <option value="updCoinMarketCap">{{tryToUpdate}}</option>
+                        </select>
+                    </div>
+
+                    <legend class="uk-legend">{{restoreDefault}}</legend>
+                    <button onclick="gui.Shell.openExternal(global.stylesFileLocal)" class="uk-button-small uk-button-secondary">{{editStyle}}</button>
+                    <div class="uk-margin">
+                        <select id="restore" class="uk-select">
+                            <option value="noRestore">{{doNothing}}</option>
+                            <option value="doRestore">{{restoreStyle}}</option>
+                        </select>
+                    </div>
+
+                    {{if licenseRender === 'true'}}
+                    <legend class="uk-legend">{{hideUseful}}</legend>
+
+                    <div class="uk-margin">
+                        <select id="hiddenMenu" onchange="rememberSelectionHidden(this)" class="uk-select">
+                            <option value="noMenu">{{enableDefault}}</option>
+                            <option value="yesMenu">{{hideMenu}}</option>
+                        </select>
+                    </div>
+                    {{/if}}
+
+                    <p uk-margin>
+                        <button onclick="prefs.advancedSettings(document.getElementById('tls').value, document.getElementById('cors').value, document.getElementById('coins').value, document.getElementById('coinsCmc').value, document.getElementById('restore').value, document.getElementById('hiddenMenu').value)" class="uk-button uk-button-primary">{{save}}</button>
+                    </p>
+                </fieldset>
+            </form>
+        </div>
+        </div>
+</script>
+<script>
+    var data = {
+        licenseRender: global.licenseRender,
+        stylesFile: global.stylesFile,
+        save: lang.echo('Save'),
+        enableDefault: lang.echo('Enable (default)'),
+        enable: lang.echo('Enable'),
+        disableDefault: lang.echo('Disable (default)'),
+        disable: lang.echo('Disable'),
+        cors: lang.echo('CORS Proxy'),
+        tls: lang.echo('Strict TLS'),
+        doNothing: lang.echo('Do nothing (default)'),
+        tryToUpdate: lang.echo('Try to update'),
+        updCmc: lang.echo('Update Coins Names Database (CoinMarketCap)'),
+        updCoinGecko: lang.echo('Update Coins Names Database (CoinGecko)'),
+        restoreDefault: lang.echo('Restore default css (styles) file'),
+        restoreStyle: lang.echo('Restore css (styles) file'),
+        editStyle: lang.echo('Edit CSS (styles) file'),
+        aPro: lang.echo("Available only in Pro and Pro Supporter Pack"),
+        hideUseful: lang.echo("Hide Useful Menu"),
+        hideMenu: lang.echo("Hide")
+    }
+    var win = nw.Window.get()
+    global.advancedConfWindow = win
+    win.menu = null
+    var html = template('template', data)
+    document.getElementById('content').innerHTML = html
+    document.title = lang.echo('Advanced Preferences')
+    function rememberSelectionTls(obj) {
+    localStorage.setItem("selectionTls", obj.options[obj.selectedIndex].value)
+    }
+    function rememberSelectionCors(obj) {
+    localStorage.setItem("selectionCors", obj.options[obj.selectedIndex].value)
+    }
+    function rememberSelectionCoins(obj) {
+    localStorage.setItem("selectionCoins", obj.options[obj.selectedIndex].value)
+    }
+    function rememberSelectionCoinsCmc(obj) {
+    localStorage.setItem("selectionCoinsCmc", obj.options[obj.selectedIndex].value)
+    }
+    function rememberSelectionHidden(obj) {
+    localStorage.setItem("SelectionHidden", obj.options[obj.selectedIndex].value)
+    }
+    document.getElementById("tls").value = localStorage.getItem("selectionTls")
+    if (document.getElementById("tls").value === ''){
+    document.getElementById("tls").value = 'yesTls'
+    }
+    document.getElementById("cors").value = localStorage.getItem("selectionCors")
+    if (document.getElementById("cors").value === ''){
+    document.getElementById("cors").value = 'noProxy'
+    }
+    document.getElementById("coins").value = localStorage.getItem("selectionCoins")
+    if (document.getElementById("coins").value === ''){
+    document.getElementById("coins").value = 'noUpdCoins'
+    }
+    document.getElementById("coinsCmc").value = localStorage.getItem("selectionCoinsCmc")
+    if (document.getElementById("coinsCmc").value === ''){
+    document.getElementById("coinsCmc").value = 'noUpdCoinMarketCap'
+    }
+
+    document.getElementById("hiddenMenu").value = localStorage.getItem("SelectionHidden")
+    if (document.getElementById("hiddenMenu").value === ''){
+    document.getElementById("hiddenMenu").value = 'noMenu'
+    }
+    </script>
+</body>
+
+</html>
